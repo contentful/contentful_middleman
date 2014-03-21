@@ -22,7 +22,7 @@ module ContentfulMiddleman
     option :blog_posts_query, {}, "The conditions that are used on the Content Delivery API to query for blog posts"
     option :blog_post_mappings, {}, "The mappings from Contentful DynamicResources to Middleman"
 
-    option :sync_blog_before_build, true, "Synchronize the blog from Contentful before the build phase"
+    option :sync_blog_before_build, false, "Synchronize the blog from Contentful before the build phase"
 
     def initialize(app, options_hash={}, &block)
       super
