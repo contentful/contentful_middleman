@@ -1,0 +1,14 @@
+*.gem
+.bundle
+Gemfile*.lock
+pkg/*
+.rvmrc
+.DS_Store
+.rbenv-version
+.ruby-version
+tmp
+doc
+.yardoc
+build/
+.sass-cache
+coverage

@@ -1,0 +1,1 @@
+require 'contentful_middleman'
