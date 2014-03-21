@@ -1,5 +1,7 @@
 # Contentful Middleman
 
+[![Build Status](https://travis-ci.org/contentful/contentful_middleman.png)](https://travis-ci.org/contentful/contentful_middleman)
+
 Contentful Middleman is a [Middleman](http://middlemanapp.com/) extension to use the Middleman static side generator together with the API-driven [Contentful CMS](https://www.contentful.com). It is powered by the [Contentful Ruby Gem](https://github.com/contentful/contentful.rb).
 
 Experience the power of Middleman while staying sane as a developer by letting end-users edit content in a web-based interface.
