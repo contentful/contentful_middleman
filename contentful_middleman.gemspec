@@ -23,4 +23,6 @@ Gem::Specification.new do |s|
 
   # Additional dependencies
   s.add_dependency("contentful")
+
+  s.add_development_dependency 'rubygems-tasks', '~> 0.2'
 end

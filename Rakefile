@@ -29,3 +29,8 @@ desc "Build HTML documentation"
 task :doc do
   sh 'bundle exec yard'
 end
+
+require 'rake'
+
+require 'rubygems/tasks'
+Gem::Tasks.new
