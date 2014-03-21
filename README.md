@@ -4,6 +4,8 @@ Contentful Middleman is a [Middleman](http://middlemanapp.com/) extension to use
 
 Experience the power of Middleman while staying sane as a developer by letting end-users edit content in a web-based interface.
 
+This extensions supports both page-based content as well as blog posts through middleman-blog.
+
 ## Installation
 
 Add the following line to the Gemfile of your Middleman project:
