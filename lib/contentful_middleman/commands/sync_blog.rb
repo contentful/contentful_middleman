@@ -73,8 +73,10 @@ module Middleman
         end
       end
 
-      def set_value(key, value)
-        instance_variable_set "@#{key}".to_sym, value
+      no_commands do
+        def set_value(key, value)
+          instance_variable_set "@#{key}".to_sym, value
+        end
       end
 
       private
