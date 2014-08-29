@@ -2,6 +2,39 @@ require 'middleman-core/cli'
 require 'date'
 require 'middleman-blog/uri_templates'
 
+class TemplateContext < BasicObject
+  def method_missing(symbol, *args, &block)
+    if symbol =~ /.+=$/
+      instance_eval "@#{symbol.to_s.gsub('=','')} = args.first"
+    else
+      instance_eval "@#{symbol}"
+    end
+  end
+
+  def binding
+    ::Kernel.binding
+  end
+end
+
+class DelegatedRenderer
+  def initialize(thor, template, path, context)
+    @thor     = thor
+    @path     = path
+    @template = template
+    @context  = context
+  end
+
+  def render
+    @thor.create_file @path, nil, {} do
+      ERB.new(::File.binread(File.expand_path(@template)), nil, '-', '@output_buffer').result(@context.binding)
+    end
+  end
+
+  def method_missing(symbol, *args, &block)
+    @thor.send symbol, *args, &block
+  end
+end
+
 module Middleman
   module Cli
     # This class provides an "contentful" command for the middleman CLI.
@@ -46,36 +79,38 @@ module Middleman
             tags  = value_from_object(entry, blog_post_mappings[:tags]) || []
             body  = value_from_object(entry, blog_post_mappings[:body])
 
-            @title = title
-            @slug  = slug || safe_parameterize(title)
-            @date  = date ? Time.zone.parse(date) : Time.zone.now
-            @tags  = tags
-            @lang  = options[:lang] || ( I18n.default_locale if defined? I18n )
-            @body  = body
+            slug ||= safe_parameterize(title)
+            date = date ? Time.zone.parse(date) : Time.zone.now
+            lang = options[:lang] || ( I18n.default_locale if defined? I18n )
+
+            context       = TemplateContext.new
+            context.title = title
+            context.slug  = slug
+            context.date  = date
+            context.tags  = tags
+            context.lang  = lang
+            context.body  = body
+
 
             if (mapper = contentful_middleman_options.mapper)
-              mapper.call self, entry if mapper.is_a? Proc
-              mapper.map self, entry if mapper.respond_to? :map
+              mapper.call context, entry if mapper.is_a? Proc
+              mapper.map context, entry if mapper.respond_to? :map
             end
 
             blog_inst = shared_instance.blog(options[:blog])
 
             path_template = blog_inst.source_template
-            params = date_to_params(@date).merge(lang: @lang.to_s, title: @slug)
-            article_path = apply_uri_template path_template, params
+            params        = date_to_params(date).merge(lang: lang.to_s, title: slug)
+            article_path  = apply_uri_template path_template, params
 
-            template contentful_middleman.options.new_article_template, File.join(shared_instance.source_dir, article_path + blog_inst.options.default_extension)
+
+            DelegatedRenderer.new(self, contentful_middleman.options.new_article_template, File.join(shared_instance.source_dir, article_path + blog_inst.options.default_extension), context).render
+            #template contentful_middleman.options.new_article_template, File.join(shared_instance.source_dir, article_path + blog_inst.options.default_extension)
           end
 
           shared_instance.logger.info " Contentful Sync: Done!"
         else
           raise Thor::Error.new "You need to activate the blog extension in config.rb before you can create an article"
-        end
-      end
-
-      no_commands do
-        def set_value(key, value)
-          instance_variable_set "@#{key}".to_sym, value
         end
       end
 
