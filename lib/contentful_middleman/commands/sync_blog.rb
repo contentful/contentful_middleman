@@ -53,8 +53,9 @@ module Middleman
             @lang  = options[:lang] || ( I18n.default_locale if defined? I18n )
             @body  = body
 
-            if (mapper = contentful_middleman_options.mapper) and (mapper.is_a? Proc)
-              mapper.call self, entry
+            if (mapper = contentful_middleman_options.mapper)
+              mapper.call self, entry if mapper.is_a? Proc
+              mapper.map self, entry if mapper.respond_to? :map
             end
 
             blog_inst = shared_instance.blog(options[:blog])
