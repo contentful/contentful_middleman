@@ -38,6 +38,7 @@ module Middleman
         if shared_instance.respond_to? :blog
           shared_instance.logger.info "  Contentful Sync: Start..."
 
+
           client.entries(contentful_middleman_options.blog_posts_query).each do |entry|
             slug  = value_from_object(entry, blog_post_mappings[:slug])
             title = value_from_object(entry, blog_post_mappings[:title])
@@ -52,6 +53,10 @@ module Middleman
             @lang  = options[:lang] || ( I18n.default_locale if defined? I18n )
             @body  = body
 
+            if (mapper = contentful_middleman_options.mapper) and (mapper.is_a? Proc)
+              mapper.call self, entry
+            end
+
             blog_inst = shared_instance.blog(options[:blog])
 
             path_template = blog_inst.source_template
@@ -65,6 +70,10 @@ module Middleman
         else
           raise Thor::Error.new "You need to activate the blog extension in config.rb before you can create an article"
         end
+      end
+
+      def set_value(key, value)
+        instance_variable_set "@#{key}".to_sym, value
       end
 
       private

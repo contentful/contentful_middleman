@@ -24,6 +24,8 @@ module ContentfulMiddleman
 
     option :sync_blog_before_build, false, "Synchronize the blog from Contentful before the build phase"
 
+    option :mapper, nil, "Use a custom mapper to do the translation from the Contentful DynamicResources to Middleman"
+
     def initialize(app, options_hash={}, &block)
       super
 
