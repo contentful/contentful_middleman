@@ -26,7 +26,7 @@ bundle install
 
 To configure the extension, add the following configuration block to Middleman's config.rb:
 
-```
+```ruby
 activate :contentful do |f|
   # The Space ID of your Contentful space
   f.space = 'YOUR_SPACE_ID'
@@ -49,6 +49,27 @@ activate :contentful do |f|
       tags: :tags,
       title: ->(e){"#{e.id}XXXX"}
   }
+
+  # The mapper option allows you to set a custom mapper for each of
+  # fetched entries from Contentful.
+  #
+  # This mapper can be a proc or a instance of a class which has a 'map' method. On both
+  # cases the arguments will be the context and the entry being processed.
+  #
+  # By default the context will have the properties set by the 'blog_post_mappings' hash. This
+  # properties can be modified inside the mapper and new properties can be added too. All context
+  # properties will be available on the template used to render the posts.
+
+  #
+  # class Mapper
+  #   def map(context, entry)
+  #     ...
+  #   end
+  # end
+  #
+  # f.mapper = Mapper.new
+  # OR
+  # f.mapper = ->(context, entry) {}
 
   # Define your own template for blog posts
   f.new_article_template = "/my_templates/article.tt"
