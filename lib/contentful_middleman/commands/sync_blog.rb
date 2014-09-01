@@ -73,24 +73,16 @@ module Middleman
 
 
           client.entries(contentful_middleman_options.blog_posts_query).each do |entry|
-            slug  = value_from_object(entry, blog_post_mappings[:slug])
-            title = value_from_object(entry, blog_post_mappings[:title])
-            date  = value_from_object(entry, blog_post_mappings[:date]).strftime("%Y-%m-%d")
-            tags  = value_from_object(entry, blog_post_mappings[:tags]) || []
-            body  = value_from_object(entry, blog_post_mappings[:body])
-
-            slug ||= safe_parameterize(title)
-            date = date ? Time.zone.parse(date) : Time.zone.now
-            lang = options[:lang] || ( I18n.default_locale if defined? I18n )
-
             context       = TemplateContext.new
-            context.title = title
-            context.slug  = slug
-            context.date  = date
-            context.tags  = tags
-            context.lang  = lang
-            context.body  = body
+            context.title = value_from_object(entry, blog_post_mappings[:title])
+            context.slug  = value_from_object(entry, blog_post_mappings[:slug])
+            context.date  = value_from_object(entry, blog_post_mappings[:date]).strftime("%Y-%m-%d")
+            context.tags  = value_from_object(entry, blog_post_mappings[:tags]) || []
+            context.body  = value_from_object(entry, blog_post_mappings[:body])
+            context.lang  = options[:lang] || ( I18n.default_locale if defined? I18n )
 
+            context.slug ||= safe_parameterize(title)
+            context.date = context.date ? Time.zone.parse(context.date) : Time.zone.now
 
             if (mapper = contentful_middleman_options.mapper)
               mapper.call context, entry if mapper.is_a? Proc
@@ -100,12 +92,10 @@ module Middleman
             blog_inst = shared_instance.blog(options[:blog])
 
             path_template = blog_inst.source_template
-            params        = date_to_params(date).merge(lang: lang.to_s, title: slug)
+            params        = date_to_params(context.date).merge(lang: context.lang.to_s, title: context.slug)
             article_path  = apply_uri_template path_template, params
 
-
             DelegatedRenderer.new(self, contentful_middleman.options.new_article_template, File.join(shared_instance.source_dir, article_path + blog_inst.options.default_extension), context).render
-            #template contentful_middleman.options.new_article_template, File.join(shared_instance.source_dir, article_path + blog_inst.options.default_extension)
           end
 
           shared_instance.logger.info " Contentful Sync: Done!"
