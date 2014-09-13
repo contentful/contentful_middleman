@@ -37,8 +37,8 @@ activate :contentful do |f|
   # Optional: Options for middleman-blog
 
   # Filter Entries for your blog posts. See Contentful gem and Content Delivery API documentation.
-  f.blog_posts_query = {content_type: "6LbnqgnwA08qYaU", category: "news" } 
-  
+  f.blog_posts_query = {content_type: "6LbnqgnwA08qYaU", category: "news" }
+
   # Which keys to use in the article template for blog posts
   # Key: template variable
   # Value: Entry method or block
@@ -72,6 +72,16 @@ The `contentful` helper provides a Contentful gem client object, that can be use
       </li>
     <% end %>
   </ol>
+```
+
+### Rendering Markdown:
+
+If you want to use markdown in your content types you manually have to render this to markdown.
+Depending on the markdown library you need to transform the data.
+For Kramdown this would be:
+
+```
+<%= Kramdown::Document.new(entry.body).to_html %>
 ```
 
 ## Synchronizing blog posts manually
