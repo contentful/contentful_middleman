@@ -2,38 +2,51 @@ require 'middleman-core/cli'
 require 'date'
 require 'middleman-blog/uri_templates'
 
-class TemplateContext < BasicObject
+class Context < BasicObject
+  def initialize
+    @_variables = {}
+  end
+
   def method_missing(symbol, *args, &block)
     if symbol =~ /.+=$/
-      instance_eval "@#{symbol.to_s.gsub('=','')} = args.first"
+      variable_name              = symbol.to_s.gsub('=','')
+      variable_value             = args.first
+
+      set variable_name, variable_value
     else
-      instance_eval "@#{symbol}"
+      get symbol
     end
   end
 
-  def binding
-    ::Kernel.binding
+  def set(name, value)
+    @_variables[name] = value
+  end
+
+  def get(name)
+    @_variables[name]
+  end
+
+  def to_hash
+    @_variables
   end
 end
 
-class DelegatedRenderer
-  def initialize(thor, template, path, context)
+class DelegatedYAMLRenderer
+  def initialize(thor, path, context)
     @thor     = thor
     @path     = path
-    @template = template
     @context  = context
   end
 
   def render
-    @thor.create_file @path, nil, {} do
-      ERB.new(::File.binread(File.expand_path(@template)), nil, '-', '@output_buffer').result(@context.binding)
-    end
+    @thor.create_file @path, nil, {} { @context.to_hash.to_yaml }
   end
 
   def method_missing(symbol, *args, &block)
     @thor.send symbol, *args, &block
   end
 end
+
 
 module Middleman
   module Cli
@@ -55,20 +68,18 @@ module Middleman
         true
       end
 
+      def initialize(*args, options, &block)
+        super
+
+        @content_type_mappers = {}
+      end
+
       def contentful
-        contentful_middleman         = shared_instance.contentful_middleman
-        client                       = shared_instance.contentful_middleman_client
-        contentful_middleman_options = contentful_middleman.options
-
-
         client.entries(contentful_middleman_options.cda_query).each do |entry|
-          context       = TemplateContext.new
+          context = Context.new
+          mapper  = content_type_mapper entry.content_type.id
 
-          if (mapper = contentful_middleman_options.mapper)
-            mapper.call context, entry if mapper.is_a? Proc
-            mapper.map context, entry if mapper.respond_to? :map
-          end
-
+          mapper.map context, entry
         end
 
         shared_instance.logger.info 'Contentful Import: Done!'
@@ -77,6 +88,26 @@ module Middleman
       private
         def shared_instance
           @shared_instance ||= ::Middleman::Application.server.inst
+        end
+
+        def content_type_mapper(content_type)
+          @content_type_mappers[content_type] ||= begin
+            content_type_options = contentful_middleman_options.content_types.fetch(content_type)
+            mapper_class         = content_type_options.fetch(:mapper)
+            mapper_class.new
+          end
+        end
+
+        def contentful_middleman_options
+          contentful_middleman.options
+        end
+
+        def contentful_middleman
+          shared_instance.contentful_middleman
+        end
+
+        def client
+          shared_instance.contentful_middleman_client
         end
     end
 

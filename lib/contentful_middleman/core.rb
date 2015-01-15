@@ -1,5 +1,6 @@
 require 'middleman-core'
 require 'contentful'
+require_relative 'mappers/base'
 
 # The Contentful Middleman extensions allows to load managed content into Middleman projects through the Contentful Content Management Platform.
 module ContentfulMiddleman
@@ -15,8 +16,8 @@ module ContentfulMiddleman
     option :cda_query, {},
       'The conditions that are used on the Content Delivery API to query for blog posts'
 
-    option :mapper, nil,
-      'Use a custom mapper to do the translation from the Contentful DynamicResources to Middleman'
+    option :content_types, {},
+      'The mapping of Content Types names to ids'
 
     def initialize(app, options_hash={}, &block)
       super
@@ -54,11 +55,27 @@ module ContentfulMiddleman
 
     private
     def massage_options
+      massage_space_options
+      massage_content_types_options
+    end
+
+    def massage_space_options
       space_option          = options.space
       space_name            = space_option.keys.first
       space_id              = space_option.fetch(space_name)
 
       options.space = { name: space_name, id: space_id }
+    end
+
+    def massage_content_types_options
+      content_types_options     = options.content_types
+      new_content_types_options = {}
+
+      content_types_options.each do |content_type_name, value|
+        new_content_types_options[value] = {name: content_type_name, mapper: Mapper::Base}
+      end
+
+      options.content_types = new_content_types_options
     end
   end
 end
