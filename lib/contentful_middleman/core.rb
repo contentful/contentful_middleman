@@ -72,7 +72,16 @@ module ContentfulMiddleman
       new_content_types_options = {}
 
       content_types_options.each do |content_type_name, value|
-        new_content_types_options[value] = {name: content_type_name, mapper: Mapper::Base}
+        if value.is_a? Hash
+          mapper = value.fetch(:mapper)
+          id     = value.fetch(:id)
+        else
+          mapper = Mapper::Base
+          id     = value
+        end
+
+
+        new_content_types_options[id] = {name: content_type_name, mapper: mapper}
       end
 
       options.content_types = new_content_types_options
