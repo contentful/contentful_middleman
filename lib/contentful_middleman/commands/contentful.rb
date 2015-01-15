@@ -1,50 +1,8 @@
 require 'middleman-core/cli'
-require 'date'
 require 'middleman-blog/uri_templates'
-
-class Context < BasicObject
-  def initialize
-    @_variables = {}
-  end
-
-  def method_missing(symbol, *args, &block)
-    if symbol =~ /.+=$/
-      variable_name              = symbol.to_s.gsub('=','')
-      variable_value             = args.first
-
-      set variable_name, variable_value
-    else
-      get symbol
-    end
-  end
-
-  def set(name, value)
-    @_variables[name] = value
-  end
-
-  def get(name)
-    @_variables[name]
-  end
-
-  def to_hash
-    @_variables
-  end
-end
-
-class DelegatedYAMLRenderer
-  def initialize(thor)
-    @thor     = thor
-  end
-
-  def render(context, path)
-    @thor.create_file path, nil, {} { context.to_hash.to_yaml }
-  end
-
-  def method_missing(symbol, *args, &block)
-    @thor.send symbol, *args, &block
-  end
-end
-
+require 'date'
+require_relative 'context'
+require_relative 'delegated_yaml_writter'
 
 module Middleman
   module Cli
@@ -73,7 +31,7 @@ module Middleman
       end
 
       def contentful
-        yaml_renderer = DelegatedYAMLRenderer.new(self)
+        yaml_renderer = DelegatedYAMLWritter.new(self)
         client.entries(contentful_middleman_options.cda_query).each do |entry|
           context              = Context.new
           mapper               = content_type_mapper entry.content_type.id
