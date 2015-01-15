@@ -25,22 +25,26 @@ module Middleman
       end
 
       def contentful
-        yaml_renderer = ContentfulMiddleman::DelegatedYAMLWritter.new(self)
+        yaml_renderer        = ContentfulMiddleman::DelegatedYAMLWritter.new(self)
 
-        #TODO: add check to ensure that contentful extension is activated
-        instances = shared_instance.contentful_instances
-        instances.each do |instance|
-          instance.entries.each do |entry|
-            context              = ContentfulMiddleman::Context.new
-            mapper               = instance.content_type_mapper entry.content_type.id
-            entry_data_file_path = data_file_path instance, entry
+        if shared_instance.respond_to? :contentful_instances
+          contentful_instances = shared_instance.contentful_instances
 
-            mapper.map context, entry
-            yaml_renderer.render context, entry_data_file_path
+          contentful_instances.each do |instance|
+            instance.entries.each do |entry|
+              context              = ContentfulMiddleman::Context.new
+              mapper               = instance.content_type_mapper entry.content_type.id
+              entry_data_file_path = data_file_path instance, entry
+
+              mapper.map context, entry
+              yaml_renderer.render context, entry_data_file_path
+            end
           end
-        end
 
-        shared_instance.logger.info 'Contentful Import: Done!'
+          shared_instance.logger.info 'Contentful Import: Done!'
+        else
+          raise Thor::Error.new "You need to activate the contentful extension in config.rb before you can import data from Contentful"
+        end
       end
 
       private
