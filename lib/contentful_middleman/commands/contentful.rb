@@ -32,14 +32,12 @@ class Context < BasicObject
 end
 
 class DelegatedYAMLRenderer
-  def initialize(thor, path, context)
+  def initialize(thor)
     @thor     = thor
-    @path     = path
-    @context  = context
   end
 
-  def render
-    @thor.create_file @path, nil, {} { @context.to_hash.to_yaml }
+  def render(context, path)
+    @thor.create_file path, nil, {} { context.to_hash.to_yaml }
   end
 
   def method_missing(symbol, *args, &block)
@@ -75,11 +73,14 @@ module Middleman
       end
 
       def contentful
+        yaml_renderer = DelegatedYAMLRenderer.new(self)
         client.entries(contentful_middleman_options.cda_query).each do |entry|
-          context = Context.new
-          mapper  = content_type_mapper entry.content_type.id
+          context              = Context.new
+          mapper               = content_type_mapper entry.content_type.id
+          entry_data_file_path = data_file_path entry
 
           mapper.map context, entry
+          yaml_renderer.render context, entry_data_file_path
         end
 
         shared_instance.logger.info 'Contentful Import: Done!'
@@ -108,6 +109,28 @@ module Middleman
 
         def client
           shared_instance.contentful_middleman_client
+        end
+
+        def data_file_path(entry)
+          data_path(space_name,  content_type_name(entry.content_type.id), entry.id)
+        end
+
+        def data_path(space_name, content_type_name, entry_id)
+          data_filename = "#{entry_id}.yaml"
+          File.join(
+            shared_instance.root_path.to_s,
+            'data',
+            space_name.to_s,
+            content_type_name.to_s,
+            data_filename)
+        end
+
+        def space_name
+          @space_name ||= contentful_middleman_options.space.fetch(:name)
+        end
+
+        def content_type_name(content_type_id)
+          contentful_middleman_options.content_types.fetch(content_type_id).fetch(:name)
         end
     end
 
