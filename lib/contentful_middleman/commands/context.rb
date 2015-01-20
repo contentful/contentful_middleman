@@ -20,7 +20,19 @@ module ContentfulMiddleman
       @_nested_contexts << field_name
       new_context = Context.new
       yield new_context
+
       set field_name, new_context
+    end
+
+    def map(field_name, elements)
+      @_nested_contexts << field_name
+      new_contexts = elements.map do |element|
+        new_context = Context.new
+        yield element, new_context
+        new_context
+      end
+
+      set field_name, new_contexts
     end
 
     def set(name, value)
@@ -35,7 +47,11 @@ module ContentfulMiddleman
       variables = @_variables.dup
       variables.update(variables) do |k,v|
         if @_nested_contexts.include? k
-          v.to_hash
+          if v.is_a? ::Array
+            v.map {|e| e.to_hash}
+          else
+            v.to_hash
+          end
         else
           v
         end
