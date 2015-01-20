@@ -1,12 +1,36 @@
 require 'middleman-core/cli'
 require 'middleman-blog/uri_templates'
 require 'date'
+require 'digest'
 require_relative 'context'
 require_relative 'delegated_yaml_writter'
 
 module Middleman
   module Cli
     # This class provides an "contentful" command for the middleman CLI.
+
+    class VersionHash
+      def self.read_for_space(space_name)
+        hashfilename_for_space = hashfilename(space_name)
+        ::File.read(hashfilename_for_space) if File.exist? hashfilename_for_space
+      end
+
+      def self.write_for_space_with_entries(space_name, entries)
+        sorted_entries           = entries.sort {|a, b| a.id <=> b.id}
+        ids_and_revisions_string = sorted_entries.map {|e| "#{e.id}#{e.revision}"}.join
+        entries_hash             = Digest::SHA1.hexdigest( ids_and_revisions_string )
+
+        File.open(hashfilename(space_name), 'w') { |file| file.write(entries_hash) }
+
+        entries_hash
+      end
+
+      def self.hashfilename(space_name)
+        ::File.join(Contentful.source_root, ".#{space_name}-space-hash")
+      end
+    end
+
+
     class Contentful < Thor
       include Thor::Actions
 
@@ -31,13 +55,23 @@ module Middleman
           contentful_instances = shared_instance.contentful_instances
 
           contentful_instances.each do |instance|
-            instance.entries.each do |entry|
+            remove_data_files(instance)
+            old_version_hash = VersionHash.read_for_space(instance.space_name)
+
+            entries =  instance.entries
+            entries.each do |entry|
               context              = ContentfulMiddleman::Context.new
               mapper               = instance.content_type_mapper entry.content_type.id
               entry_data_file_path = data_file_path instance, entry
 
               mapper.map context, entry
               yaml_renderer.render context, entry_data_file_path
+            end
+
+            new_version_hash = VersionHash.write_for_space_with_entries(instance.space_name, entries)
+
+            if new_version_hash != old_version_hash
+              p "Needs rebuild"
             end
           end
 
@@ -50,6 +84,12 @@ module Middleman
       private
         def shared_instance
           @shared_instance ||= ::Middleman::Application.server.inst
+        end
+
+        def remove_data_files(instance)
+          Dir["data/#{instance.space_name}/**/*"].each do |file|
+            remove_file file
+          end
         end
 
         def data_file_path(instance, entry)
