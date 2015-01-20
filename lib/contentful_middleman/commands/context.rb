@@ -1,7 +1,8 @@
 module ContentfulMiddleman
   class Context < BasicObject
     def initialize
-      @_variables = {}
+      @_variables       = {}
+      @_nested_contexts = []
     end
 
     def method_missing(symbol, *args, &block)
@@ -15,16 +16,30 @@ module ContentfulMiddleman
       end
     end
 
+    def nest(field_name)
+      @_nested_contexts << field_name
+      new_context = Context.new
+      yield new_context
+      set field_name, new_context
+    end
+
     def set(name, value)
-      @_variables[name] = value
+      @_variables[name.to_sym] = value
     end
 
     def get(name)
-      @_variables[name]
+      @_variables[name.to_sym]
     end
 
     def to_hash
-      @_variables
+      variables = @_variables.dup
+      variables.update(variables) do |k,v|
+        if @_nested_contexts.include? k
+          v.to_hash
+        else
+          v
+        end
+      end
     end
   end
 end
