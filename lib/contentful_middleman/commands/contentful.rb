@@ -39,6 +39,10 @@ module Middleman
       namespace :contentful
       desc 'contentful', 'Import data from Contentful'
 
+      method_option "rebuild",
+        aliases: "-r",
+        desc: "Rebuilds the site if there were changes in the imported data"
+
       def self.source_root
         ENV['MM_ROOT']
       end
@@ -49,8 +53,8 @@ module Middleman
       end
 
       def contentful
-        yaml_renderer        = ContentfulMiddleman::DelegatedYAMLWritter.new(self)
-        rebuild_middleman = false
+        yaml_renderer     = ContentfulMiddleman::DelegatedYAMLWritter.new(self)
+        has_data_changed = false
 
         if shared_instance.respond_to? :contentful_instances
           contentful_instances = shared_instance.contentful_instances
@@ -69,14 +73,11 @@ module Middleman
               yaml_renderer.render context, entry_data_file_path
             end
 
-            new_version_hash = VersionHash.write_for_space_with_entries(instance.space_name, entries)
-
-            if new_version_hash != old_version_hash
-              rebuild_middleman = true
-            end
+            new_version_hash  = VersionHash.write_for_space_with_entries(instance.space_name, entries)
+            has_data_changed = true if new_version_hash != old_version_hash
           end
 
-          Middleman::Cli::Build.new.build if rebuild_middleman
+          Middleman::Cli::Build.new.build if has_data_changed && options[:rebuild]
           shared_instance.logger.info 'Contentful Import: Done!'
         else
           raise Thor::Error.new "You need to activate the contentful extension in config.rb before you can import data from Contentful"
