@@ -2,9 +2,9 @@ require 'middleman-core/cli'
 require 'middleman-blog/uri_templates'
 require 'date'
 require 'digest'
-require_relative 'context'
-require_relative 'delegated_yaml_writter'
-require_relative '../tools/backup'
+require 'contentful_middleman/commands/context'
+require 'contentful_middleman/commands/delegated_yaml_writter'
+require 'contentful_middleman/tools/backup'
 
 module Middleman
   module Cli
