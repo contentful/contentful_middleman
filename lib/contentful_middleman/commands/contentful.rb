@@ -4,6 +4,7 @@ require 'date'
 require 'digest'
 require_relative 'context'
 require_relative 'delegated_yaml_writter'
+require_relative '../tools/backup'
 
 module Middleman
   module Cli
@@ -33,6 +34,7 @@ module Middleman
 
     class Contentful < Thor
       include Thor::Actions
+      include ContentfulMiddleman::Tools::Backup::InstanceMethods
 
       check_unknown_options!
 
@@ -60,21 +62,23 @@ module Middleman
           contentful_instances = shared_instance.contentful_instances
 
           contentful_instances.each do |instance|
-            remove_data_files(instance)
             old_version_hash = VersionHash.read_for_space(instance.space_name)
 
-            entries =  instance.entries
-            entries.each do |entry|
-              context              = ContentfulMiddleman::Context.new
-              mapper               = instance.content_type_mapper entry.content_type.id
-              entry_data_file_path = data_file_path instance, entry
+            do_with_backup "#{instance.space_name}-data-backup", "data/#{instance.space_name}" do
+              entries =  instance.entries
+              entries.each do |entry|
+                context              = ContentfulMiddleman::Context.new
+                mapper               = instance.content_type_mapper entry.content_type.id
+                entry_data_file_path = data_file_path instance, entry
 
-              mapper.map context, entry
-              yaml_renderer.render context, entry_data_file_path
+                mapper.map context, entry
+                yaml_renderer.render context, entry_data_file_path
+              end
+
+              new_version_hash  = VersionHash.write_for_space_with_entries(instance.space_name, entries)
+              has_data_changed = true if new_version_hash != old_version_hash
             end
 
-            new_version_hash  = VersionHash.write_for_space_with_entries(instance.space_name, entries)
-            has_data_changed = true if new_version_hash != old_version_hash
           end
 
           Middleman::Cli::Build.new.build if has_data_changed && options[:rebuild]
@@ -87,12 +91,6 @@ module Middleman
       private
         def shared_instance
           @shared_instance ||= ::Middleman::Application.server.inst
-        end
-
-        def remove_data_files(instance)
-          Dir["data/#{instance.space_name}/**/*"].each do |file|
-            remove_file file
-          end
         end
 
         def data_file_path(instance, entry)
