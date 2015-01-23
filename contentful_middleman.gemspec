@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name        = "contentful_middleman"
   s.version     = ContentfulMiddleman::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Sascha Konietzke"]
-  s.email       = ["sascha@contentful.com"]
+  s.authors     = ["Sascha Konietzke", "Farruco Sanjurjoj"]
+  s.email       = ["sascha@contentful.com", "madtrick@gmail.com"]
   s.homepage    = "https://www.contentful.com"
   s.summary     = %q{Include mangablable content from the Contentful CMS and API into your Middleman projects}
   s.description = %q{Load blog posts and other managed content into Middleman}
