@@ -6,8 +6,6 @@ Contentful Middleman is a [Middleman](http://middlemanapp.com/) extension to use
 
 Experience the power of Middleman while staying sane as a developer by letting end-users edit content in a web-based interface.
 
-This extensions supports both page-based content as well as blog posts through middleman-blog.
-
 ## Installation
 
 Add the following line to the Gemfile of your Middleman project:
@@ -22,83 +20,128 @@ Then as usual, run:
 bundle install
 ```
 
+## Usage
+
+Run `$middleman contentful` in your terminal. This will fetch entries for the configured
+spaces and content types and put the resulting data in the
+[local data folder](https://middlemanapp.com/advanced/local-data/) as yaml files.
+
+### --rebuild option
+
+The `contentful` command has a `--rebuild` option which will trigger a rebuild of your site only if there were changes between the last
+and the current import.
+
 ## Configuration
 
 To configure the extension, add the following configuration block to Middleman's config.rb:
 
 ```ruby
 activate :contentful do |f|
-  # The Space ID of your Contentful space
-  f.space = 'YOUR_SPACE_ID'
-
-  # The access token (API Key) for the Content Delivery API
-  f.access_token = 'YOUR_CONTENT_DELIVERY_API_ACCESS_TOKEN'
-
-  # Optional: Options for middleman-blog
-
-  # Filter Entries for your blog posts. See Contentful gem and Content Delivery API documentation.
-  f.blog_posts_query = {content_type: "6LbnqgnwA08qYaU", category: "news" } 
-  
-  # Which keys to use in the article template for blog posts
-  # Key: template variable
-  # Value: Entry method or block
-  f.blog_post_mappings = {
-      slug: :id,
-      date: :created_at,
-      body: :id,
-      tags: :tags,
-      title: ->(e){"#{e.id}XXXX"}
-  }
-
-  # The mapper option allows you to set a custom mapper for each of
-  # fetched entries from Contentful.
-  #
-  # This mapper can be a proc or a instance of a class which has a 'map' method. On both
-  # cases the arguments will be the context and the entry being processed.
-  #
-  # By default the context will have the properties set by the 'blog_post_mappings' hash. This
-  # properties can be modified inside the mapper and new properties can be added too. All context
-  # properties will be available on the template used to render the posts.
-
-  #
-  # class Mapper
-  #   def map(context, entry)
-  #     ...
-  #   end
-  # end
-  #
-  # f.mapper = Mapper.new
-  # OR
-  # f.mapper = ->(context, entry) {}
-
-  # Define your own template for blog posts
-  f.new_article_template = "/my_templates/article.tt"
-
-  # Automatically synchronize blog posts before building with "middleman build"
-  f.sync_blog_before_build = true # default: false
+  f.space         = SPACE
+  f.access_token  = ACCESS_TOKEN
+  f.cda_query     = QUERY
+  f.content_types = CONTENT_TYPES_MAPPINGS
 end
 ```
 
-## Using managed content in regular pages
+Parameter | Description
+----------|------------
+space | Hash with an user choosen name for the space as key and the space id as value
+access_token | Contentful Delivery API access token
+cda_query | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info
+content_types | Hash describing the mapping applied to entries of the imported content types
 
-The `contentful` helper provides a Contentful gem client object, that can be used to fetch managed content from Contentful:
+You can activate the extension multiple times to import entries from different spaces.
+## Entry mapping
 
+The extension will transform every fetched entry before storing it as a yaml file in the local
+data folder. If a custom mapper is not specified a default one will be used.
+
+The default mapper will map fields, assets and linked entries.
+
+### Custom mappers
+
+You can create your own mappers if you need so. The only requirement for a class to behave as a
+mapper is to have a `map(context, entry)` instance method. This method will take as parameters:
+
+  * A context object. All properties set on this object will be written to the yaml file
+  * An entry
+
+Following is an example of such custom mapper:
+
+```ruby
+class MyAwesomeMapper
+  def map(context, entry)
+    context.slug = entry.title.parameterize
+    #... more transformations
+  end
+end
 ```
-  <ol>
-    <% contentful.entries(content_type: '6LbnqgnwA08qYaU').each do |entry| %>
-      <li>
-        <%= entry.title %>
-        <%= entry.body %>
-        <%= entry.created_at %>
-      </li>
-    <% end %>
-  </ol>
+
+If you don't want to map all the fields by hand inherit from the Base mappper:
+
+```ruby
+class MyAwesomeMapper < ContentfulMiddleman::Mappers::Base
+  def map(context, entry)
+    super
+    # After calling super the context object
+    # will have a property for every field in the
+    # entry
+  end
+end
 ```
 
-## Synchronizing blog posts manually
+## Configuration: examples
 
-Blog posts are synchronized to your repo as YAML files with front matter, just as if you would write them manually. Either automatically when building, or manually by running:
-
+```ruby
+activate :contentful do |f|
+  f.space         = {partners: 'space-id'}
+  f.access_token  = 'some_access_token'
+  f.cda_query     = { content_type: 'content-type-id', include: 1 }
+  f.content_types = { partner: 'content-type-id'}
+end
 ```
-middleman contentful
+The above configuration does the following:
+
+  * Sets the alias `partners` to the space with id _some-id_
+  * Sets the alias `partner` to the content type with id _content-type-id_
+  * Uses the default mapper to transform `partner` entries into yaml files (no mapper specified for the `partner` content type)
+
+Entries fetched using this configuration will be stored as yaml files in `data/partners/partner/ENTRY_ID.yaml`.
+
+```ruby
+class Mapper
+  def map(context, entry)
+    context.title = "#{entry.title}-title"
+    #...
+  end
+end
+
+activate :contentful do |f|
+  f.space         = {partners: 'space-id'}
+  f.access_token  = 'some_access_token'
+  f.cda_query     = { content_type: '1EVL9Bl48Euu28QEOa44ai', include: 1 }
+  f.content_types = { partner: {mapper: Mapper, id: 'content-type-id'}}
+end
+```
+
+The above configuration is the same as the previous one only that this time we are setting a custom mapper
+for the entries belonging to the `partner` content type.
+
+
+## Using imported entries in templates
+
+Middleman will load all the yaml files stored in the local data folder. This lets you use all the imported
+data into your templates.
+
+Consider that we have data stored under `data/partners/partner`. Then in our templates we could use that data like
+this:
+
+```html
+<h1>Partners</h1>
+<ol>
+  <% data.partners.partner.each do |id, partner| %>
+    <li><%= partner["name"] %></li>
+  <% end %>
+</ol>
 ```
