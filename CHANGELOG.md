@@ -1,6 +1,10 @@
 # Change Log
 
-## 1.0.
+## 1.0.1
+### Fixed
+* Set local data file extension to *.yaml*
+
+## 1.0.0
 ### Other
 This release brings breaking changes that are not compatible with extension configurations in
 previous versions. For more information about the supported configuration please read the
