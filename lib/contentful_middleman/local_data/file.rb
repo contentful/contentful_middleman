@@ -22,7 +22,7 @@ module ContentfulMiddleman
 
       def local_data_file_path
         base_path = LocalData::Store.base_path
-        ::File.join(base_path, @path)
+        ::File.join(base_path, @path + ".yaml")
       end
     end
   end
