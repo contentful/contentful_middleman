@@ -8,9 +8,6 @@ Experience the power of Middleman while staying sane as a developer by letting e
 
 
 ## Installation
-
-Note - [Middleman Blog](https://github.com/middleman/middleman-blog) is a dependency of Contenful Middleman 
-
 Add the following line to the Gemfile of your Middleman project:
 
 ```

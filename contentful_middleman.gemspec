@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   # The version of middleman-core your extension depends on
   s.add_dependency("middleman-core", ["~> 3.3"])
 
+  s.add_dependency("middleman-blog", ["~> 3.5"])
+
   # Additional dependencies
   s.add_dependency("contentful")
 
