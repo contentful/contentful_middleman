@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+### Fixed
+* Include `middleman-blog` as dependency of the gem.
+
 ## 1.0.1
 ### Fixed
 * Set local data file extension to *.yaml*
