@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+## 1.0.2
 ### Fixed
 * Include `middleman-blog` as dependency of the gem.
 
