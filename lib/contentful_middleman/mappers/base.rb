@@ -15,6 +15,8 @@ module ContentfulMiddleman
         case field_value
         when Contentful::Asset
           map_asset(context, field_name, field_value)
+        when Contentful::Location
+          map_location(context, field_name, field_value)
         when Array
           map_array(context, field_name, field_value)
         else
@@ -33,6 +35,10 @@ module ContentfulMiddleman
           context.map(field_name, field_value) do |element, new_context|
             map_entry(new_context, element)
           end
+      end
+
+      def map_location(context, field_name, field_value)
+        context.set(field_name, field_value.properties)
       end
     end
   end
