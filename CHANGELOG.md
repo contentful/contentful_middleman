@@ -1,5 +1,9 @@
 # Change Log
 
+## Upcoming
+## Fixed
+* The importing of entries including `Contentful::Location` fields now works
+
 ## 1.0.2
 ### Fixed
 * Include `middleman-blog` as dependency of the gem.
