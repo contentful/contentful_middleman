@@ -1,6 +1,10 @@
 # Change Log
 
 ## Upcoming
+### Fixed
+* Typo in the require statements
+
+## 1.0.3
 ## Fixed
 * The importing of entries including `Contentful::Location` fields now works
 
