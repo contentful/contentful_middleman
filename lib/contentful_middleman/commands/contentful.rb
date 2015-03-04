@@ -5,7 +5,7 @@ require 'digest'
 require 'contentful_middleman/commands/context'
 require 'contentful_middleman/tools/backup'
 require 'contentful_middleman/version_hash'
-require 'Contentful_middleman/import_task'
+require 'contentful_middleman/import_task'
 require 'contentful_middleman/local_data/store'
 require 'contentful_middleman/local_data/file'
 
