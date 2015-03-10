@@ -1,14 +1,15 @@
 # Change Log
 
-## Upcoming
+## 1.0.4
 ### Fixed
 * Typo in the require statements
+* The importing of entries with fields containing a list of elements other that links to entries now works
+* Handle non included links i.e. when the `include` query parameter is not present or its value doesn't cover a link
 
 ## 1.0.3
 ## Fixed
 * The importing of entries including `Contentful::Location` fields now works
-* The importing of entries with fields containing a list of elements other that links to entries now works
-* Handle non included links i.e. when the `include` query parameter is not present or its value doesn't cover a link
+
 
 ## 1.0.2
 ### Fixed
