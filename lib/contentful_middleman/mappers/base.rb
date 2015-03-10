@@ -1,44 +1,66 @@
+require_relative '../commands/context'
+
 module ContentfulMiddleman
   module Mapper
     class Base
       def map(context, entry)
-        map_entry(context, entry)
-      end
-
-      private
-      def map_entry(context, entry)
         context.id = entry.id
         entry.fields.each {|k, v| map_field context, k, v}
       end
 
+      private
+
       def map_field(context, field_name, field_value)
-        case field_value
+        value_mapping = map_value(field_value)
+        context.set(field_name, value_mapping)
+      end
+
+      def map_value(value)
+        case value
         when Contentful::Asset
-          map_asset(context, field_name, field_value)
+          map_asset(value)
         when Contentful::Location
-          map_location(context, field_name, field_value)
+          map_location(value)
+        when Contentful::Link
+          map_link(value)
+        when Contentful::DynamicEntry
+          map_entry(value)
         when Array
-          map_array(context, field_name, field_value)
+          map_array(value)
         else
-          context.set(field_name, field_value)
+          value
         end
       end
 
-      def map_asset(context, field_name, field_value)
-        context.nest(field_name) do |nested_context|
-          nested_context.title = field_value.title
-          nested_context.url   = field_value.file.url
-        end
+      def map_asset(asset)
+        context       = Context.new
+        context.title = asset.title
+        context.url   = asset.file.url
+
+        context
       end
 
-      def map_array(context, field_name, field_value)
-          context.map(field_name, field_value) do |element, new_context|
-            map_entry(new_context, element)
-          end
+      def map_entry(entry)
+        context    = Context.new
+        context.id = entry.id
+        entry.fields.each {|k, v| map_field context, k, v}
+
+        context
       end
 
-      def map_location(context, field_name, field_value)
-        context.set(field_name, field_value.properties)
+      def map_location(location)
+        location.properties
+      end
+
+      def map_link(link)
+        context    = Context.new
+        context.id = link.id
+
+        context
+      end
+
+      def map_array(array)
+        array.map {|element| map_value(element)}
       end
     end
   end

@@ -1,38 +1,18 @@
 module ContentfulMiddleman
   class Context < BasicObject
     def initialize
-      @variables       = {}
-      @nexted_contexts = []
+      @variables = {}
     end
 
     def method_missing(symbol, *args, &block)
       if symbol =~ /\A.+=\z/
-        variable_name              = symbol.to_s.gsub('=','')
-        variable_value             = args.first
+        variable_name  = symbol.to_s.gsub('=','')
+        variable_value = args.first
 
         set variable_name, variable_value
       else
         get symbol
       end
-    end
-
-    def nest(field_name)
-      @nexted_contexts << field_name
-      new_context = Context.new
-      yield new_context
-
-      set field_name, new_context
-    end
-
-    def map(field_name, elements)
-      @nexted_contexts << field_name
-      new_contexts = elements.map do |element|
-        new_context = Context.new
-        yield element, new_context
-        new_context
-      end
-
-      set field_name, new_contexts
     end
 
     def set(name, value)
@@ -47,30 +27,27 @@ module ContentfulMiddleman
       Context == klass
     end
 
-    def to_hash
-      @variables
+    def to_yaml
+      hashize.to_yaml
     end
 
-    def to_yaml
+    def hashize
       variables = @variables.dup
       variables.update(variables) do |variable_name, variable_value|
-        if @nexted_contexts.include? variable_name
-          hashize_nested_context(variable_value)
-        else
-          variable_value
-        end
+        ensure_primitive_data_types(variable_value)
       end
-
-      variables.to_yaml
     end
 
-    def hashize_nested_context(nested_context)
-      case nested_context
+    def ensure_primitive_data_types(value)
+      case value
+      when Context
+        value.hashize
       when ::Array
-        nested_context.map {|e| e.to_hash}
+        value.map {|element| ensure_primitive_data_types(element)}
       else
-        nested_context.to_hash
+        value
       end
     end
+
   end
 end
