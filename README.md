@@ -48,7 +48,7 @@ Parameter     | Description
 ----------    |------------
 space         | Hash with an user choosen name for the space as key and the space id as value
 access_token  | Contentful Delivery API access token
-cda_query     | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info
+cda_query     | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there)
 content_types | Hash describing the mapping applied to entries of the imported content types
 
 You can activate the extension multiple times to import entries from different spaces.
