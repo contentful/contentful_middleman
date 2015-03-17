@@ -19,6 +19,9 @@ module ContentfulMiddleman
     option :access_token, nil,
       'The Contentful Content Delivery API access token'
 
+    option :api_url, nil,
+      'The Contentful Content Delivery API URL'
+
     option :cda_query, {},
       'The conditions that are used on the Content Delivery API to query for blog posts'
 
