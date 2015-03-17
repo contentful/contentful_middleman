@@ -33,6 +33,7 @@ module ContentfulMiddleman
       @client ||= Contentful::Client.new(
         access_token:     options.access_token,
         space:            options.space.fetch(:id),
+        api_url:          options.api_url,
         dynamic_entries:  :auto,
         raise_errors:     true
       )
