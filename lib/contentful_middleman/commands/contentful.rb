@@ -71,7 +71,9 @@ module Middleman
         end
 
         def shared_instance
-          @shared_instance ||= ::Middleman::Application.server.inst
+          @shared_instance ||= ::Middleman::Application.server.inst do
+            set :environment, :contentful
+          end
         end
     end
 
