@@ -25,6 +25,9 @@ module ContentfulMiddleman
     option :content_types, {},
       'The mapping of Content Types names to ids'
 
+    option :use_preview_api, false,
+      'Use the Preview API when fetching content'
+
 
     helpers ContentfulMiddleman::Helpers
 

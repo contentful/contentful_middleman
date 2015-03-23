@@ -1,5 +1,7 @@
 module ContentfulMiddleman
   class Instance
+    API_PREVIEW_URL = 'preview.contentful.com'
+
     def initialize(extension)
       @extension = extension
     end
@@ -30,12 +32,19 @@ module ContentfulMiddleman
 
     private
     def client
-      @client ||= Contentful::Client.new(
-        access_token:     options.access_token,
-        space:            options.space.fetch(:id),
-        dynamic_entries:  :auto,
-        raise_errors:     true
-      )
+      @client ||= Contentful::Client.new(client_options)
+    end
+
+    def client_options
+      client_options = {
+          access_token:     options.access_token,
+          space:            options.space.fetch(:id),
+          dynamic_entries:  :auto,
+          raise_errors:     true
+      }
+
+      client_options[:api_url] = API_PREVIEW_URL if options.use_preview_api
+      client_options
     end
 
     def options

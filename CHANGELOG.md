@@ -1,5 +1,9 @@
 # Change Log
 
+## Upcoming
+### Added
+* New extension option: `use_preview_api`
+
 ## 1.0.4
 ### Fixed
 * Typo in the require statements

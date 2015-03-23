@@ -44,12 +44,13 @@ activate :contentful do |f|
 end
 ```
 
-Parameter     | Description
-----------    |------------
-space         | Hash with an user choosen name for the space as key and the space id as value
-access_token  | Contentful Delivery API access token
-cda_query     | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there)
-content_types | Hash describing the mapping applied to entries of the imported content types
+Parameter       | Description
+----------      | ------------
+space           | Hash with an user choosen name for the space as key and the space id as value
+access_token    | Contentful Delivery API access token
+cda_query       | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there)
+content_types   | Hash describing the mapping applied to entries of the imported content types
+use_preview_api | Boolean to toogle the used API. Set it to `false` to use `cdn.contentful.com` (default value). Set it to `true` to use `preview.contentful.com`. More info in [the documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#preview-api)
 
 You can activate the extension multiple times to import entries from different spaces.
 ## Entry mapping
