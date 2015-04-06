@@ -82,7 +82,7 @@ end
 If you don't want to map all the fields by hand inherit from the Base mappper:
 
 ```ruby
-class MyAwesomeMapper < ContentfulMiddleman::Mappers::Base
+class MyAwesomeMapper < ContentfulMiddleman::Mapper::Base
   def map(context, entry)
     super
     # After calling super the context object
