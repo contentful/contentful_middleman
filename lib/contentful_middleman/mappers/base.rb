@@ -3,7 +3,7 @@ require_relative '../commands/context'
 module ContentfulMiddleman
   module Mapper
     class Base
-      def map(context, entry)
+      def map(context, entry, entries)
         context.id = entry.id
         entry.fields.each {|k, v| map_field context, k, v}
       end
