@@ -1,6 +1,7 @@
 require 'middleman-core'
 require 'contentful'
 require_relative 'mappers/base'
+require_relative 'mappers/backref'
 require_relative 'helpers'
 require_relative 'instance'
 
