@@ -3,6 +3,12 @@ require_relative '../commands/context'
 module ContentfulMiddleman
   module Mapper
     class Base
+      attr_reader :entries
+
+      def initialize(entries)
+        @entries = entries
+      end
+
       def map(context, entry)
         context.id = entry.id
         entry.fields.each {|k, v| map_field context, k, v}
