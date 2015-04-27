@@ -12,7 +12,7 @@ module ContentfulMiddleman
 
       def write_for_space_with_entries(space_name, entries)
         sorted_entries           = entries.sort {|a, b| a.id <=> b.id}
-        ids_and_revisions_string = sorted_entries.map {|e| "#{e.id}#{e.revision}"}.join
+        ids_and_revisions_string = sorted_entries.map {|e| "#{e.id}#{e.updated_at}"}.join
         entries_hash             = Digest::SHA1.hexdigest( ids_and_revisions_string )
 
         File.open(hashfilename(space_name), 'w') { |file| file.write(entries_hash) }
