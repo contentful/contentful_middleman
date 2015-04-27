@@ -4,6 +4,9 @@
 ### Added
 * New extension option: `use_preview_api`
 
+### Fixed
+* Calculate the version hash using the `updated_at` value of every entry instead of its revision
+
 ## 1.0.4
 ### Fixed
 * Typo in the require statements
