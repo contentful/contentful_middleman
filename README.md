@@ -92,6 +92,8 @@ class MyAwesomeMapper < ContentfulMiddleman::Mapper::Base
 end
 ```
 
+There's also an example back-reference mapper in the examples directory for adding back-references onto entries that are linked to by other entries.
+
 ## Configuration: examples
 
 ```ruby
