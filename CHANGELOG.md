@@ -3,6 +3,10 @@
 ## Upcoming
 ### Added
 * New extension option: `use_preview_api`
+* An example mapper that allows references from linked to linking entries
+
+### Changed
+* Make the all the entries available inside the mapper
 
 ### Fixed
 * Calculate the version hash using the `updated_at` value of every entry instead of its revision
