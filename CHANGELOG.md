@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 1.1.0
 ### Added
 * New extension option: `use_preview_api`
 * An example mapper that allows references from linked to linking entries
