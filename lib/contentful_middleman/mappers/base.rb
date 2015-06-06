@@ -7,6 +7,7 @@ module ContentfulMiddleman
 
       def initialize(entries)
         @entries = entries
+        @mapped_entries = []
       end
 
       def map(context, entry)
@@ -49,7 +50,11 @@ module ContentfulMiddleman
       def map_entry(entry)
         context    = Context.new
         context.id = entry.id
-        entry.fields.each {|k, v| map_field context, k, v}
+
+        if !@mapped_entries.include?(entry.id)
+          @mapped_entries.push(entry.id)
+          entry.fields.each {|k, v| map_field context, k, v}
+        end
 
         context
       end
