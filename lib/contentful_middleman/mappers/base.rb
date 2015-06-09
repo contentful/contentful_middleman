@@ -7,12 +7,19 @@ module ContentfulMiddleman
 
       def initialize(entries)
         @entries = entries
-        @mapped_entries = []
+        @children = {}
       end
 
       def map(context, entry)
-        context.id = entry.id
-        entry.fields.each {|k, v| map_field context, k, v}
+        @children = {
+          :queue => [{ :context => context, :entry => entry }],
+          :discovered => [entry.id] }
+        while !@children[:queue].first.nil? do
+          nxt = @children[:queue].pop
+          context = nxt[:context]
+          entry = nxt[:entry]
+          map_entry_full(entry, context)
+        end
       end
 
       private
@@ -47,15 +54,18 @@ module ContentfulMiddleman
         context
       end
 
-      def map_entry(entry)
-        context    = Context.new
+      def map_entry_full(entry, context)
         context.id = entry.id
+        entry.fields.each {|k, v| map_field context, k, v}
+      end
 
-        if !@mapped_entries.include?(entry.id)
-          @mapped_entries.push(entry.id)
-          entry.fields.each {|k, v| map_field context, k, v}
+      def map_entry(entry)
+        context = Context.new
+        context.id = entry.id
+        if !@children[:discovered].include?(entry.id)
+          @children[:queue].push({ :context => context, :entry => entry})
+          @children[:discovered].push(entry.id)
         end
-
         context
       end
 
