@@ -1,5 +1,9 @@
 # Change Log
 
+## Master
+### Changed
+* Breadth-first search of linked entries
+
 ## 1.1.0
 ### Added
 * New extension option: `use_preview_api`
