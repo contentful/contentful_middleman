@@ -1,6 +1,6 @@
 # Change Log
 
-## Master
+## 1.1.1
 ### Changed
 * Breadth-first search of linked entries
 
