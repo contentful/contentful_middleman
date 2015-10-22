@@ -25,7 +25,10 @@ module ContentfulMiddleman
     private
     def local_data_files
       entries.map do |entry|
-        content_type_mapper_class = @content_type_mappers.fetch(entry.content_type.id)
+        content_type_mapper_class = @content_type_mappers.fetch(entry.content_type.id, nil)
+
+        next unless content_type_mapper_class
+
         content_type_name         = @content_type_names.fetch(entry.content_type.id).to_s
         context                   = ContentfulMiddleman::Context.new
 
@@ -33,7 +36,7 @@ module ContentfulMiddleman
         content_type_mapper.map(context, entry)
 
         LocalData::File.new(context.to_yaml, File.join(@space_name, content_type_name, entry.id))
-      end
+      end.compact
     end
 
     def entries
