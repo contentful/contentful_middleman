@@ -1,4 +1,9 @@
 # Change Log
+## Unreleased
+### Added
+* Include `:all_entries` option to `activate` block for getting over 1000 entries[#45](https://github.com/contentful-labs/contentful_middleman/issues/45)
+* Update `middleman-core` required version
+* Removes `middleman-blog` dependency[#9](https://github.com/contentful-labs/contentful_middleman/issues/9)
 
 ## 1.1.1
 ### Changed
