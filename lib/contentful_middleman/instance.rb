@@ -7,8 +7,7 @@ module ContentfulMiddleman
     end
 
     def entries
-      if options.cda_query[:all]
-        options.cda_query.delete(:all)
+      if options.all_entries
         all_entries(options.cda_query)
       else
         client.entries(options.cda_query)
