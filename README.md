@@ -50,7 +50,8 @@ space           | Hash with an user choosen name for the space as key and the sp
 access_token    | Contentful Delivery API access token
 cda_query       | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option.
 content_types   | Hash describing the mapping applied to entries of the imported content types
-use_preview_api | Boolean to toogle the used API. Set it to `false` to use `cdn.contentful.com` (default value). Set it to `true` to use `preview.contentful.com`. More info in [the documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#preview-api)
+use_preview_api | Boolean to toggle the used API. Set it to `false` to use `cdn.contentful.com` (default value). Set it to `true` to use `preview.contentful.com`. More info in [the documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#preview-api)
+all_entries     | Boolean to toggle multiple requests to the API for getting over 1000 entries. This uses a naive approach and can get rate limited.
 
 You can activate the extension multiple times to import entries from different spaces.
 ## Entry mapping

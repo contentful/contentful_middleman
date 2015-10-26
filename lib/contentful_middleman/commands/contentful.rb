@@ -1,5 +1,4 @@
 require 'middleman-core/cli'
-require 'middleman-blog/uri_templates'
 require 'date'
 require 'digest'
 require 'contentful_middleman/commands/context'

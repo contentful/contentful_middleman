@@ -28,6 +28,9 @@ module ContentfulMiddleman
     option :use_preview_api, false,
       'Use the Preview API when fetching content'
 
+    option :all_entries, false,
+      'Allow multiple requests to the API for getting over 1000 entries'
+
 
     helpers ContentfulMiddleman::Helpers
 

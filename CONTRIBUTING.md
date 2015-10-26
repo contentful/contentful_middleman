@@ -16,7 +16,7 @@ Here are some ways *you* can contribute:
 * by closing [issues][]
 * by reviewing patches
 
-[issues]: https://github.com/middleman/middleman-blog/issues
+[issues]: https://github.com/contentful-labs/contentful_middleman/issues
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before

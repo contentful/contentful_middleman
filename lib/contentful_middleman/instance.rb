@@ -7,7 +7,11 @@ module ContentfulMiddleman
     end
 
     def entries
-      client.entries(options.cda_query)
+      if options.all_entries
+        all_entries(options.cda_query)
+      else
+        client.entries(options.cda_query)
+      end
     end
 
     def space_name
@@ -31,6 +35,22 @@ module ContentfulMiddleman
     end
 
     private
+
+    def all_entries(cda_query)
+      all = []
+      query = cda_query.clone
+      num_entries = client.entries(limit: 1).total
+
+      ((num_entries / 1000) + 1).times do |i|
+        query[:limit] = 1000
+        query[:skip] = i * 1000
+        page = client.entries(query)
+        page.each { |entry| all << entry }
+      end
+
+      all
+    end
+
     def client
       @client ||= Contentful::Client.new(client_options)
     end
