@@ -15,4 +15,3 @@ gem "rspec"
 gem "simplecov"
 
 gem "cane", :platforms => [:mri_19, :mri_20], :require => false
-gem 'coveralls', :require => false
