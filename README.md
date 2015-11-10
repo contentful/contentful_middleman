@@ -95,6 +95,44 @@ end
 
 There's also an example back-reference mapper in the examples directory for adding back-references onto entries that are linked to by other entries.
 
+#### Multiple Mappers
+
+If you want to process a Content Type with multiple mappers, you can use the [Composite Design Pattern](https://en.wikipedia.org/wiki/Composite_pattern).
+The Mapper code should look something similar to the following.
+
+Then you can attach as many Custom Mappers as you want to that one.
+
+```ruby
+class CompositeMapper < ContentfulMiddleman::Mapper::Base
+  @@mappers = []
+  def self.mappers
+    @@mappers
+  end
+
+  def map(context, entry)
+    super
+    mappers.each do |m|
+      m.map(context, entry)
+    end
+  end
+end
+```
+
+Then in your config.rb file:
+
+```ruby
+CompositeMapper.mappers << YourMapper.new
+CompositeMapper.mappers << OtherMapper.new
+
+activate :contentful do |f|
+  '... your config here ...'
+  f.content_types = {content_type_name_you_want_to_map: {mapper: CompositeMapper, id: 'content_type_id'}}
+end
+```
+
+*NOTE*: This kind of Composite Mapper is static, therefore if you want to have multiple combinations of mappers
+ for multiple entries, you'd need to write code a bit differently.
+
 ## Configuration: examples
 
 ```ruby
@@ -105,6 +143,7 @@ activate :contentful do |f|
   f.content_types = { partner: 'content-type-id'}
 end
 ```
+
 The above configuration does the following:
 
   * Sets the alias `partners` to the space with id _some-id_
