@@ -1,8 +1,11 @@
+require 'logger'
 require 'middleman-core'
 require 'contentful'
+require 'contentful/webhook/listener'
 require_relative 'mappers/base'
 require_relative 'helpers'
 require_relative 'instance'
+require_relative 'webhook_handler'
 
 # The Contentful Middleman extensions allows to load managed content into Middleman projects through the Contentful Content Management Platform.
 module ContentfulMiddleman
@@ -31,6 +34,12 @@ module ContentfulMiddleman
     option :all_entries, false,
       'Allow multiple requests to the API for getting over 1000 entries'
 
+    option :rebuild_on_webhook, false,
+      "Run `middleman contentful --rebuild` upon receiving a Webhook on http://0.0.0.0:5678/receive"
+
+    option :webhook_timeout, 300,
+      "Wait time before rebuild after receiving a Webhook call"
+
 
     helpers ContentfulMiddleman::Helpers
 
@@ -41,6 +50,8 @@ module ContentfulMiddleman
       massage_options
 
       ContentfulMiddleman.instances << (ContentfulMiddleman::Instance.new self)
+
+      webhook_options
     end
 
     private
@@ -72,6 +83,10 @@ module ContentfulMiddleman
       end
 
       options.content_types = new_content_types_options
+    end
+
+    def webhook_options
+      ::ContentfulMiddleman::WebhookHandler.start(options) if options.rebuild_on_webhook
     end
   end
 end

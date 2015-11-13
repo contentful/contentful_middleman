@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
 
   # Additional dependencies
   s.add_dependency("contentful")
+  s.add_dependency("contentful-webhook-listener", '~> 0.1')
 
   s.add_development_dependency 'rubygems-tasks', '~> 0.2'
 end
