@@ -51,11 +51,12 @@ access_token        | Contentful Delivery API access token
 cda_query           | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option. Example: `f.cda_query = { limit: 1000 }`
 content_types       | Hash describing the mapping applied to entries of the imported content types
 use_preview_api     | Boolean to toggle the used API. Set it to `false` to use `cdn.contentful.com` (default value). Set it to `true` to use `preview.contentful.com`. More info in [the documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#preview-api)
-all_entries         | Boolean to toggle multiple requests to the API for getting over 1000 entries. This uses a naive approach and can get rate limited.
+all_entries         | Boolean to toggle multiple requests to the API for getting over 1000 entries. This uses a naive approach and can get rate limited. When using this, have in mind adding an `order` in your `:cda_query` . Default order is `order: 'sys.createdAt'`
 rebuild_on_webhook  | Boolean to toggle Webhook server. Server will run in port 5678, and will be expecting to receive Contentful Webhook calls on `/receive`
 webhook_timeout     | Integer (in seconds) for wait time after Webhook received for rebuilding. Only used if `:rebuild_on_webhook` is true. Defaults to 300 seconds
 
 You can activate the extension multiple times to import entries from different spaces.
+
 ## Entry mapping
 
 The extension will transform every fetched entry before storing it as a yaml file in the local

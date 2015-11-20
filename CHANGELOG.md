@@ -5,6 +5,7 @@
 * Update `middleman-core` required version
 * Removes `middleman-blog` dependency[#9](https://github.com/contentful-labs/contentful_middleman/issues/9)
 * Add Webhook Integration[#55](https://github.com/contentful-labs/contentful_middleman/pull/55)
+* Clarify that `:all_entries` may need an `:order` attribute in the `:cda_query` for avoiding entry skipping and provided a sane default[#60](https://github.com/contentful/contentful_middleman/issues/60)
 
 ## 1.1.1
 ### Changed
