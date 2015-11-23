@@ -39,6 +39,7 @@ module ContentfulMiddleman
     def all_entries(cda_query)
       all = []
       query = cda_query.clone
+      query[:order] = 'sys.createdAt' unless query.key?(:order)
       num_entries = client.entries(limit: 1).total
 
       ((num_entries / 1000) + 1).times do |i|
