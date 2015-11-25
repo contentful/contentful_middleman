@@ -7,3 +7,6 @@ rvm:
 script: "bundle exec rake test"
 
 env: TEST=true JRUBY_OPTS='--2.0'
+notifications:
+  slack:
+    secure: MMWxqKMT4m2UhZ+Ix4wgCs1nLvu9hUFCbyV/qJWmIFif7V4GUKXi6h9krMqGqBAd3YV3pP/InPlw3QoKBUGIAIr5GzDpSnU5ACv7E61v548qViEvPBqsfhRHha2M164rUHn32tpejJnIizVUyND/hIzNviIrab+G8uOaZXUtB5I=
