@@ -37,3 +37,24 @@ end
 class ResponseDouble
   attr_accessor :body, :status, :content_type
 end
+
+class OptionsDouble
+  DEFAULT_OPTIONS = {
+    space: {id: 'cfexampleapi', name: 'cats'},
+    access_token: 'b4c0n73n7fu1',
+    cda_query: {},
+    content_types: {},
+    use_preview_api: false,
+    all_entries: false,
+    rebuild_on_webhook: false,
+    webhook_timeout: 300
+  }
+
+  def initialize(options = DEFAULT_OPTIONS)
+    options.each do |field, value|
+      define_singleton_method(field.to_sym) do
+        value
+      end
+    end
+  end
+end

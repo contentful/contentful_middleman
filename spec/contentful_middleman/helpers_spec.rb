@@ -8,6 +8,21 @@ class InstanceDouble
 end
 
 describe ContentfulMiddleman::Helpers do
+  let(:entry) do
+    {
+      value_field: {
+        'es' => 'foo',
+        'en-US' => 'bar'
+      },
+      array_field: [
+        {
+          'es' => 'foobar',
+          'en-US' => 'baz'
+        }
+      ]
+    }
+  end
+
   subject { HelpersMock.new }
 
   before(:each) do
@@ -26,6 +41,58 @@ describe ContentfulMiddleman::Helpers do
         ContentfulMiddleman.instances << InstanceDouble.new
 
         expect(subject.contentful_instances.size).to eq(2)
+      end
+    end
+
+    describe 'localization helpers' do
+      describe '#localize_value' do
+        it 'returns value if not a hash independently of locale' do
+          expect(subject.localize_value('foo', 'es')).to eq('foo')
+        end
+
+        describe 'value is a hash' do
+          it 'returns fallback_locale value if locale not found' do
+            expect(subject.localize_value({'en-US' => 'foo'}, 'es')).to eq('foo')
+            expect(subject.localize_value({'de-DE' => 'bar'}, 'es', 'de-DE')).to eq('bar')
+          end
+
+          it 'returns localized value if locale found' do
+            expect(subject.localize_value({'es' => 'foobar'}, 'es')).to eq('foobar')
+          end
+
+          it 'fails if locale or fallback_locale not found' do
+            expect { subject.localize_value({'de-DE' => 'baz'}, 'es') }.to raise_error KeyError
+          end
+        end
+      end
+
+      describe '#localize_array' do
+        it 'calls #localize_value for every element in the array' do
+          expect(subject).to receive(:localize_value).with({'es' => 'foo'}, 'es', 'en-US')
+
+          subject.localize_array([{'es' => 'foo'}], 'es')
+        end
+      end
+
+      describe '#localize' do
+        it 'calls #localize_value for a value field' do
+          expect(subject).to receive(:localize_value).with({'es' => 'foo', 'en-US' => 'bar'}, 'es', 'en-US').and_call_original
+
+          expect(subject.localize(entry, :value_field, 'es')).to eq('foo')
+        end
+
+        it 'calls #localize_array for an array field' do
+          expect(subject).to receive(:localize_array).with([{'es' => 'foobar', 'en-US' => 'baz'}], 'es', 'en-US').and_call_original
+
+          expect(subject.localize(entry, :array_field, 'es')).to eq(['foobar'])
+        end
+      end
+
+      it '#localize_entry' do
+        expect(subject.localize_entry(entry, 'es')).to eq({
+          value_field: 'foo',
+          array_field: ['foobar']
+        })
       end
     end
   end

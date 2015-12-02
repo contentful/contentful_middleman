@@ -32,7 +32,7 @@ module ContentfulMiddleman
         content_type_name         = @content_type_names.fetch(entry.content_type.id).to_s
         context                   = ContentfulMiddleman::Context.new
 
-        content_type_mapper = content_type_mapper_class.new(entries)
+        content_type_mapper = content_type_mapper_class.new(entries, @contentful.options)
         content_type_mapper.map(context, entry)
 
         LocalData::File.new(context.to_yaml, File.join(@space_name, content_type_name, entry.id))

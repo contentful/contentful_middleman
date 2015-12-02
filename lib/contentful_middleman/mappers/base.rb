@@ -5,8 +5,9 @@ module ContentfulMiddleman
     class Base
       attr_reader :entries
 
-      def initialize(entries)
+      def initialize(entries, options)
         @entries = entries
+        @options = options
         @children = {}
       end
 
@@ -23,6 +24,10 @@ module ContentfulMiddleman
       end
 
       private
+
+      def has_multiple_locales?
+        @options.cda_query.fetch(:locale, nil) == '*'
+      end
 
       def map_field(context, field_name, field_value)
         value_mapping = map_value(field_value)
@@ -56,7 +61,10 @@ module ContentfulMiddleman
 
       def map_entry_full(entry, context)
         context.id = entry.id
-        entry.fields.each {|k, v| map_field context, k, v}
+
+        fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
+
+        fields.each {|k, v| map_field context, k, v}
       end
 
       def map_entry(entry)

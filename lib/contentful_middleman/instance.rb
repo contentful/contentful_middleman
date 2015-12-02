@@ -34,6 +34,10 @@ module ContentfulMiddleman
       end
     end
 
+    def options
+      @extension.options
+    end
+
     private
 
     def all_entries(cda_query)
@@ -66,10 +70,6 @@ module ContentfulMiddleman
 
       client_options[:api_url] = API_PREVIEW_URL if options.use_preview_api
       client_options
-    end
-
-    def options
-      @extension.options
     end
   end
 end

@@ -269,6 +269,6 @@ agnostic wrapper of these methods.
 
 If your fields are not localized, the value of the field will be returned.
 
-In case of the field being localized but the locale not found, it will use
+In case of the field being localized but no value being set for a given entry, it will use
 a fallback locale, by default is `en-US` but can be specified as an additional
 parameter in all the mentioned calls.
