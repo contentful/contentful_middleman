@@ -12,27 +12,71 @@ describe ContentfulMiddleman::Mapper::Base do
       client.entries
     }
   end
-  subject { described_class.new entries }
+
+  let(:entries_localized) do
+    vcr('mappers/entries_localized') {
+      client = Contentful::Client.new(
+        access_token: 'b4c0n73n7fu1',
+        space: 'cfexampleapi',
+        dynamic_entries: :auto
+      )
+
+      client.entries(locale: '*', include: 1)
+    }
+  end
+
+  let(:options) { OptionsDouble.new }
+  subject { described_class.new entries, options }
 
   describe 'instance methods' do
     let(:context) { ContentfulMiddleman::Context.new }
 
-    it '#map' do
-      expect(context.hashize).to eq({})
+    describe '#map' do
+      it 'maps entries without multiple locales' do
+        expect(context.hashize).to eq({})
 
-      expected = {
-        :id=>"6KntaYXaHSyIw8M6eo26OK",
-        :name=>"Doge",
-        :image=> {
-          :title=>"Doge",
-          :url=> "//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg"
-        },
-        :description=>"such json\nwow"
-      }
+        expected = {
+          :id=>"6KntaYXaHSyIw8M6eo26OK",
+          :name=>"Doge",
+          :image=> {
+            :title=>"Doge",
+            :url=> "//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg"
+          },
+          :description=>"such json\nwow"
+        }
 
-      subject.map(context, entries.first)
+        subject.map(context, entries.first)
 
-      expect(context.hashize).to eq(expected)
+        expect(context.hashize).to eq(expected)
+      end
+
+      it 'maps entries with multiple locales' do
+        subject = described_class.new entries, OptionsDouble.new(cda_query: {locale: '*'})
+        expect(context.hashize).to eq({})
+
+        expected = {
+          :id=>"6KntaYXaHSyIw8M6eo26OK",
+          :name=> {
+            :'en-US'=>"Doge"
+          },
+          :image=>{
+            :'en-US'=>{
+              "sys"=>{
+                "type"=>"Link",
+                "linkType"=>"Asset",
+                "id"=>"1x0xpXu4pSGS4OukSyWGUK"
+              }
+            }
+          },
+          :description=>{
+            :'en-US'=>"such json\nwow"
+          }
+        }
+
+        subject.map(context, entries_localized.first)
+
+        expect(context.hashize).to eq(expected)
+      end
     end
   end
 

@@ -41,13 +41,13 @@ http_interactions:
       Server:
       - nginx
       X-Contentful-Request-Id:
-      - c40-589309641
+      - 405-1389484612
       Content-Length:
       - '5619'
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 02 Dec 2015 18:20:27 GMT
+      - Wed, 02 Dec 2015 18:20:29 GMT
       Via:
       - 1.1 varnish
       Age:
@@ -55,7 +55,7 @@ http_interactions:
       Connection:
       - close
       X-Served-By:
-      - cache-jfk1031-JFK
+      - cache-iad2122-IAD
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -318,10 +318,10 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Wed, 02 Dec 2015 18:20:27 GMT
+  recorded_at: Wed, 02 Dec 2015 18:20:29 GMT
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?include=1&locale=*
     body:
       encoding: US-ASCII
       string: ''
@@ -356,17 +356,17 @@ http_interactions:
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - '"474a1d8a1e34ebf8e98f420724e24f17"'
+      - '"eac96ae01d702c27f00720b82d4f85f6"'
       Server:
       - nginx
       X-Contentful-Request-Id:
-      - c40-589333551
+      - c40-589333571
       Content-Length:
-      - '12570'
+      - '13968'
       Accept-Ranges:
       - bytes
       Date:
-      - Wed, 02 Dec 2015 18:20:28 GMT
+      - Wed, 02 Dec 2015 18:20:29 GMT
       Via:
       - 1.1 varnish
       Age:
@@ -374,7 +374,7 @@ http_interactions:
       Connection:
       - close
       X-Served-By:
-      - cache-jfk1030-JFK
+      - cache-iad2145-IAD
       X-Cache:
       - MISS
       X-Cache-Hits:
@@ -412,19 +412,24 @@ http_interactions:
                 "id": "6KntaYXaHSyIw8M6eo26OK",
                 "revision": 2,
                 "createdAt": "2013-11-06T09:45:27.475Z",
-                "updatedAt": "2013-11-18T09:13:37.808Z",
-                "locale": "en-US"
+                "updatedAt": "2013-11-18T09:13:37.808Z"
               },
               "fields": {
-                "name": "Doge",
+                "name": {
+                  "en-US": "Doge"
+                },
                 "image": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Asset",
-                    "id": "1x0xpXu4pSGS4OukSyWGUK"
+                  "en-US": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Asset",
+                      "id": "1x0xpXu4pSGS4OukSyWGUK"
+                    }
                   }
                 },
-                "description": "such json\nwow"
+                "description": {
+                  "en-US": "such json\nwow"
+                }
               }
             },
             {
@@ -447,38 +452,56 @@ http_interactions:
                 "id": "4MU1s3potiUEM2G4okYOqw",
                 "revision": 1,
                 "createdAt": "2014-02-21T13:42:45.926Z",
-                "updatedAt": "2014-02-21T13:42:45.926Z",
-                "locale": "en-US"
+                "updatedAt": "2014-02-21T13:42:45.926Z"
               },
               "fields": {
-                "name": "Berlin",
+                "name": {
+                  "en-US": "Berlin"
+                },
                 "center": {
-                  "lat": 52.52000659999999,
-                  "lon": 13.404953999999975
+                  "en-US": {
+                    "lat": 52.52000659999999,
+                    "lon": 13.404953999999975
+                  }
                 }
               }
             },
             {
               "fields": {
-                "name": "Happy Cat",
+                "name": {
+                  "en-US": "Happy Cat",
+                  "tlh": "Quch vIghro'"
+                },
                 "bestFriend": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Entry",
-                    "id": "nyancat"
+                  "en-US": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Entry",
+                      "id": "nyancat"
+                    }
                   }
                 },
-                "likes": [
-                  "cheezburger"
-                ],
-                "color": "gray",
-                "birthday": "2003-10-28T23:00:00+00:00",
-                "lives": 1,
+                "likes": {
+                  "en-US": [
+                    "cheezburger"
+                  ]
+                },
+                "color": {
+                  "en-US": "gray"
+                },
+                "birthday": {
+                  "en-US": "2003-10-28T23:00:00+00:00"
+                },
+                "lives": {
+                  "en-US": 1
+                },
                 "image": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Asset",
-                    "id": "happycat"
+                  "en-US": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Asset",
+                      "id": "happycat"
+                    }
                   }
                 }
               },
@@ -501,8 +524,7 @@ http_interactions:
                 "id": "happycat",
                 "revision": 8,
                 "createdAt": "2013-06-27T22:46:20.171Z",
-                "updatedAt": "2013-11-18T15:58:02.018Z",
-                "locale": "en-US"
+                "updatedAt": "2013-11-18T15:58:02.018Z"
               }
             },
             {
@@ -525,23 +547,37 @@ http_interactions:
                 "id": "CVebBDcQsSsu6yKKIayy",
                 "revision": 1,
                 "createdAt": "2013-06-23T19:06:46.224Z",
-                "updatedAt": "2013-06-23T19:06:46.224Z",
-                "locale": "en-US"
+                "updatedAt": "2013-06-23T19:06:46.224Z"
               },
               "fields": {
-                "name": "Nyancat"
+                "name": {
+                  "en-US": "Nyancat"
+                }
               }
             },
             {
               "fields": {
-                "name": "Garfield",
-                "likes": [
-                  "lasagna"
-                ],
-                "color": "orange",
-                "lifes": null,
-                "lives": 9,
-                "birthday": "1979-06-18T23:00:00+00:00"
+                "name": {
+                  "en-US": "Garfield",
+                  "tlh": "Garfield"
+                },
+                "likes": {
+                  "en-US": [
+                    "lasagna"
+                  ]
+                },
+                "color": {
+                  "en-US": "orange"
+                },
+                "lifes": {
+                  "en-US": null
+                },
+                "lives": {
+                  "en-US": 9
+                },
+                "birthday": {
+                  "en-US": "1979-06-18T23:00:00+00:00"
+                }
               },
               "sys": {
                 "space": {
@@ -562,32 +598,46 @@ http_interactions:
                 "id": "garfield",
                 "revision": 2,
                 "createdAt": "2013-06-27T22:46:20.821Z",
-                "updatedAt": "2013-08-27T10:09:07.929Z",
-                "locale": "en-US"
+                "updatedAt": "2013-08-27T10:09:07.929Z"
               }
             },
             {
               "fields": {
-                "name": "Nyan Cat",
-                "likes": [
-                  "rainbows",
-                  "fish"
-                ],
-                "color": "rainbow",
+                "name": {
+                  "en-US": "Nyan Cat",
+                  "tlh": "Nyan vIghro'"
+                },
+                "likes": {
+                  "en-US": [
+                    "rainbows",
+                    "fish"
+                  ]
+                },
+                "color": {
+                  "en-US": "rainbow"
+                },
                 "bestFriend": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Entry",
-                    "id": "happycat"
+                  "en-US": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Entry",
+                      "id": "happycat"
+                    }
                   }
                 },
-                "birthday": "2011-04-04T22:00:00+00:00",
-                "lives": 1337,
+                "birthday": {
+                  "en-US": "2011-04-04T22:00:00+00:00"
+                },
+                "lives": {
+                  "en-US": 1337
+                },
                 "image": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Asset",
-                    "id": "nyancat"
+                  "en-US": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Asset",
+                      "id": "nyancat"
+                    }
                   }
                 }
               },
@@ -610,8 +660,7 @@ http_interactions:
                 "id": "nyancat",
                 "revision": 5,
                 "createdAt": "2013-06-27T22:46:19.513Z",
-                "updatedAt": "2013-09-04T09:19:39.027Z",
-                "locale": "en-US"
+                "updatedAt": "2013-09-04T09:19:39.027Z"
               }
             },
             {
@@ -634,24 +683,34 @@ http_interactions:
                 "id": "7qVBlCjpWE86Oseo40gAEY",
                 "revision": 2,
                 "createdAt": "2014-02-21T13:43:38.258Z",
-                "updatedAt": "2014-04-15T08:22:22.010Z",
-                "locale": "en-US"
+                "updatedAt": "2014-04-15T08:22:22.010Z"
               },
               "fields": {
-                "name": "San Francisco",
+                "name": {
+                  "en-US": "San Francisco"
+                },
                 "center": {
-                  "lat": 37.7749295,
-                  "lon": -122.41941550000001
+                  "en-US": {
+                    "lat": 37.7749295,
+                    "lon": -122.41941550000001
+                  }
                 }
               }
             },
             {
               "fields": {
-                "name": "Finn",
-                "description": "Fearless adventurer! Defender of pancakes.",
-                "likes": [
-                  "adventure"
-                ]
+                "name": {
+                  "en-US": "Finn"
+                },
+                "description": {
+                  "en-US": "Fearless adventurer! Defender of pancakes."
+                },
+                "likes": {
+                  "en-US": [
+                    "adventure"
+                  ]
+                },
+                "image": {}
               },
               "sys": {
                 "space": {
@@ -672,19 +731,24 @@ http_interactions:
                 "id": "finn",
                 "revision": 6,
                 "createdAt": "2013-06-27T22:46:21.450Z",
-                "updatedAt": "2013-09-09T16:15:01.297Z",
-                "locale": "en-US"
+                "updatedAt": "2013-09-09T16:15:01.297Z"
               }
             },
             {
               "fields": {
-                "name": "Jake",
-                "description": "Bacon pancakes, makin' bacon pancakes!",
+                "name": {
+                  "en-US": "Jake"
+                },
+                "description": {
+                  "en-US": "Bacon pancakes, makin' bacon pancakes!"
+                },
                 "image": {
-                  "sys": {
-                    "type": "Link",
-                    "linkType": "Asset",
-                    "id": "jake"
+                  "en-US": {
+                    "sys": {
+                      "type": "Link",
+                      "linkType": "Asset",
+                      "id": "jake"
+                    }
                   }
                 }
               },
@@ -707,8 +771,7 @@ http_interactions:
                 "id": "jake",
                 "revision": 5,
                 "createdAt": "2013-06-27T22:46:22.096Z",
-                "updatedAt": "2013-12-18T13:10:26.212Z",
-                "locale": "en-US"
+                "updatedAt": "2013-12-18T13:10:26.212Z"
               }
             },
             {
@@ -731,14 +794,17 @@ http_interactions:
                 "id": "ge1xHyH3QOWucKWCCAgIG",
                 "revision": 1,
                 "createdAt": "2014-02-21T13:43:23.210Z",
-                "updatedAt": "2014-02-21T13:43:23.210Z",
-                "locale": "en-US"
+                "updatedAt": "2014-02-21T13:43:23.210Z"
               },
               "fields": {
-                "name": "Paris",
+                "name": {
+                  "en-US": "Paris"
+                },
                 "center": {
-                  "lat": 48.856614,
-                  "lon": 2.3522219000000177
+                  "en-US": {
+                    "lat": 48.856614,
+                    "lon": 2.3522219000000177
+                  }
                 }
               }
             },
@@ -762,14 +828,17 @@ http_interactions:
                 "id": "5ETMRzkl9KM4omyMwKAOki",
                 "revision": 3,
                 "createdAt": "2014-02-21T13:42:57.752Z",
-                "updatedAt": "2014-08-23T14:42:35.207Z",
-                "locale": "en-US"
+                "updatedAt": "2014-08-23T14:42:35.207Z"
               },
               "fields": {
-                "name": "London",
+                "name": {
+                  "en-US": "London"
+                },
                 "center": {
-                  "lat": 51.508515,
-                  "lon": -0.12548719999995228
+                  "en-US": {
+                    "lat": 51.508515,
+                    "lon": -0.12548719999995228
+                  }
                 }
               }
             }
@@ -778,18 +847,22 @@ http_interactions:
             "Asset": [
               {
                 "fields": {
-                  "title": "Jake",
+                  "title": {
+                    "en-US": "Jake"
+                  },
                   "file": {
-                    "fileName": "jake.png",
-                    "contentType": "image/png",
-                    "details": {
-                      "image": {
-                        "width": 100,
-                        "height": 161
+                    "en-US": {
+                      "fileName": "jake.png",
+                      "contentType": "image/png",
+                      "details": {
+                        "image": {
+                          "width": 100,
+                          "height": 161
+                        },
+                        "size": 20480
                       },
-                      "size": 20480
-                    },
-                    "url": "//images.contentful.com/cfexampleapi/4hlteQAXS8iS0YCMU6QMWg/2a4d826144f014109364ccf5c891d2dd/jake.png"
+                      "url": "//images.contentful.com/cfexampleapi/4hlteQAXS8iS0YCMU6QMWg/2a4d826144f014109364ccf5c891d2dd/jake.png"
+                    }
                   }
                 },
                 "sys": {
@@ -804,24 +877,27 @@ http_interactions:
                   "id": "jake",
                   "revision": 2,
                   "createdAt": "2013-09-02T14:56:34.260Z",
-                  "updatedAt": "2013-09-02T15:22:39.466Z",
-                  "locale": "en-US"
+                  "updatedAt": "2013-09-02T15:22:39.466Z"
                 }
               },
               {
                 "fields": {
-                  "title": "Nyan Cat",
+                  "title": {
+                    "en-US": "Nyan Cat"
+                  },
                   "file": {
-                    "fileName": "Nyan_cat_250px_frame.png",
-                    "contentType": "image/png",
-                    "details": {
-                      "image": {
-                        "width": 250,
-                        "height": 250
+                    "en-US": {
+                      "fileName": "Nyan_cat_250px_frame.png",
+                      "contentType": "image/png",
+                      "details": {
+                        "image": {
+                          "width": 250,
+                          "height": 250
+                        },
+                        "size": 12273
                       },
-                      "size": 12273
-                    },
-                    "url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
+                      "url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
+                    }
                   }
                 },
                 "sys": {
@@ -836,25 +912,28 @@ http_interactions:
                   "id": "nyancat",
                   "revision": 1,
                   "createdAt": "2013-09-02T14:56:34.240Z",
-                  "updatedAt": "2013-09-02T14:56:34.240Z",
-                  "locale": "en-US"
+                  "updatedAt": "2013-09-02T14:56:34.240Z"
                 }
               },
               {
                 "fields": {
                   "file": {
-                    "fileName": "happycatw.jpg",
-                    "contentType": "image/jpeg",
-                    "details": {
-                      "image": {
-                        "width": 273,
-                        "height": 397
+                    "en-US": {
+                      "fileName": "happycatw.jpg",
+                      "contentType": "image/jpeg",
+                      "details": {
+                        "image": {
+                          "width": 273,
+                          "height": 397
+                        },
+                        "size": 59939
                       },
-                      "size": 59939
-                    },
-                    "url": "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
+                      "url": "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
+                    }
                   },
-                  "title": "Happy Cat"
+                  "title": {
+                    "en-US": "Happy Cat"
+                  }
                 },
                 "sys": {
                   "space": {
@@ -868,8 +947,7 @@ http_interactions:
                   "id": "happycat",
                   "revision": 2,
                   "createdAt": "2013-09-02T14:56:34.267Z",
-                  "updatedAt": "2013-09-02T15:11:24.361Z",
-                  "locale": "en-US"
+                  "updatedAt": "2013-09-02T15:11:24.361Z"
                 }
               },
               {
@@ -885,29 +963,34 @@ http_interactions:
                   "id": "1x0xpXu4pSGS4OukSyWGUK",
                   "revision": 6,
                   "createdAt": "2013-11-06T09:45:10.000Z",
-                  "updatedAt": "2013-12-18T13:27:14.917Z",
-                  "locale": "en-US"
+                  "updatedAt": "2013-12-18T13:27:14.917Z"
                 },
                 "fields": {
-                  "title": "Doge",
-                  "file": {
-                    "fileName": "doge.jpg",
-                    "contentType": "image/jpeg",
-                    "details": {
-                      "image": {
-                        "width": 5800,
-                        "height": 4350
-                      },
-                      "size": 522943
-                    },
-                    "url": "//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg"
+                  "title": {
+                    "en-US": "Doge"
                   },
-                  "description": "nice picture"
+                  "file": {
+                    "en-US": {
+                      "fileName": "doge.jpg",
+                      "contentType": "image/jpeg",
+                      "details": {
+                        "image": {
+                          "width": 5800,
+                          "height": 4350
+                        },
+                        "size": 522943
+                      },
+                      "url": "//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg"
+                    }
+                  },
+                  "description": {
+                    "en-US": "nice picture"
+                  }
                 }
               }
             ]
           }
         }
     http_version: 
-  recorded_at: Wed, 02 Dec 2015 18:20:28 GMT
+  recorded_at: Wed, 02 Dec 2015 18:20:29 GMT
 recorded_with: VCR 2.9.3

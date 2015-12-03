@@ -201,3 +201,74 @@ For Kramdown this would be:
 ```
 <%= Kramdown::Document.new(data).to_html %>
 ```
+
+### Locales
+
+If you have localized entries, and want to display content for multiple locales.
+You can now include `locale: '*'` in your CDA query.
+
+Then you have the following methods of accessing locales:
+
+* **Manual access**
+
+You can access your localized fields by fetching the locale directly from the data
+
+```html
+<h1>Partners</h1>
+<ol>
+  <% data.partners.partner.each do |id, partner| %>
+    <li><%= partner["name"]['en-US'] %></li>
+  <% end %>
+</ol>
+```
+
+* **Entry Helper**
+
+You can also map an specific locale for all entry fields using `localize_entry`
+
+```html
+<h1>Partners</h1>
+<ol>
+  <% data.partners.partner.each do |id, partner| %>
+    <% localized_partner = localize_entry(partner, 'es') %>
+    <li><%= localized_partner["name"] %></li>
+  <% end %>
+</ol>
+```
+
+* **Generic Field Helper**
+
+The `localize` helper will map an specific locale to a field of your entry
+
+```html
+<h1>Partners</h1>
+<ol>
+  <% data.partners.partner.each do |id, partner| %>
+    <li>Value Field: <%= localize(partner, 'name', 'en-US') %></li>
+    <li>Array Field: <%= localize(partner, 'phones', 'es') %></li>
+  <% end %>
+</ol>
+```
+
+* **Specific Field Type Helper**
+
+Or, you can use `localize_value` or `localize_array` if you want more granularity.
+
+> This method is discouraged, as `localize` achieves the same goal and is a field-type
+agnostic wrapper of these methods.
+
+```html
+<h1>Partners</h1>
+<ol>
+  <% data.partners.partner.each do |id, partner| %>
+    <li>Value Field: <%= localize_value(partner['name'], 'en-US') %></li>
+    <li>Array Field: <%= localize_array(partner['phones'], 'es') %></li>
+  <% end %>
+</ol>
+```
+
+If your fields are not localized, the value of the field will be returned.
+
+In case of the field being localized but no value being set for a given entry, it will use
+a fallback locale, by default is `en-US` but can be specified as an additional
+parameter in all the mentioned calls.
