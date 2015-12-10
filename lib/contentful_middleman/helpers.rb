@@ -1,3 +1,5 @@
+require 'contentful_middleman/tools/preview_proxy'
+
 module ContentfulMiddleman
   module Helpers
     def contentful_instances
@@ -31,6 +33,17 @@ module ContentfulMiddleman
         return value.fetch(fallback_locale)
       end
       value
+    end
+
+    def with_preview(space: '', access_token: '', tries: 3, expires_in: ContentfulMiddleman::Tools::PreviewProxy.hours(2), &block)
+      preview_client = ContentfulMiddleman::Tools::PreviewProxy.instance(
+        space: space,
+        access_token: access_token,
+        tries: tries,
+        expires_in: expires_in
+      )
+
+      block.call(preview_client)
     end
   end
 end

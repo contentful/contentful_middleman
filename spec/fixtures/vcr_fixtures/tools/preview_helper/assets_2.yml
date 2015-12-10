@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/assets?order=sys.createdAt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.8.0
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Server:
+      - nginx
+      X-Contentful-Request-Id:
+      - 90a-2093152464
+      Content-Length:
+      - '844'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Thu, 10 Dec 2015 20:34:01 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-atl6226-ATL
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+VXbU/bMBD+zq+o8nlt/JbXbxWTGNvYhtoKxjQhYzutaZJ6
+        jTPoEP99TtK0SSlQBtq0LZ/8cj7fPb7n7nKz1+lY2SKzws6NGZqJXihhZlZ/
+        PqcLy6zdvipk9EzT2KyTcpZNpTITUE5imUhtZhBUc6lFUij8Uiqs1BqxSIqY
+        ry+qLpM6Lm/7sKBpZ59qq9BYfeZAuVcrKA8Uax9osjpzzqg+Rw5Q1+fR3Kz3
+        VDpu6DAn2CzVItXDpVsyoWNh35HiQlMZt60rLyzlN6woN64k1xOzYS5f27y0
+        fCLkeFJAYjZX/hR7JZbrz8rkj0I5RMjDjZ2WmJXPC+At2y5tyXpLj6I8NsPE
+        ZpG4pomKBVXSJmPlatq/OiH7yWCcJ9+QmI4SO+AUMA4D7PoevPC5hzDBwg8c
+        CgB3IbQL/LdiubLqdjla2dYKm8InK1OUbWJ1R6qUrIPsvUynrecqwymd1q81
+        KDVugCZ5AUfT7SJM66+2swX2OqqzTLSCrFKWGvdNJDWjby6+y0zO0uJ5GkHJ
+        5oJqwfvF61oIQNwFQRegISSh44aY9BABZ009ueJPOxDPGK1IIdLuaFD7Vvm1
+        RH83Ur2l0yZ4jxLq0sj/fgIt08b6BU0MrAgEXbgLgRAgfpNpzyDQJNbiuH86
+        8OUAfN4/GrnHRydjG1HCfeRCQiIACQSGSYSxyGF+ADni3F5h938QpnD3Hrag
+        J7HF3ZEtTohQiIMecd0WvZ7NlseqzIQqtTC54ap3qXYpLZdKbIg9o7Z4+P7a
+        ggNvF2o4QYCDF6kt+OjsU3p5NjzMpv3Dw2mez7L9LLOxb8jh84gidgFdRjxq
+        Rh6KvAuELyIQ2G0E1/xoxImu+4A3BdplI/Avl5sakZdhkLdbvXFCCENEetiF
+        v86gZqv4l9d8eA2u1WlO1OBgQD7m08Hi5GD07p4ncR9MahB2gTsEQUgMyKAH
+        wGNJDaIu9IcQh8gLIekFsP2G9yW12oiHe+nXM9OxNux9LMNxI/8HkpvjV/8L
+        2ws/wbu1zg5CAXmZ3nl7QNiMQYQD5mLfIcgXEXIjAn0AA+Bg5EPfXuG3NbVx
+        kbG5VLpqJa1UMtFRkul8LjZaO3P8697t3k9RwcMfkw0AAA==
+    http_version: 
+  recorded_at: Thu, 10 Dec 2015 20:34:01 GMT
+recorded_with: VCR 2.9.3

@@ -183,7 +183,7 @@ data into your templates.
 Consider that we have data stored under `data/partners/partner`. Then in our templates we could use that data like
 this:
 
-```html
+```erb
 <h1>Partners</h1>
 <ol>
   <% data.partners.partner.each do |id, partner| %>
@@ -213,7 +213,7 @@ Then you have the following methods of accessing locales:
 
 You can access your localized fields by fetching the locale directly from the data
 
-```html
+```erb
 <h1>Partners</h1>
 <ol>
   <% data.partners.partner.each do |id, partner| %>
@@ -226,7 +226,7 @@ You can access your localized fields by fetching the locale directly from the da
 
 You can also map an specific locale for all entry fields using `localize_entry`
 
-```html
+```erb
 <h1>Partners</h1>
 <ol>
   <% data.partners.partner.each do |id, partner| %>
@@ -240,7 +240,7 @@ You can also map an specific locale for all entry fields using `localize_entry`
 
 The `localize` helper will map an specific locale to a field of your entry
 
-```html
+```erb
 <h1>Partners</h1>
 <ol>
   <% data.partners.partner.each do |id, partner| %>
@@ -257,7 +257,7 @@ Or, you can use `localize_value` or `localize_array` if you want more granularit
 > This method is discouraged, as `localize` achieves the same goal and is a field-type
 agnostic wrapper of these methods.
 
-```html
+```erb
 <h1>Partners</h1>
 <ol>
   <% data.partners.partner.each do |id, partner| %>
@@ -272,3 +272,53 @@ If your fields are not localized, the value of the field will be returned.
 In case of the field being localized but no value being set for a given entry, it will use
 a fallback locale, by default is `en-US` but can be specified as an additional
 parameter in all the mentioned calls.
+
+### Preview API Helper
+
+You can use the `#with_preview` helper to try your Preview API content without having to
+generate the entire `data` structures.
+
+This generates a new Preview Contentful Client and has a cache that will store your objects
+in memory until they are considered to need refresh.
+
+It can be used like a Contentful Client:
+
+```erb
+<% with_preview(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1') do |preview| %>
+  <% entry = preview.entry('nyancat') %>
+
+  <p>Name: <%= entry.name %></p>
+<% end %>
+```
+
+If you want to clear the cache to force a refresh:
+
+```erb
+<% with_preview(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1') do |preview| %>
+  <% preview.clear_cache %>
+<% end %>
+```
+
+#### Caching Rules
+
+* Every preview client will be cached by Space/Access Token combination
+* Only `entry`, `entries`, `asset` and `assets` will be cached
+* Every call will be cached by it's query parameters and ID (if ID is applicable)
+* Each call will be considered, by default, stale after 3 tries or 2 hours
+* Cache can be cleared by calling `#clear_cache`, this applies per preview client
+
+#### Caching Configuration
+
+You can configure `:tries` and `:expires_in` in the `#with_preview` call like this:
+
+```erb
+<% with_preview(
+     space: 'cfexampleapi',
+     access_token: 'b4c0n73n7fu1',
+     tries: 20,                                                      # Set Tries to 20 before stale
+     expires_in: ContentfulMiddleman::Tools::PreviewProxy.minutes(5) # Set Expiration to 5 minutes
+   ) do |preview| %>
+  <!-- do your stuff -->
+<% end %>
+```
+

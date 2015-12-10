@@ -95,5 +95,22 @@ describe ContentfulMiddleman::Helpers do
         })
       end
     end
+
+    describe 'preview helpers' do
+      describe '#with_preview' do
+        it 'creates a preview client' do
+          vcr('helpers/preview') {
+            subject.with_preview(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1') do |preview|
+              expect(preview).to be_a ::Contentful::Client
+              expect(preview).to be_a ::ContentfulMiddleman::Tools::PreviewProxy
+
+              preview_entries = preview.entries
+              expect(preview_entries.size).to eq 11
+              expect(preview_entries).to be_a ::Contentful::Array
+            end
+          }
+        end
+      end
+    end
   end
 end
