@@ -6,7 +6,13 @@ rvm:
 
 script: "bundle exec rake test"
 
+before_install: gem install bundler -v 1.10.6
+
 env: TEST=true JRUBY_OPTS='--2.0'
 notifications:
   slack:
     secure: MMWxqKMT4m2UhZ+Ix4wgCs1nLvu9hUFCbyV/qJWmIFif7V4GUKXi6h9krMqGqBAd3YV3pP/InPlw3QoKBUGIAIr5GzDpSnU5ACv7E61v548qViEvPBqsfhRHha2M164rUHn32tpejJnIizVUyND/hIzNviIrab+G8uOaZXUtB5I=
+
+matrix:
+  allow_failures:
+    - rvm: jruby

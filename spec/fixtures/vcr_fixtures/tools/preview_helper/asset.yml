@@ -1,0 +1,104 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/assets/nyancat
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - RubyContentfulGem/0.8.0
+      Authorization:
+      - Bearer b4c0n73n7fu1
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"7a92346b83c581d30e36cad903578c5a"'
+      Server:
+      - nginx
+      X-Contentful-Request-Id:
+      - 405-1395099068
+      Content-Length:
+      - '724'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 11 Dec 2015 12:37:34 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-jfk1034-JFK
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "fields": {
+            "title": "Nyan Cat",
+            "file": {
+              "fileName": "Nyan_cat_250px_frame.png",
+              "contentType": "image/png",
+              "details": {
+                "image": {
+                  "width": 250,
+                  "height": 250
+                },
+                "size": 12273
+              },
+              "url": "//images.contentful.com/cfexampleapi/4gp6taAwW4CmSgumq2ekUm/9da0cd1936871b8d72343e895a00d611/Nyan_cat_250px_frame.png"
+            }
+          },
+          "sys": {
+            "space": {
+              "sys": {
+                "type": "Link",
+                "linkType": "Space",
+                "id": "cfexampleapi"
+              }
+            },
+            "type": "Asset",
+            "id": "nyancat",
+            "revision": 1,
+            "createdAt": "2013-09-02T14:56:34.240Z",
+            "updatedAt": "2013-09-02T14:56:34.240Z",
+            "locale": "en-US"
+          }
+        }
+    http_version: 
+  recorded_at: Fri, 11 Dec 2015 12:37:34 GMT
+recorded_with: VCR 2.9.3

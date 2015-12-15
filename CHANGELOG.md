@@ -1,5 +1,8 @@
 # Change Log
 ## Unreleased
+### Added
+* Added PreviewProxy for caching Preview API results
+* Added `#with_preview` view helper for Preview API calls in real-time with a small cache
 
 ## 1.2.0
 ### Added
