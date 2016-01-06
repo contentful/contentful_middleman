@@ -54,6 +54,7 @@ use_preview_api     | Boolean to toggle the used API. Set it to `false` to use `
 all_entries         | Boolean to toggle multiple requests to the API for getting over 1000 entries. This uses a naive approach and can get rate limited. When using this, have in mind adding an `order` in your `:cda_query` . Default order is `order: 'sys.createdAt'`
 rebuild_on_webhook  | Boolean to toggle Webhook server. Server will run in port 5678, and will be expecting to receive Contentful Webhook calls on `/receive`
 webhook_timeout     | Integer (in seconds) for wait time after Webhook received for rebuilding. Only used if `:rebuild_on_webhook` is true. Defaults to 300 seconds
+webhook_controller  | Class for handling Webhook response, defaults to `::ContentfulMiddleman::WebhookHandler`
 
 You can activate the extension multiple times to import entries from different spaces.
 
