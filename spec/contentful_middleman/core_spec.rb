@@ -68,21 +68,20 @@ describe ContentfulMiddleman::Core do
 
         expect(ContentfulMiddleman.instances.size).to eq(1)
       end
+    end
+    describe 'webhook handler' do
+      it 'does not get called if rebuild_on_webhook is false' do
+        expect(ContentfulMiddleman::WebhookHandler).not_to receive(:start)
 
-      describe 'webhook handler' do
-        it 'does not get called if rebuild_on_webhook is false' do
-          expect(ContentfulMiddleman::WebhookHandler).not_to receive(:start)
+        subject.app.run_hook(:before_server)
+      end
 
-          subject.after_configuration
-        end
+      it 'gets called if rebuild_on_webhook is true' do
+        options.rebuild_on_webhook = true
 
-        it 'gets called if rebuild_on_webhook is true' do
-          options.rebuild_on_webhook = true
+        expect(ContentfulMiddleman::WebhookHandler).to receive(:start)
 
-          expect(ContentfulMiddleman::WebhookHandler).to receive(:start)
-
-          subject.after_configuration
-        end
+        subject.app.run_hook(:before_server)
       end
     end
   end

@@ -4,6 +4,7 @@ require 'vcr'
 require 'yaml'
 
 require 'contentful_middleman'
+require 'middleman-core'
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_fixtures"
@@ -47,13 +48,18 @@ class OptionsDouble
     use_preview_api: false,
     all_entries: false,
     rebuild_on_webhook: false,
-    webhook_timeout: 300
+    webhook_timeout: 300,
+    webhook_controller: ::ContentfulMiddleman::WebhookHandler
   }
 
   def initialize(options = DEFAULT_OPTIONS)
     options.each do |field, value|
       define_singleton_method(field.to_sym) do
         value
+      end
+
+      define_singleton_method("#{field}=".to_sym) do |value|
+        options[field] = value
       end
     end
   end

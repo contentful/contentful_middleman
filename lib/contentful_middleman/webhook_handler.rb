@@ -14,7 +14,7 @@ module ContentfulMiddleman
         config[:endpoints] = [{
           endpoint: '/receive',
           timeout: options.webhook_timeout,
-          controller: ::ContentfulMiddleman::WebhookHandler
+          controller: options.webhook_controller
         }]
         logger = Logger.new(STDOUT)
         logger.level = Logger::INFO

@@ -40,8 +40,22 @@ module ContentfulMiddleman
     option :webhook_timeout, 300,
       "Wait time before rebuild after receiving a Webhook call"
 
+    option :webhook_controller, ::ContentfulMiddleman::WebhookHandler,
+      "Controller for managing Webhook callbacks"
+
 
     helpers ContentfulMiddleman::Helpers
+
+    attr_reader :app
+    def initialize(app, options_hash = {}, &block)
+      super
+      @app = app
+
+      this = self # Hack due to context change
+      app.before_server do
+        this.webhook_options
+      end
+    end
 
     #
     # Middleman hooks
@@ -50,8 +64,10 @@ module ContentfulMiddleman
       massage_options
 
       ContentfulMiddleman.instances << (ContentfulMiddleman::Instance.new self)
+    end
 
-      webhook_options
+    def webhook_options
+      ::ContentfulMiddleman::WebhookHandler.start(options) if options.rebuild_on_webhook
     end
 
     private
@@ -83,10 +99,6 @@ module ContentfulMiddleman
       end
 
       options.content_types = new_content_types_options
-    end
-
-    def webhook_options
-      ::ContentfulMiddleman::WebhookHandler.start(options) if options.rebuild_on_webhook
     end
   end
 end
