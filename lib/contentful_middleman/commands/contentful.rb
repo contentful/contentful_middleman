@@ -1,4 +1,4 @@
-require 'middleman-core/cli'
+require 'middleman-cli'
 require 'date'
 require 'digest'
 require 'contentful_middleman/commands/context'

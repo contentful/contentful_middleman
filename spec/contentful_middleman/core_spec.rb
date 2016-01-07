@@ -4,7 +4,7 @@ class MapperDouble
 end
 
 describe ContentfulMiddleman::Core do
-  subject { described_class.new Middleman::Application }
+  subject { described_class.new Middleman::Application.new }
   let(:options) { subject.options }
 
   before(:each) do
@@ -73,7 +73,7 @@ describe ContentfulMiddleman::Core do
       it 'does not get called if rebuild_on_webhook is false' do
         expect(ContentfulMiddleman::WebhookHandler).not_to receive(:start)
 
-        subject.app.run_hook(:before_server)
+        subject.app.execute_callbacks(:before_server)
       end
 
       it 'gets called if rebuild_on_webhook is true' do
@@ -81,7 +81,7 @@ describe ContentfulMiddleman::Core do
 
         expect(ContentfulMiddleman::WebhookHandler).to receive(:start)
 
-        subject.app.run_hook(:before_server)
+        subject.app.execute_callbacks(:before_server)
       end
     end
   end
