@@ -1,8 +1,14 @@
 # Change Log
 ## Unreleased
+
+## 1.3.0
 ### Added
 * Added PreviewProxy for caching Preview API results
 * Added `#with_preview` view helper for Preview API calls in real-time with a small cache
+* Added `:webhook_controller` to extension options to be able to customize the Webhook Handler
+
+### Changed
+* Moved Webhook Integration to `before_server` hook to avoid multiple Webhook server instances running
 
 ## 1.2.0
 ### Added
