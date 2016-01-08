@@ -12,7 +12,7 @@ module Middleman
   module Cli
     # This class provides an "contentful" command for the middleman CLI.
 
-    class Contentful < Thor
+    class Contentful < Thor::Group
       include Thor::Actions
 
       # Path where Middleman expects the local data to be stored
@@ -20,10 +20,7 @@ module Middleman
 
       check_unknown_options!
 
-      namespace :contentful
-      desc 'contentful', 'Import data from Contentful'
-
-      method_option "rebuild",
+      class_option "rebuild",
         aliases: "-r",
         desc: "Rebuilds the site if there were changes in the imported data"
 
@@ -37,7 +34,7 @@ module Middleman
       end
 
       def contentful
-        if shared_instance.respond_to? :contentful_instances
+        if contentful_instances.size > 0
           ContentfulMiddleman::VersionHash.source_root    = self.class.source_root
           ContentfulMiddleman::LocalData::Store.base_path = MIDDLEMAN_LOCAL_DATA_FOLDER
           ContentfulMiddleman::LocalData::File.thor       = self
@@ -50,31 +47,34 @@ module Middleman
           end
 
           Middleman::Cli::Build.new.build if hash_local_data_changed && options[:rebuild]
-          shared_instance.logger.info 'Contentful Import: Done!'
+          logger.info 'Contentful Import: Done!'
         else
           raise Thor::Error.new "You need to activate the contentful extension in config.rb before you can import data from Contentful"
         end
       end
 
       private
-        def contentful_instances
-          shared_instance.contentful_instances
+      def logger
+        ::Middleman::Logger.singleton
+      end
+
+      def contentful_instances
+        app = ::Middleman::Application.new do
+          config[:environment] = :contentful
         end
 
-        def create_import_task(instance)
-          space_name           = instance.space_name.to_s
-          content_type_names   = instance.content_types_ids_to_names
-          content_type_mappers = instance.content_types_ids_to_mappers
+        app.contentful_instances
+      end
 
-          ContentfulMiddleman::ImportTask.new(space_name, content_type_names, content_type_mappers, instance)
-        end
+      def create_import_task(instance)
+        space_name           = instance.space_name.to_s
+        content_type_names   = instance.content_types_ids_to_names
+        content_type_mappers = instance.content_types_ids_to_mappers
 
-        def shared_instance
-          @shared_instance ||= ::Middleman::Application.server.inst do
-            set :environment, :contentful
-          end
-        end
+        ContentfulMiddleman::ImportTask.new(space_name, content_type_names, content_type_mappers, instance)
+      end
+
+      Base.register(self, 'contentful', 'contentful [--rebuild]', 'Import Contentful data to your Data folder')
     end
-
   end
 end

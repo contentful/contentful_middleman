@@ -45,6 +45,14 @@ module ContentfulMiddleman
 
 
     helpers ContentfulMiddleman::Helpers
+    include ContentfulMiddleman::Helpers
+
+    expose_to_application contentful_instances: :contentful_instances
+
+    expose_to_template localize_entry: :localize_entry
+    expose_to_template localize: :localize
+    expose_to_template localize_array: :localize_array
+    expose_to_template localize_value: :localize_value
 
     attr_reader :app
     def initialize(app, options_hash = {}, &block)
