@@ -60,7 +60,7 @@ module Middleman
 
       def contentful_instances
         app = ::Middleman::Application.new do
-          config[:environment] = :contentful
+          config[:mode] = :contentful
         end
 
         app.contentful_instances
