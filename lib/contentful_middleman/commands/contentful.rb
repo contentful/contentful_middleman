@@ -59,11 +59,13 @@ module Middleman
       end
 
       def contentful_instances
-        app = ::Middleman::Application.new do
+        app.contentful_instances
+      end
+
+      def app
+        @app ||= ::Middleman::Application.new do
           config[:mode] = :contentful
         end
-
-        app.contentful_instances
       end
 
       def create_import_task(instance)
