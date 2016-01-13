@@ -46,10 +46,10 @@ module ContentfulMiddleman
 
     helpers ContentfulMiddleman::Helpers
 
-    attr_reader :app
+    attr_reader :middleman_app
     def initialize(app, options_hash = {}, &block)
       super
-      @app = app
+      @middleman_app = app
 
       this = self # Hack due to context change
       app.before_server do
