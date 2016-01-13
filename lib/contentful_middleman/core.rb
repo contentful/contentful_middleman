@@ -54,10 +54,10 @@ module ContentfulMiddleman
     expose_to_template localize_array: :localize_array
     expose_to_template localize_value: :localize_value
 
-    attr_reader :app
+    attr_reader :middleman_app
     def initialize(app, options_hash = {}, &block)
       super
-      @app = app
+      @middleman_app = app
 
       this = self # Hack due to context change
       app.before_server do

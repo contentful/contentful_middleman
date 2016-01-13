@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+### Fixed
+* Middleman not loading extension due to `@app` reassignment
 
 ## 1.3.0
 ### Added
