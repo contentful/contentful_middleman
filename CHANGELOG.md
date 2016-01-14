@@ -1,9 +1,11 @@
 # Change Log
 ## Unreleased
+
+## 1.3.1
 ### Fixed
 * Middleman not loading extension due to `@app` reassignment
 
-## 1.3.0
+## 1.3.0 [YANKED]
 ### Added
 * Added PreviewProxy for caching Preview API results
 * Added `#with_preview` view helper for Preview API calls in real-time with a small cache
