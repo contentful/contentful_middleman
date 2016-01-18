@@ -35,7 +35,9 @@ module ContentfulMiddleman
         content_type_mapper = content_type_mapper_class.new(entries, @contentful.options)
         content_type_mapper.map(context, entry)
 
-        LocalData::File.new(context.to_yaml, File.join(@space_name, content_type_name, entry.id))
+        entry_id = entry.sys.key?(:id) ? entry.sys[:id] : entry.id
+
+        LocalData::File.new(context.to_yaml, File.join(@space_name, content_type_name, entry_id.to_s))
       end.compact
     end
 
