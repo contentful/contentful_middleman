@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+### Fixed
+* Fixed Entry ID fetch on import task when having an ID field in the Content Type[#77](https://github.com/contentful/contentful_middleman/issues/77)
 
 ## 1.3.1
 ### Fixed
