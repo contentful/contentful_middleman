@@ -6,9 +6,13 @@ class ClientDouble
   end
 end
 
+class EntryDouble
+end
+
 describe ContentfulMiddleman::ImportTask do
   let(:path) { File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'space_hash_fixtures')) }
-  subject { described_class.new 'foobar', {}, {}, ClientDouble.new }
+  let(:client) { ClientDouble.new }
+  subject { described_class.new 'foobar', {}, {}, client }
 
   describe 'instance methods' do
     before do
@@ -35,6 +39,23 @@ describe ContentfulMiddleman::ImportTask do
         subject.run
 
         expect(subject.changed_local_data?).to eq(true)
+      end
+    end
+
+    it '#entries' do
+      expect(subject.entries).to eq client.entries
+    end
+
+    describe '#file_name' do
+      it 'uses entry.sys[:id] over entry.id' do
+        entry = EntryDouble.new('foo', {}, {id: 'bar'})
+        client.entries << entry
+
+        expect(entry.id).not_to eq entry.sys[:id]
+        expect(entry.id).to eq 'bar'
+        expect(entry.sys[:id]).to eq 'foo'
+
+        expect(subject.file_name('baz', entry)).to eq File.join('foobar', 'baz', 'foo')
       end
     end
   end

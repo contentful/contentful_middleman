@@ -64,3 +64,25 @@ class OptionsDouble
     end
   end
 end
+
+class EntryDouble
+  attr_reader :id, :sys, :fields
+
+  def initialize(id, sys_data = {}, fields = {}, updated_at = nil)
+    @id = id
+    sys_data[:id] = id
+    sys_data[:updated_at] = updated_at
+    @sys = sys_data
+    @fields = fields
+
+    fields.each do |k, v|
+      define_singleton_method k do
+        v
+      end
+    end
+  end
+
+  def updated_at
+    sys[:updated_at]
+  end
+end
