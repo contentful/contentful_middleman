@@ -22,6 +22,15 @@ module ContentfulMiddleman
       @changed_local_data
     end
 
+    def entries
+      @entries ||= @contentful.entries
+    end
+
+    def file_name(content_type_name, entry)
+      entry_id = entry.sys.key?(:id) ? entry.sys[:id] : entry.id
+      File.join(@space_name, content_type_name, entry_id.to_s)
+    end
+
     private
     def local_data_files
       entries.map do |entry|
@@ -35,14 +44,8 @@ module ContentfulMiddleman
         content_type_mapper = content_type_mapper_class.new(entries, @contentful.options)
         content_type_mapper.map(context, entry)
 
-        entry_id = entry.sys.key?(:id) ? entry.sys[:id] : entry.id
-
-        LocalData::File.new(context.to_yaml, File.join(@space_name, content_type_name, entry_id.to_s))
+        LocalData::File.new(context.to_yaml, file_name(content_type_name, entry))
       end.compact
-    end
-
-    def entries
-      @entries ||= @contentful.entries
     end
   end
 end

@@ -1,14 +1,5 @@
 require 'spec_helper'
 
-class EntryDouble
-  attr_reader :id, :updated_at
-
-  def initialize(id, updated_at)
-    @id = id
-    @updated_at = updated_at
-  end
-end
-
 describe ContentfulMiddleman::VersionHash do
   let(:path) { File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'space_hash_fixtures')) }
   describe 'class methods' do
@@ -32,7 +23,7 @@ describe ContentfulMiddleman::VersionHash do
     end
 
     describe '::write_for_space_with_entries' do
-      let(:entries) { [EntryDouble.new(1, '2015-11-25'), EntryDouble.new(2, '2015-11-25')] }
+      let(:entries) { [EntryDouble.new(1, {}, {}, '2015-11-25'), EntryDouble.new(2, {}, {}, '2015-11-25')] }
 
       before do
         described_class.source_root = path
