@@ -15,7 +15,7 @@ module ContentfulMiddleman
         end
 
         def ensure_backup_path!
-          return if ::File.exists? basepath
+          return if ::File.exist? basepath
 
           FileUtils.mkdir_p basepath
         end
