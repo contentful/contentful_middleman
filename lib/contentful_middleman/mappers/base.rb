@@ -64,6 +64,9 @@ module ContentfulMiddleman
 
         fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
 
+        # Prevent entries with no values from breaking the import
+        fields ||= []
+
         fields.each {|k, v| map_field context, k, v}
       end
 

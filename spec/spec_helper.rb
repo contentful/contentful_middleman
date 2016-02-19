@@ -75,9 +75,11 @@ class EntryDouble
     @sys = sys_data
     @fields = fields
 
-    fields.each do |k, v|
-      define_singleton_method k do
-        v
+    unless fields.nil?
+      fields.each do |k, v|
+        define_singleton_method k do
+          v
+        end
       end
     end
   end
