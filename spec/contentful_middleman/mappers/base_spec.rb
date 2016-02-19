@@ -85,4 +85,14 @@ describe ContentfulMiddleman::Mapper::Base do
       expect(subject.entries).to match(entries)
     end
   end
+
+  describe 'issues' do
+    it 'should not fail on empty entry - #76' do
+      entry = EntryDouble.new('foo', {}, nil)
+      context = ContentfulMiddleman::Context.new
+
+      expect { subject.map(context, entry) }.not_to raise_error
+      expect(context.hashize).to eq(id: 'foo')
+    end
+  end
 end
