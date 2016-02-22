@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 1.3.2
 ### Fixed
 * Fixed Entry ID fetch on import task when having an ID field in the Content Type[#77](https://github.com/contentful/contentful_middleman/issues/77)
 * Fixed `NoMethodError` when Entry has no populated fields[#76](https://github.com/contentful/contentful_middleman/issues/76)
