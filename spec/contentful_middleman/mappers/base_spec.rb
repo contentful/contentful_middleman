@@ -40,6 +40,7 @@ describe ContentfulMiddleman::Mapper::Base do
           :name=>"Doge",
           :image=> {
             :title=>"Doge",
+            :description=>"nice picture",
             :url=> "//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg"
           },
           :description=>"such json\nwow"
