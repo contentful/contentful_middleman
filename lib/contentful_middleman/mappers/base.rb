@@ -52,9 +52,10 @@ module ContentfulMiddleman
       end
 
       def map_asset(asset)
-        context       = Context.new
+        context = Context.new
         context.title = asset.title
-        context.url   = asset.file.url
+        context.description = asset.description
+        context.url = asset.file.url
 
         context
       end
