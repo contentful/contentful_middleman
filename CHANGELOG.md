@@ -1,6 +1,12 @@
 # Change Log
 ## Unreleased
 
+### Added
+* Add asset's `:description` to asset mapping[#82](https://github.com/contentful/contentful_middleman/pull/82)
+
+### Fixed
+* Fixed error when asset's `:file` field is `nil`[#85](https://github.com/contentful/contentful_middleman/issues/85)
+
 ## 1.3.2
 ### Fixed
 * Fixed Entry ID fetch on import task when having an ID field in the Content Type[#77](https://github.com/contentful/contentful_middleman/issues/77)

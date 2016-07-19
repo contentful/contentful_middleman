@@ -95,5 +95,24 @@ describe ContentfulMiddleman::Mapper::Base do
       expect { subject.map(context, entry) }.not_to raise_error
       expect(context.hashize).to eq(id: 'foo')
     end
+
+    it 'should not fail on missing asset file - #85' do
+      vcr('entries/nil_file') {
+        context = ContentfulMiddleman::Context.new
+        client = Contentful::Client.new(
+          space: '7f19o1co4hn7',
+          access_token: '<ACCESS_TOKEN>',
+          api_url: 'preview.contentful.com',
+          dynamic_entries: :auto
+        )
+
+        entry_with_nil_file = client.entries('sys.id' => '6C4T3KAZUWaysA6ooQOWiE').first
+
+        expect(entry_with_nil_file.one_media.file).to be_nil
+
+        expect { subject.map(context, entry_with_nil_file) }.not_to raise_error
+        expect(context.hashize[:oneMedia].keys.map(&:to_s)).not_to include('url')
+      }
+    end
   end
 end
