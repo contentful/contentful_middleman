@@ -55,7 +55,7 @@ module ContentfulMiddleman
         context = Context.new
         context.title = asset.title
         context.description = asset.description
-        context.url = asset.file.url
+        context.url = asset.file.url unless asset.file.nil?
 
         context
       end
