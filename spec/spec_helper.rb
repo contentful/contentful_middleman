@@ -47,19 +47,21 @@ class OptionsDouble
     content_types: {},
     use_preview_api: false,
     all_entries: false,
+    all_entries_page_size: 1000,
     rebuild_on_webhook: false,
     webhook_timeout: 300,
     webhook_controller: ::ContentfulMiddleman::WebhookHandler
   }
 
-  def initialize(options = DEFAULT_OPTIONS)
+  def initialize(options = {})
+    options = DEFAULT_OPTIONS.merge(options)
     options.each do |field, value|
       define_singleton_method(field.to_sym) do
         value
       end
 
-      define_singleton_method("#{field}=".to_sym) do |value|
-        options[field] = value
+      define_singleton_method("#{field}=".to_sym) do |v|
+        options[field] = v
       end
     end
   end
