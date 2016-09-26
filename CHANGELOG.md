@@ -1,6 +1,8 @@
 # Change Log
 ## Unreleased
 
+## 1.4.0
+
 ### Added
 * Add asset's `:description` to asset mapping[#82](https://github.com/contentful/contentful_middleman/pull/82)
 * Add Page Size customization option when using `:all_entries`[#90](https://github.com/contentful/contentful_middleman/issues/90)
