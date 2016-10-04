@@ -62,11 +62,9 @@ describe ContentfulMiddleman::Mapper::Base do
           },
           :image=>{
             :'en-US'=>{
-              "sys"=>{
-                "type"=>"Link",
-                "linkType"=>"Asset",
-                "id"=>"1x0xpXu4pSGS4OukSyWGUK"
-              }
+              :title=>"Doge",
+              :description=>"nice picture",
+              :url=>"//images.contentful.com/cfexampleapi/1x0xpXu4pSGS4OukSyWGUK/cc1239c6385428ef26f4180190532818/doge.jpg"
             }
           },
           :description=>{
@@ -77,6 +75,46 @@ describe ContentfulMiddleman::Mapper::Base do
         subject.map(context, entries_localized.first)
 
         expect(context.hashize).to eq(expected)
+      end
+
+      it 'maps entries with multiple locales with nested resources' do
+        vcr('entries/localized_references') {
+          subject = described_class.new entries, OptionsDouble.new(cda_query: {locale: '*'})
+          expect(context.hashize).to eq({})
+
+          expected = {
+            :id=>"42kEjzNj9mIci2eyGOISiQ",
+            :image=>{
+              :'en-US'=>{
+                title: "image-view-1139205 960 720",
+                description: nil,
+                url: "//images.contentful.com/1sjfpsn7l90g/6Rloj9MIxOwg0w2kqCaWS2/464b740a98d711905545f77d56fa3b2b/image-view-1139205_960_720.jpg"
+              },
+              :es=>{
+                title: "background-image-967820 960 720",
+                description: nil,
+                url: "//images.contentful.com/1sjfpsn7l90g/2WGPppy4laAWWgUiWG02SA/3951271109e19ae45b21bb044b24b3ec/background-image-967820_960_720.jpg"
+              },
+              :zh=>{
+                title: "image-view-1139204 960 720",
+                description: nil,
+                url: "//images.contentful.com/1sjfpsn7l90g/6zkhmrCizKuQUG0UmYKe4W/a8f90059b5bfd620791814f2c3edfaa4/image-view-1139204_960_720.jpg"
+              }
+            }
+          }
+
+          client = Contentful::Client.new(
+            space: '1sjfpsn7l90g',
+            access_token: 'e451a3cdfced9000220be41ed9c899866e8d52aa430eaf7c35b09df8fc6326f9',
+            dynamic_entries: :auto
+          )
+
+          entries = client.entries(locale: '*')
+
+          subject.map(context, entries.first)
+
+          expect(context.hashize).to eq(expected)
+        }
       end
     end
   end

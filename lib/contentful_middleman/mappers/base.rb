@@ -30,8 +30,16 @@ module ContentfulMiddleman
       end
 
       def map_field(context, field_name, field_value)
-        value_mapping = map_value(field_value)
-        context.set(field_name, value_mapping)
+        if has_multiple_locales?
+          processed_locales = {}
+          field_value.each do |locale, value|
+            processed_locales[locale] = map_value(value)
+          end
+          context.set(field_name, processed_locales)
+        else
+          value_mapping = map_value(field_value)
+          context.set(field_name, value_mapping)
+        end
       end
 
       def map_value(value)
@@ -66,7 +74,7 @@ module ContentfulMiddleman
         fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
 
         # Prevent entries with no values from breaking the import
-        fields ||= []
+        fields ||= {}
 
         fields.each {|k, v| map_field context, k, v}
       end

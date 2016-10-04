@@ -44,10 +44,15 @@ module ContentfulMiddleman
         value.hashize
       when ::Array
         value.map {|element| ensure_primitive_data_types(element)}
+      when ::Hash
+        res = {}
+        value.each do |k, v|
+          res[ensure_primitive_data_types(k)] = ensure_primitive_data_types(v)
+        end
+        res
       else
         value
       end
     end
-
   end
 end
