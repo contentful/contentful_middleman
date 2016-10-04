@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 1.4.1
 ### Fixed
 * Fix localized resource serialization[#95](https://github.com/contentful/contentful_middleman/issues/95)
 
