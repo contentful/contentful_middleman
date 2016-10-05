@@ -33,7 +33,7 @@ module ContentfulMiddleman
         if has_multiple_locales?
           processed_locales = {}
           field_value.each do |locale, value|
-            processed_locales[locale] = map_value(value)
+            processed_locales[locale] = map_value(value, locale.to_s)
           end
           context.set(field_name, processed_locales)
         else
@@ -42,10 +42,10 @@ module ContentfulMiddleman
         end
       end
 
-      def map_value(value)
+      def map_value(value, locale = nil)
         case value
         when Contentful::Asset
-          map_asset(value)
+          map_asset(value, locale)
         when Contentful::Location
           map_location(value)
         when Contentful::Link
@@ -53,17 +53,23 @@ module ContentfulMiddleman
         when Contentful::DynamicEntry
           map_entry(value)
         when Array
-          map_array(value)
+          map_array(value, locale)
         else
           value
         end
       end
 
-      def map_asset(asset)
+      def map_asset(asset, locale = nil)
         context = Context.new
-        context.title = asset.title
-        context.description = asset.description
-        context.url = asset.file.url unless asset.file.nil?
+        if locale
+          context.title = asset.fields(locale)[:title]
+          context.description = asset.fields(locale)[:description]
+          context.url = asset.fields(locale)[:file].url unless asset.fields(locale)[:file].nil?
+        end
+
+        context.title = asset.title unless context.has?(:title) && !context.title.nil?
+        context.description = asset.description unless context.has?(:description) && !context.description.nil?
+        context.url = asset.file.url unless asset.file.nil? || (context.has?(:url) && !context.url.nil?)
 
         context
       end
@@ -100,8 +106,8 @@ module ContentfulMiddleman
         context
       end
 
-      def map_array(array)
-        array.map {|element| map_value(element)}
+      def map_array(array, locale = nil)
+        array.map {|element| map_value(element, locale)}
       end
     end
   end

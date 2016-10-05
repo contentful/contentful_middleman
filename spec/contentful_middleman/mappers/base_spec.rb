@@ -116,6 +116,42 @@ describe ContentfulMiddleman::Mapper::Base do
           expect(context.hashize).to eq(expected)
         }
       end
+
+      it 'maps entries with multiple locales with nested resources that are also localized' do
+        vcr('entries/localized_references_localized_assets') {
+          subject = described_class.new entries, OptionsDouble.new(cda_query: {locale: '*'})
+          expect(context.hashize).to eq({})
+
+          expected = {
+            id: "2HjFERK39eeCYegCayUkMK",
+            image: {
+              :"en-US" => {
+                title: "EN Title",
+                description: "EN Description",
+                url: "//assets.contentful.com/bht13amj0fva/14bZJKTr6AoaGyeg4kYiWq/13f00bdf75c1320061ce471a3881e831/Flag_of_the_United_States.svg"
+              },
+              es: {
+                title: "ES Title",
+                description: "ES Description",
+                url: "//assets.contentful.com/bht13amj0fva/14bZJKTr6AoaGyeg4kYiWq/5501c98c296af77b9acba1146ea3e211/Flag_of_Spain.svg"
+              }
+            }
+          }
+
+          client = Contentful::Client.new(
+            space: 'bht13amj0fva',
+            access_token: 'bb703a05e107148bed6ee246a9f6b3678c63fed7335632eb68fe1b689c801534',
+            dynamic_entries: :auto
+          )
+
+          entry = client.entries(locale: '*').first
+
+          subject.map(context, entry)
+
+          expect(entry.image.id).to eq(entry.fields('es')[:image].id)
+          expect(context.hashize).to eq(expected)
+        }
+      end
     end
   end
 
