@@ -23,6 +23,10 @@ module ContentfulMiddleman
       @variables.fetch(name.to_sym)
     end
 
+    def has?(name)
+      @variables.key?(name)
+    end
+
     def is_a?(klass)
       Context == klass
     end
