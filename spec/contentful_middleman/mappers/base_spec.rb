@@ -188,5 +188,28 @@ describe ContentfulMiddleman::Mapper::Base do
         expect(context.hashize[:oneMedia].keys.map(&:to_s)).not_to include('url')
       }
     end
+
+    it 'should serialize repeated entries in an array - #99' do
+      vcr('entries/repeated_entry') {
+        context = ContentfulMiddleman::Context.new
+        client = Contentful::Client.new(
+          space: 'a80guayqr8ut',
+          access_token: '8b915cca980970ee60f749bf4435a48c61c9482038f185d6d0c4325bbde87170',
+          dynamic_entries: :auto
+        )
+
+        entry_with_repeated_item = client.entries('sys.id' => 'DT1yQgZABwuWeY842sGYY').first
+
+        subject.map(context, entry_with_repeated_item)
+        hash = YAML.load(context.to_yaml)
+        expect(hash[:bars]).to match([
+          { id: "1Xq3cu45qguO4Uiwc2yycY", name: "bar_1" },
+          { id: "6jLRFVvafuM6E0QiCA8YMu", name: "bar_2" },
+          { id: "1Xq3cu45qguO4Uiwc2yycY", name: "bar_1" }
+        ])
+
+        expect(hash[:bars].first).to eq(hash[:bars].last)
+      }
+    end
   end
 end

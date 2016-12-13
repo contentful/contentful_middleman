@@ -88,10 +88,8 @@ module ContentfulMiddleman
       def map_entry(entry)
         context = Context.new
         context.id = entry.id
-        if !@children[:discovered].include?(entry.id)
-          @children[:queue].push({ :context => context, :entry => entry})
-          @children[:discovered].push(entry.id)
-        end
+        @children[:discovered].push(entry.id) unless @children[:discovered].include?(entry.id)
+        @children[:queue].push({ :context => context, :entry => entry})
         context
       end
 
