@@ -65,7 +65,8 @@ module ContentfulMiddleman
           access_token:     options.access_token,
           space:            options.space.fetch(:id),
           dynamic_entries:  :auto,
-          raise_errors:     true
+          raise_errors:     true,
+          default_locale:   options.default_locale
       }
 
       client_options[:api_url] = API_PREVIEW_URL if options.use_preview_api

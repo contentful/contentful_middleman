@@ -45,6 +45,7 @@ class OptionsDouble
     access_token: 'b4c0n73n7fu1',
     cda_query: {},
     content_types: {},
+    default_locale: 'en-US',
     use_preview_api: false,
     all_entries: false,
     all_entries_page_size: 1000,

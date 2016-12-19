@@ -1,5 +1,9 @@
 # Change Log
 ## Unreleased
+
+### Added
+* Added Contentful Client `default_locale` option as a configuration parameter
+
 ### Fixed
 * Fix repeated items not appearing on reference arrays [#99](https://github.com/contentful/contentful_middleman/issues/99)
 
