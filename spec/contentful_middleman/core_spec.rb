@@ -21,6 +21,7 @@ describe ContentfulMiddleman::Core do
       expect(options.all_entries).to eq(false)
       expect(options.rebuild_on_webhook).to eq(false)
       expect(options.webhook_timeout).to eq(300)
+      expect(options.default_locale).to eq('en-US')
     end
   end
 
