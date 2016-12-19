@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?content_type=cat
+    uri: https://preview.contentful.com/spaces/cfexampleapi/entries?content_type=cat
     body:
       encoding: US-ASCII
       string: ''
@@ -18,7 +18,7 @@ http_interactions:
       Connection:
       - close
       Host:
-      - cdn.contentful.com
+      - preview.contentful.com
   response:
     status:
       code: 200

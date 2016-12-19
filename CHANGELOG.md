@@ -3,9 +3,11 @@
 
 ### Added
 * Added Contentful Client `default_locale` option as a configuration parameter
+* Added possibility to set API URL for Preview Proxy
 
 ### Fixed
 * Fix repeated items not appearing on reference arrays [#99](https://github.com/contentful/contentful_middleman/issues/99)
+* Fix Default URL for Preview Proxy which is now the Preview API
 
 ## 1.4.2
 ### Fixed
