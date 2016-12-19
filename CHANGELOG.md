@@ -1,6 +1,8 @@
 # Change Log
 ## Unreleased
 
+## 1.5.0
+
 ### Added
 * Added Contentful Client `default_locale` option as a configuration parameter
 * Added possibility to set API URL for Preview Proxy
