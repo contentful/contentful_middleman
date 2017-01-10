@@ -3,6 +3,7 @@
 source 'http://rubygems.org'
 
 gem "middleman-core", '~> 4.0'
+gem "activesupport", '< 5'
 gem "middleman-cli", '~> 4.0'
 
 # Specify your gem's dependencies in contentful_middleman.gemspec
