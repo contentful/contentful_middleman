@@ -28,11 +28,17 @@ module ContentfulMiddleman
     option :content_types, {},
       'The mapping of Content Types names to ids'
 
+    option :default_locale, 'en-US',
+      "Default Locale for the client"
+
     option :use_preview_api, false,
       'Use the Preview API when fetching content'
 
     option :all_entries, false,
       'Allow multiple requests to the API for getting over 1000 entries'
+
+    option :all_entries_page_size, 1000,
+      'Size of each page when querying for all entries'
 
     option :rebuild_on_webhook, false,
       "Run `middleman contentful --rebuild` upon receiving a Webhook on http://0.0.0.0:5678/receive"

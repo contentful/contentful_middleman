@@ -4,10 +4,10 @@ module ContentfulMiddleman
   module Tools
     class PreviewProxy < ::Contentful::Client
       @@instances = []
-      def self.instance(space: '', access_token: '', tries: 3, expires_in: hours(2))
+      def self.instance(space: '', access_token: '', api_url: 'preview.contentful.com', tries: 3, expires_in: hours(2))
         possible_instance = @@instances.detect { |i| i[:space] == space && i[:access_token] == access_token }
         if possible_instance.nil?
-          preview_client = PreviewProxy.new(space: space, access_token: access_token, tries: tries, expires_in: expires_in)
+          preview_client = PreviewProxy.new(space: space, access_token: access_token, api_url: api_url, tries: tries, expires_in: expires_in)
           @@instances << {space: space, access_token: access_token, instance: preview_client}
         else
           preview_client = possible_instance[:instance]
@@ -47,12 +47,13 @@ module ContentfulMiddleman
         }
       }
 
-      def initialize(space: '', access_token: '', tries: 3, expires_in: self.class.hours(2))
+      def initialize(space: '', access_token: '', api_url: 'preview.contentful.com', tries: 3, expires_in: self.class.hours(2))
         super(
           space: space,
           access_token: access_token,
           dynamic_entries: :auto,
-          preview: true
+          preview: true,
+          api_url: api_url
         )
 
         @cache_tries = tries
@@ -62,19 +63,19 @@ module ContentfulMiddleman
       end
 
       def entries(query = {})
-        cache(:entries, ->(query, id) { super(query) }, query)
+        cache(:entries, ->(q, _) { super(q) }, query)
       end
 
       def entry(id, query = {})
-        cache(:entry, ->(query, id) { super(id, query) }, query, id)
+        cache(:entry, ->(q, e_id) { super(e_id, q) }, query, id)
       end
 
       def assets(query = {})
-        cache(:assets, ->(query, id) { super(query) }, query)
+        cache(:assets, ->(q, _) { super(q) }, query)
       end
 
       def asset(id, query = {})
-        cache(:asset, ->(query, id) { super(id, query) }, query, id)
+        cache(:asset, ->(q, a_id) { super(a_id, q) }, query, id)
       end
 
       def clear_cache
@@ -104,9 +105,8 @@ module ContentfulMiddleman
         instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query, id)][:data]
       end
 
-      def cache_key(name, query = {}, id = '')
-        mapping = CACHE_MAPPINGS[name]
 
+      def cache_key(name, query = {}, id = '')
         Marshal.dump(collection?(name) ? query : query.merge(cache_id: id))
       end
 
