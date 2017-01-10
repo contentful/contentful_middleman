@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
 
   # The version of middleman-core your extension depends on
   s.add_dependency("middleman-core", ["~> 4.0"])
-  s.add_dependency("activesupport", ["< 5"])
   s.add_dependency("middleman-cli", ["~> 4.0"])
 
   # Additional dependencies
