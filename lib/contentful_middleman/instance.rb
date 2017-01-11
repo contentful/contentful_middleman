@@ -46,9 +46,9 @@ module ContentfulMiddleman
       query[:order] = 'sys.createdAt' unless query.key?(:order)
       num_entries = client.entries(limit: 1).total
 
-      ((num_entries / 1000) + 1).times do |i|
-        query[:limit] = 1000
-        query[:skip] = i * 1000
+      ((num_entries / options.all_entries_page_size) + 1).times do |i|
+        query[:limit] = options.all_entries_page_size
+        query[:skip] = i * options.all_entries_page_size
         page = client.entries(query)
         page.each { |entry| all << entry }
       end
@@ -65,7 +65,8 @@ module ContentfulMiddleman
           access_token:     options.access_token,
           space:            options.space.fetch(:id),
           dynamic_entries:  :auto,
-          raise_errors:     true
+          raise_errors:     true,
+          default_locale:   options.default_locale
       }
 
       client_options[:api_url] = API_PREVIEW_URL if options.use_preview_api
