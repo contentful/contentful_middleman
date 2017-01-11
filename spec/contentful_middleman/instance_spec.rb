@@ -11,8 +11,8 @@ class MapperDouble
 end
 
 describe ContentfulMiddleman::Instance do
-  let(:extension) { ExtensionDouble.new }
-  let(:options) { extension.options }
+  let(:options) { OptionsDouble.new }
+  let(:extension) { ExtensionDouble.new(options) }
   subject { described_class.new(extension) }
 
   describe 'instance methods' do
@@ -34,6 +34,18 @@ describe ContentfulMiddleman::Instance do
 
           expect(client).to receive(:entries).with(limit: 1).and_call_original
           expect(client).to receive(:entries).with(options.cda_query.merge(limit: 1000, skip: 0, order: 'sys.createdAt')).and_call_original
+
+          subject.entries
+        }
+      end
+
+      it 'all_entries with a different page size' do
+        vcr('instance/entries_3') {
+          subject = described_class.new(ExtensionDouble.new(OptionsDouble.new(all_entries_page_size: 100, all_entries: true)))
+          client = subject.send(:client)
+
+          expect(client).to receive(:entries).with(limit: 1).and_call_original
+          expect(client).to receive(:entries).with(options.cda_query.merge(limit: 100, skip: 0, order: 'sys.createdAt')).and_call_original
 
           subject.entries
         }

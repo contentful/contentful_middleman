@@ -1,5 +1,32 @@
 # Change Log
-## Unreleased
+## 1.5.0
+
+### Added
+* Added Contentful Client `default_locale` option as a configuration parameter
+* Added possibility to set API URL for Preview Proxy
+
+### Fixed
+* Fix repeated items not appearing on reference arrays [#99](https://github.com/contentful/contentful_middleman/issues/99)
+* Fix Default URL for Preview Proxy which is now the Preview API
+
+## 1.4.2
+### Fixed
+* Fix localized resource serialization for localized Assets[#95](https://github.com/contentful/contentful_middleman/issues/95)
+
+## 1.4.1
+### Fixed
+* Fix localized resource serialization[#95](https://github.com/contentful/contentful_middleman/issues/95)
+
+## 1.4.0
+
+### Added
+* Add asset's `:description` to asset mapping[#82](https://github.com/contentful/contentful_middleman/pull/82)
+* Add Page Size customization option when using `:all_entries`[#90](https://github.com/contentful/contentful_middleman/issues/90)
+
+### Fixed
+* Fixed error when asset's `:file` field is `nil`[#85](https://github.com/contentful/contentful_middleman/issues/85)
+
+## 1.3.2
 ### Fixed
 * Fixed Entry ID fetch on import task when having an ID field in the Content Type[#77](https://github.com/contentful/contentful_middleman/issues/77)
 * Fixed `NoMethodError` when Entry has no populated fields[#76](https://github.com/contentful/contentful_middleman/issues/76)
