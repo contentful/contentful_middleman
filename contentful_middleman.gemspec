@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
   s.add_development_dependency "vcr"
+  s.add_development_dependency "simplecov"
   s.add_development_dependency 'webmock', '~> 1', '>= 1.17.3'
   s.add_development_dependency 'tins', '~> 1.6.0'
 end
