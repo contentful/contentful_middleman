@@ -330,3 +330,7 @@ You can configure `:tries` and `:expires_in` in the `#with_preview` call like th
 <% end %>
 ```
 
+## Platform Specific Deployment Caveats
+
+For platform specific issues, please look into the [DEPLOYING](./DEPLOYING.md) document. This document is expected to grow with user contributions.
+Feel free to add your own discoveries to that file by issuing a Pull Request.
