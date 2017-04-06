@@ -4,7 +4,7 @@ describe ContentfulMiddleman::Tools::PreviewProxy do
   subject do
     preview_proxy = nil
     vcr('tools/preview_helper') {
-      preview_proxy = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1')
+      preview_proxy = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1', api_url: 'cdn.contentful.com')
     }
     preview_proxy
   end
@@ -46,7 +46,7 @@ describe ContentfulMiddleman::Tools::PreviewProxy do
     it 'by tries' do
       preview = nil
       vcr('tools/preview_helper') {
-        preview = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1', tries: 5)
+        preview = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1', api_url: 'cdn.contentful.com', tries: 5)
       }
 
       vcr('tools/preview_helper/entries') {
@@ -67,7 +67,7 @@ describe ContentfulMiddleman::Tools::PreviewProxy do
         preview = nil
         vcr('tools/preview_helper') {
           # Expired 5 minutes ago (will always refetch)
-          preview = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1', expires_in: described_class.minutes(-5))
+          preview = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1', api_url: 'cdn.contentful.com',  expires_in: described_class.minutes(-5))
         }
 
         vcr('tools/preview_helper/entries') {
@@ -81,7 +81,7 @@ describe ContentfulMiddleman::Tools::PreviewProxy do
         preview = nil
         vcr('tools/preview_helper') {
           # We put a ridiculously high number of tries to test expiration date
-          preview = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1', tries: 10000, expires_in: described_class.days(2))
+          preview = described_class.instance(space: 'cfexampleapi', access_token: 'b4c0n73n7fu1', api_url: 'cdn.contentful.com',  tries: 10000, expires_in: described_class.days(2))
         }
 
         vcr('tools/preview_helper/entries') {

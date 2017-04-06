@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://preview.contentful.com/spaces/cfexampleapi/entries/garfield
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?sys.id=garfield
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.8.0
+      - RubyContentfulGem/2.0.0
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
@@ -18,14 +18,14 @@ http_interactions:
       Connection:
       - close
       Host:
-      - preview.contentful.com
+      - cdn.contentful.com
   response:
     status:
       code: 200
       message: OK
     headers:
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
@@ -39,68 +39,82 @@ http_interactions:
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - '"3dd136e9704fdebe3e7b9a3785ddcf42"'
+      - '"2a6587bde15212bce014b475202befb5"'
       Server:
-      - nginx
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
       X-Contentful-Request-Id:
-      - 405-1395085560
+      - f7ab298e94fde6da152d7a8fd042206d
       Content-Length:
-      - '633'
+      - '869'
       Accept-Ranges:
       - bytes
       Date:
-      - Fri, 11 Dec 2015 12:02:12 GMT
+      - Tue, 04 Apr 2017 17:09:02 GMT
       Via:
       - 1.1 varnish
       Age:
-      - '0'
+      - '1517'
       Connection:
       - close
       X-Served-By:
-      - cache-iad2124-IAD
+      - cache-lax8641-LAX
       X-Cache:
-      - MISS
+      - HIT
       X-Cache-Hits:
-      - '0'
+      - '1'
+      X-Timer:
+      - S1491325742.236193,VS0,VE1
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: |
         {
-          "fields": {
-            "name": "Garfield",
-            "likes": [
-              "lasagna"
-            ],
-            "color": "orange",
-            "lifes": null,
-            "lives": 9,
-            "birthday": "1979-06-18T23:00:00+00:00"
-          },
           "sys": {
-            "space": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 100,
+          "items": [
+            {
               "sys": {
-                "type": "Link",
-                "linkType": "Space",
-                "id": "cfexampleapi"
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "cfexampleapi"
+                  }
+                },
+                "id": "garfield",
+                "type": "Entry",
+                "createdAt": "2013-06-27T22:46:20.821Z",
+                "updatedAt": "2013-08-27T10:09:07.929Z",
+                "revision": 2,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "cat"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "name": "Garfield",
+                "likes": [
+                  "lasagna"
+                ],
+                "color": "orange",
+                "birthday": "1979-06-18T23:00:00+00:00",
+                "lifes": null,
+                "lives": 9
               }
-            },
-            "type": "Entry",
-            "contentType": {
-              "sys": {
-                "type": "Link",
-                "linkType": "ContentType",
-                "id": "cat"
-              }
-            },
-            "id": "garfield",
-            "revision": 2,
-            "createdAt": "2013-06-27T22:46:20.821Z",
-            "updatedAt": "2013-08-27T10:09:07.929Z",
-            "locale": "en-US"
-          }
+            }
+          ]
         }
     http_version: 
-  recorded_at: Fri, 11 Dec 2015 12:02:12 GMT
-recorded_with: VCR 2.9.3
+  recorded_at: Tue, 04 Apr 2017 17:09:02 GMT
+recorded_with: VCR 3.0.3
