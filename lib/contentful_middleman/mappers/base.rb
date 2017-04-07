@@ -50,13 +50,22 @@ module ContentfulMiddleman
           map_location(value)
         when Contentful::Link
           map_link(value)
-        when Contentful::DynamicEntry
+        when Contentful::Entry
           map_entry(value)
         when Array
           map_array(value, locale)
         else
           value
         end
+      end
+
+      def map_asset_metadata(asset)
+        context = Context.new
+        context.updated_at = asset.sys[:updated_at].iso8601 unless asset.sys[:updated_at].nil?
+        context.created_at = asset.sys[:created_at].iso8601 unless asset.sys[:created_at].nil?
+        context.id = asset.sys[:id]
+
+        context
       end
 
       def map_asset(asset, locale = nil)
@@ -69,13 +78,26 @@ module ContentfulMiddleman
 
         context.title = asset.title unless context.has?(:title) && !context.title.nil?
         context.description = asset.description unless context.has?(:description) && !context.description.nil?
-        context.url = asset.file.url unless asset.file.nil? || (context.has?(:url) && !context.url.nil?)
+        context.url = asset.url unless asset.file.nil? || (context.has?(:url) && !context.url.nil?)
+
+        context._meta = map_asset_metadata(asset)
+
+        context
+      end
+
+      def map_entry_metadata(entry)
+        context = Context.new
+        context.content_type_id = entry.sys[:content_type].id unless entry.sys[:content_type].nil?
+        context.updated_at = entry.sys[:updated_at].iso8601 unless entry.sys[:updated_at].nil?
+        context.created_at = entry.sys[:created_at].iso8601 unless entry.sys[:created_at].nil?
+        context.id = entry.sys[:id]
 
         context
       end
 
       def map_entry_full(entry, context)
         context.id = entry.id
+        context._meta = map_entry_metadata(entry)
 
         fields = has_multiple_locales? ? entry.fields_with_locales : entry.fields
 

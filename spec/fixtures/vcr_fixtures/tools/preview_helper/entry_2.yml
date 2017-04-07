@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://preview.contentful.com/spaces/cfexampleapi/entries/happycat
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/entries?sys.id=happycat
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.8.0
+      - RubyContentfulGem/2.0.0
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
@@ -18,14 +18,14 @@ http_interactions:
       Connection:
       - close
       Host:
-      - preview.contentful.com
+      - cdn.contentful.com
   response:
     status:
       code: 200
       message: OK
     headers:
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
@@ -36,20 +36,24 @@ http_interactions:
       - '86400'
       Cache-Control:
       - max-age=0
+      Content-Encoding:
+      - gzip
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - '"3af7376084551d7cdfa312678745e8c3"'
+      - W/"c76b6c572141b78d9e4204b679b5c299"
       Server:
-      - nginx
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
       X-Contentful-Request-Id:
-      - 90a-2093552045
+      - 99ab5643fe5c6c77ed8e646494546456
       Content-Length:
-      - '867'
+      - '1035'
       Accept-Ranges:
       - bytes
       Date:
-      - Fri, 11 Dec 2015 12:02:16 GMT
+      - Tue, 04 Apr 2017 17:09:03 GMT
       Via:
       - 1.1 varnish
       Age:
@@ -57,63 +61,41 @@ http_interactions:
       Connection:
       - close
       X-Served-By:
-      - cache-atl6221-ATL
+      - cache-lax8627-LAX
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
+      X-Timer:
+      - S1491325743.008627,VS0,VE285
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
-      string: |
-        {
-          "fields": {
-            "name": "Happy Cat",
-            "bestFriend": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "nyancat"
-              }
-            },
-            "likes": [
-              "cheezburger"
-            ],
-            "color": "gray",
-            "birthday": "2003-10-28T23:00:00+00:00",
-            "lives": 1,
-            "image": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Asset",
-                "id": "happycat"
-              }
-            }
-          },
-          "sys": {
-            "space": {
-              "sys": {
-                "type": "Link",
-                "linkType": "Space",
-                "id": "cfexampleapi"
-              }
-            },
-            "type": "Entry",
-            "contentType": {
-              "sys": {
-                "type": "Link",
-                "linkType": "ContentType",
-                "id": "cat"
-              }
-            },
-            "id": "happycat",
-            "revision": 8,
-            "createdAt": "2013-06-27T22:46:20.171Z",
-            "updatedAt": "2013-11-18T15:58:02.018Z",
-            "locale": "en-US"
-          }
-        }
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA91X227jNhB9z1cEem0t8aL7mxG0aIB2USBeFEhRBLRE2Ywl
+        WZXozXoX+fclqRsl006w64eiQuCIlyFnDuccjr7e3N5azbGx4tuv4lU0+LGi
+        omUt65ocLdH3+rOcw/ec5KIfqlazY5VoANXIWcG4HAJtm3FayAX/Vgu2y852
+        UTs1FUnkVv2MtlPzRXaozt6n31m5s+Se4yN2L3erzucHteJsAktlOElGP5Oi
+        yimpmIyqf16HdxVn+1itzZZU1TEhXFtxcOWXktdHfSCpKeE0XUokLAQgXgB/
+        gYIVQrHrxwjYMICPusGhSmcGEC5guIJe7IUxQDaA4cSgpp9Yw/al2CDUfE32
+        Jacl7zC4Hph32rpmSAUybyKZ7xOSq4Si5eLjQ28wgG1ljObpmH/yAKySFMrk
+        N3kAt3fTE8jZjo7p1R1YsqX0y/pQb2g9+vTPBKV8X8s1NzKttYE1bfivNaOl
+        TJProTfPDxVXm1blkZQyq97Ebs1qvk2FuyqjAF5AsEDhCuEYAPH3k/rVY8nZ
+        JwWNImmfygXZXJdly6ahOie00AbGmGPrelvOyV91QhYrk/yQKs87EWrR6yVk
+        FBGDjJwREuNM5ekFMRGjb8nJcIrnBEUIph68zpzZ+U+Geq9O88a6rCwwsj2I
+        daEQLp5qC4gWwF2BKIZRjCMboGBmoqmLN/HsvL5cA+PzKjMiPeXKJYDPqE13
+        iXWMMCiO2KvXnA+CnTPJUWlxKjqiuyasXO9fmvmdk7Fmq/NbUyJhlew7LerM
+        J9bWWUG6Btyn6fUGey+hPdUncXsBVyaZuPHM+qRw7BQK42BKDYNMXSNgk1gN
+        mWVQ4lm8A5V7Urf/u/O02tX/pzplKH8EckN9eHILmIRKqA5aQTf2/Bi7NvLn
+        qmMWKmHixRDGyLWxP6maJOfGMghNUugHyM8Zb4sUU8Uh9syYGtbLA9F7qGVF
+        bDkOk8nb2J1SZodcvBaOfkM4+I/HP8vnx9V9s1ve3+8Oh31z1zQODhFxwzQj
+        KFlDP3EDIt4ClAVrhNcZiJz+EF7s52ozl5mUcsLyafHUiVzDvkiPvSjCkY5S
+        S3cj2dTQC0v5VhiiAM/NxOiWss1WVrg4CrRbTlrqt95Eb9WyEsAPXVV3MaTp
+        bWMpZJ3nim7OlEt9SdE7Ox7R5LOmR8XwySG80z+A2pnK6f92pXCqbO8goAve
+        VSnonD0x0QioFZoCr2sQ0Hz9/jj/3E3lc7J8+cu9Kx42h+JfRHcfCydKCUhS
+        GGE/DOA6TAOEXUzDyCMApD6EjvTnSVTrT8gD1eenrBZJbFfld1ARIgOn2gQ/
+        kRaVfgMVPfVdPX1GKgrHvpuK743OyEqJgl7qnrsrRf/rzevNN7p9LOtrEAAA
     http_version: 
-  recorded_at: Fri, 11 Dec 2015 12:02:16 GMT
-recorded_with: VCR 2.9.3
+  recorded_at: Tue, 04 Apr 2017 17:09:03 GMT
+recorded_with: VCR 3.0.3

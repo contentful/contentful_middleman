@@ -9,13 +9,15 @@ require 'yaml'
 require 'contentful_middleman'
 require 'middleman-core'
 
+RSpec.configure do |config|
+  config.filter_run :focus => true
+  config.run_all_when_everything_filtered = true
+end
+
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_fixtures"
   config.hook_into :webmock
 end
-
-require 'simplecov'
-SimpleCov.root(File.expand_path(File.dirname(__FILE__) + '/..'))
 
 def vcr(cassette)
   VCR.use_cassette(cassette) do
@@ -71,6 +73,14 @@ class OptionsDouble
   end
 end
 
+class ContentTypeDouble
+  attr_reader :id
+
+  def initialize(id)
+    @id = id
+  end
+end
+
 class EntryDouble
   attr_reader :id, :sys, :fields
 
@@ -78,6 +88,7 @@ class EntryDouble
     @id = id
     sys_data[:id] = id
     sys_data[:updated_at] = updated_at
+    sys_data[:content_type] = ContentTypeDouble.new("#{id}_ct")
     @sys = sys_data
     @fields = fields
 

@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://preview.contentful.com/spaces/cfexampleapi/assets/happycat
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/assets/happycat
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - RubyContentfulGem/0.8.0
+      - RubyContentfulGem/2.0.0
       Authorization:
       - Bearer b4c0n73n7fu1
       Content-Type:
@@ -18,14 +18,14 @@ http_interactions:
       Connection:
       - close
       Host:
-      - preview.contentful.com
+      - cdn.contentful.com
   response:
     status:
       code: 200
       message: OK
     headers:
       Access-Control-Allow-Headers:
-      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent
       Access-Control-Allow-Methods:
       - GET,HEAD,OPTIONS
       Access-Control-Allow-Origin:
@@ -39,50 +39,39 @@ http_interactions:
       Content-Type:
       - application/vnd.contentful.delivery.v1+json
       Etag:
-      - '"eb3bce6144d8829ff2484006069b8843"'
+      - '"b501f3e43b83ec7a9b23f770eaf37a23"'
       Server:
-      - nginx
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
       X-Contentful-Request-Id:
-      - 405-1395099072
+      - a15362748c71005fae6bfdf1b6486fe6
       Content-Length:
       - '705'
       Accept-Ranges:
       - bytes
       Date:
-      - Fri, 11 Dec 2015 12:37:35 GMT
+      - Tue, 04 Apr 2017 17:09:16 GMT
       Via:
       - 1.1 varnish
       Age:
-      - '0'
+      - '1529'
       Connection:
       - close
       X-Served-By:
-      - cache-jfk1028-JFK
+      - cache-lax8630-LAX
       X-Cache:
-      - MISS
+      - HIT
       X-Cache-Hits:
-      - '0'
+      - '1'
+      X-Timer:
+      - S1491325756.590136,VS0,VE0
       Vary:
       - Accept-Encoding
     body:
-      encoding: UTF-8
+      encoding: ASCII-8BIT
       string: |
         {
-          "fields": {
-            "file": {
-              "fileName": "happycatw.jpg",
-              "contentType": "image/jpeg",
-              "details": {
-                "image": {
-                  "width": 273,
-                  "height": 397
-                },
-                "size": 59939
-              },
-              "url": "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg"
-            },
-            "title": "Happy Cat"
-          },
           "sys": {
             "space": {
               "sys": {
@@ -91,14 +80,29 @@ http_interactions:
                 "id": "cfexampleapi"
               }
             },
-            "type": "Asset",
             "id": "happycat",
-            "revision": 2,
+            "type": "Asset",
             "createdAt": "2013-09-02T14:56:34.267Z",
             "updatedAt": "2013-09-02T15:11:24.361Z",
+            "revision": 2,
             "locale": "en-US"
+          },
+          "fields": {
+            "title": "Happy Cat",
+            "file": {
+              "url": "//images.contentful.com/cfexampleapi/3MZPnjZTIskAIIkuuosCss/382a48dfa2cb16c47aa2c72f7b23bf09/happycatw.jpg",
+              "details": {
+                "size": 59939,
+                "image": {
+                  "width": 273,
+                  "height": 397
+                }
+              },
+              "fileName": "happycatw.jpg",
+              "contentType": "image/jpeg"
+            }
           }
         }
     http_version: 
-  recorded_at: Fri, 11 Dec 2015 12:37:35 GMT
-recorded_with: VCR 2.9.3
+  recorded_at: Tue, 04 Apr 2017 17:09:16 GMT
+recorded_with: VCR 3.0.3
