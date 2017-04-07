@@ -90,19 +90,19 @@ module ContentfulMiddleman
 
       def cache(name, super_call, query = {}, id = '')
         mapping = CACHE_MAPPINGS[name]
+        query_copy = Marshal.load(Marshal.dump(query))
 
-        if should_fetch_from_api?(name, query: query, id: id)
-          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query, id)] ||= {}
-          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query, id)][:tries] = 0
-          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query, id)][:expires] = DateTime.now + @expires_in
-
+        if should_fetch_from_api?(name, query: query_copy, id: id)
           new_resources = super_call.call(query, id)
-          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query, id)][:data] = new_resources
+          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query_copy, id)] ||= {}
+          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query_copy, id)][:tries] = 0
+          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query_copy, id)][:expires] = DateTime.now + @expires_in
+          instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query_copy, id)][:data] = new_resources
           return new_resources
         end
 
-        instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query, id)][:tries] += 1
-        instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query, id)][:data]
+        instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query_copy, id)][:tries] += 1
+        instance_variable_get("@#{mapping[:cache]}")[cache_key(name, query_copy, id)][:data]
       end
 
 
