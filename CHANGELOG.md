@@ -7,6 +7,7 @@
 
 ## Added
 * Added `_meta` to all entries and assets [#117](https://github.com/contentful/contentful_middleman/issues/117) [#93](https://github.com/contentful/contentful_middleman/issues/93)
+* Added `client_options` to extension options to control Client instantiation
 
 ## 1.5.0
 

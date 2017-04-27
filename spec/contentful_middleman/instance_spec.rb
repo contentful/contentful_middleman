@@ -80,4 +80,19 @@ describe ContentfulMiddleman::Instance do
       end
     end
   end
+
+  describe 'client options' do
+    it 'respects the client configuration' do
+      options = OptionsDouble.new(client_options: {max_include_resolution_depth: 1})
+      extension = ExtensionDouble.new(options)
+      subject = described_class.new(extension)
+
+      vcr('instance/include_resolution_1') {
+        nyancat = subject.send(:client).entry('nyancat')
+
+        expect(nyancat.best_friend).to be_a ::Contentful::Entry
+        expect(nyancat.best_friend.best_friend).to be_a ::Contentful::Link
+      }
+    end
+  end
 end
