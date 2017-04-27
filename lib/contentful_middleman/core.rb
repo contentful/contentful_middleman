@@ -25,6 +25,9 @@ module ContentfulMiddleman
     option :cda_query, {},
       'The conditions that are used on the Content Delivery API to query for blog posts'
 
+    option :client_options, {},
+      'Additional configuration for the Contentful Client'
+
     option :content_types, {},
       'The mapping of Content Types names to ids'
 

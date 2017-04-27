@@ -49,6 +49,7 @@ class OptionsDouble
     space: {id: 'cfexampleapi', name: 'cats'},
     access_token: 'b4c0n73n7fu1',
     cda_query: {},
+    client_options: {},
     content_types: {},
     default_locale: 'en-US',
     use_preview_api: false,
