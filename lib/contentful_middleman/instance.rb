@@ -67,7 +67,7 @@ module ContentfulMiddleman
           dynamic_entries:  :auto,
           raise_errors:     true,
           default_locale:   options.default_locale
-      }
+      }.merge(options.client_options)
 
       client_options[:api_url] = API_PREVIEW_URL if options.use_preview_api
       client_options
