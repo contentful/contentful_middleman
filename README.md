@@ -54,7 +54,7 @@ Parameter             | Description
 space                 | Hash with an user choosen name for the space as key and the space id as value
 access_token          | Contentful Delivery API access token
 cda_query             | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option. Example: `f.cda_query = { limit: 1000 }`
-cda_query             | Hash describing client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb#client-configuration-options) for more info. This option should commonly be used to change Rate Limit Management, Include Resolution, Logging and Proxies.
+client_otions         | Hash describing client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb#client-configuration-options) for more info. This option should commonly be used to change Rate Limit Management, Include Resolution, Logging and Proxies.
 content_types         | Hash describing the mapping applied to entries of the imported content types
 default_locale        | String with the value for the default locale for your space. Defaults to `'en-US'`.
 use_preview_api       | Boolean to toggle the used API. Set it to `false` to use `cdn.contentful.com` (default value). Set it to `true` to use `preview.contentful.com`. More info in [the documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#preview-api)
