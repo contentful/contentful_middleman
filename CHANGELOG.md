@@ -1,12 +1,15 @@
 # Change Log
-
 ## Unreleased
+### Fixed
+* Fixed issue when generating file on entries with a field called `Content Type`
 
-## Changed
+## 2.0.0
+
+### Changed
 * Upgraded to 2.0.1 Ruby CDA SDK which solves a number of pre-existing bugs [#116](https://github.com/contentful/contentful_middleman/issues/116) [#113](https://github.com/contentful/contentful_middleman/issues/113) [#103](https://github.com/contentful/contentful_middleman/issues/103)
 * Field IDs will now be `snake_cased` following the 2.0.1 Ruby CDA SDK Upgrade
 
-## Added
+### Added
 * Added `_meta` to all entries and assets [#117](https://github.com/contentful/contentful_middleman/issues/117) [#93](https://github.com/contentful/contentful_middleman/issues/93)
 * Added `client_options` to extension options to control Client instantiation
 
