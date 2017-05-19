@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+### Fixed
+* Fixed issue when generating file on entries with a field called `Content Type`
 
 ## 2.0.0
 
