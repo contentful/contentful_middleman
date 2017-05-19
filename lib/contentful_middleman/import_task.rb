@@ -34,12 +34,12 @@ module ContentfulMiddleman
     private
     def local_data_files
       entries.map do |entry|
-        content_type_mapper_class = @content_type_mappers.fetch(entry.content_type.id, nil)
+        content_type_mapper_class = @content_type_mappers.fetch(entry.sys[:content_type].id, nil)
 
         next unless content_type_mapper_class
 
-        content_type_name         = @content_type_names.fetch(entry.content_type.id).to_s
-        context                   = ContentfulMiddleman::Context.new
+        content_type_name = @content_type_names.fetch(entry.sys[:content_type].id).to_s
+        context = ContentfulMiddleman::Context.new
 
         content_type_mapper = content_type_mapper_class.new(entries, @contentful.options)
         content_type_mapper.map(context, entry)
