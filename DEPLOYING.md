@@ -21,18 +21,20 @@
 
 ---
 
-# Placeholder Platform
+# Netlify
 
-## Placeholder Caveat
+## Requirements for Build
 
-> Placeholder description
+> Minimum requirements for a clean build of a Contentful Middleman app on Netlify
 
 Steps to solve:
 
-1. Do ...
-2. Then ...
-3. After ...
+1. add `.*-space-hash` to .gitignore
+2. add `/data` to .gitignore
+3. add a .ruby-version file
+4. add a .nvmrc file
+5. Netlify Site > Settings > Deploy Settings > Build Command: `middleman contentful --rebuild && middleman build`
 
-> Contributed by @...
+> Contributed by @joshRpowell
 
 ---
