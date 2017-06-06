@@ -38,3 +38,19 @@ Steps to solve:
 > Contributed by @joshRpowell
 
 ---
+
+# Placeholder Platform
+
+## Placeholder Caveat
+
+> Placeholder description
+
+Steps to solve:
+
+1. Do ...
+2. Then ...
+3. After ...
+
+> Contributed by @...
+
+---
