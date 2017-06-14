@@ -88,7 +88,7 @@ describe ContentfulMiddleman::Instance do
       subject = described_class.new(extension)
 
       vcr('client') {
-        expect(subject.client.integration_info).to eq(name: 'middleman', version: ContentfulMiddleman::VERSION)
+        expect(subject.client.integration_info).to eq(name: 'middleman.v4', version: ContentfulMiddleman::VERSION)
       }
     end
 

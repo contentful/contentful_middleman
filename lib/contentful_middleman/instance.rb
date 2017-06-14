@@ -67,7 +67,7 @@ module ContentfulMiddleman
           dynamic_entries:  :auto,
           raise_errors:     true,
           default_locale:   options.default_locale,
-          integration_name: 'middleman',
+          integration_name: 'middleman.v4',
           integration_version: ContentfulMiddleman::VERSION
       }.merge(options.client_options)
 
