@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency("middleman-core", ["~> 3.4"])
 
   # Additional dependencies
-  s.add_dependency("contentful", '~> 2.0', '>= 2.0.1')
+  s.add_dependency("contentful", '~> 2.1')
   s.add_dependency("contentful-webhook-listener", '~> 0.1')
 
   s.add_development_dependency 'rubygems-tasks', '~> 0.2'

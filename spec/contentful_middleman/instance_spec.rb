@@ -82,6 +82,16 @@ describe ContentfulMiddleman::Instance do
   end
 
   describe 'client options' do
+    it 'has proper headers' do
+      options = OptionsDouble.new(client_options: {max_include_resolution_depth: 1})
+      extension = ExtensionDouble.new(options)
+      subject = described_class.new(extension)
+
+      vcr('client') {
+        expect(subject.client.integration_info).to eq(name: 'middleman', version: ContentfulMiddleman::VERSION)
+      }
+    end
+
     it 'respects the client configuration' do
       options = OptionsDouble.new(client_options: {max_include_resolution_depth: 1})
       extension = ExtensionDouble.new(options)
