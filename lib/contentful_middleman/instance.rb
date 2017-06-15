@@ -38,6 +38,10 @@ module ContentfulMiddleman
       @extension.options
     end
 
+    def client
+      @client ||= Contentful::Client.new(client_options)
+    end
+
     private
 
     def all_entries(cda_query)
@@ -56,17 +60,15 @@ module ContentfulMiddleman
       all
     end
 
-    def client
-      @client ||= Contentful::Client.new(client_options)
-    end
-
     def client_options
       client_options = {
           access_token:     options.access_token,
           space:            options.space.fetch(:id),
           dynamic_entries:  :auto,
           raise_errors:     true,
-          default_locale:   options.default_locale
+          default_locale:   options.default_locale,
+          integration_name: 'middleman',
+          integration_version: ContentfulMiddleman::VERSION
       }.merge(options.client_options)
 
       client_options[:api_url] = API_PREVIEW_URL if options.use_preview_api
