@@ -1,6 +1,8 @@
 # Change Log
 ## Unreleased
 
+## 2.1.0
+
 ### Added
 * Added User Agent Integration Headers
 
