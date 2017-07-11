@@ -30,7 +30,7 @@ module ContentfulMiddleman
     def localize_value(value, locale, fallback_locale='en-US')
       if value.respond_to? :fetch
         return value.fetch(locale) if value.key? locale
-        return value.fetch(fallback_locale)
+        return value.fetch(fallback_locale) if value.key? fallback_locale
       end
       value
     end
