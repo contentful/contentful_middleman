@@ -60,8 +60,8 @@ describe ContentfulMiddleman::Helpers do
             expect(subject.localize_value({'es' => 'foobar'}, 'es')).to eq('foobar')
           end
 
-          it 'fails if locale or fallback_locale not found' do
-            expect { subject.localize_value({'de-DE' => 'baz'}, 'es') }.to raise_error KeyError
+          it 'returns original values if both locale and fallback_locale not found' do
+            expect(subject.localize_value({'foo' => 'baz'}, 'es', 'de-DE')).to eq({'foo'=>'baz'})
           end
         end
       end
