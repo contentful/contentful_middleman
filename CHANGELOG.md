@@ -1,6 +1,12 @@
 # Change Log
 ## Unreleased
 
+## 2.1.1
+### Fixed
+* `localize` helpers now properly serialize `_meta` attributes [#124](https://github.com/contentful/contentful_middleman/issues/124) [#128](https://github.com/contentful/contentful_middleman/issues/128)
+
+## 2.1.0
+
 ### Added
 * Added User Agent Integration Headers
 
