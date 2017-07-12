@@ -10,6 +10,9 @@ end
 describe ContentfulMiddleman::Helpers do
   let(:entry) do
     {
+      _meta: {
+        id: 'foo'
+      },
       value_field: {
         'es' => 'foo',
         'en-US' => 'bar'
@@ -90,6 +93,7 @@ describe ContentfulMiddleman::Helpers do
 
       it '#localize_entry' do
         expect(subject.localize_entry(entry, 'es')).to eq({
+          _meta: { id: 'foo' },
           value_field: 'foo',
           array_field: ['foobar']
         })
