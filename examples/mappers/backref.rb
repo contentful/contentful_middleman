@@ -48,7 +48,7 @@ def self.BackrefMapper(content_type_id, content_type_field, backref_field)
 
     def map(context, entry)
       super
-      content_type_entries = @entries.select { |e| e.sys[:contentType].id == @@content_type_id }
+      content_type_entries = @entries.select { |e| e.sys[:content_type].id == @@content_type_id }
       referencing_entries = content_type_entries.select{ |e| e.send(@@content_type_field).map{|x| x.id}.include? entry.id }
       referencing_ids = referencing_entries.map{ |e| e.id }
       context.set(@@backref_field, map_value(referencing_ids))
