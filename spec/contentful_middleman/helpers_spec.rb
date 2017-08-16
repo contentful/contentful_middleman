@@ -23,7 +23,7 @@ describe ContentfulMiddleman::Helpers do
           'en-US' => 'baz'
         }
       ],
-      nested_field: {
+      nested_array: {
         'en-US' => [
           {
             id: 'foo',
@@ -45,6 +45,18 @@ describe ContentfulMiddleman::Helpers do
             },
           }
         ]
+      },
+      nested_hash: {
+        'en-US' => {
+          id: 'foo',
+          _meta: {
+            id: 'foo',
+          },
+          name: {
+            'es' => 'foo',
+            'en-US' => 'bar'
+          }
+        }
       }
     }
   end
@@ -119,7 +131,7 @@ describe ContentfulMiddleman::Helpers do
           _meta: { id: 'foo' },
           value_field: 'foo',
           array_field: ['foobar'],
-          nested_field: [
+          nested_array: [
             {
               id: 'foo',
               _meta: {
@@ -133,7 +145,14 @@ describe ContentfulMiddleman::Helpers do
               },
               name: 'foo',
             }
-          ]
+          ],
+          nested_hash: {
+            id: 'foo',
+            _meta: {
+              id: 'foo',
+            },
+            name: 'foo'
+          }
         })
       end
     end
