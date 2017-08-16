@@ -7,7 +7,8 @@ module ContentfulMiddleman
     end
 
     def localize_entry(entry, locale, fallback_locale='en-US')
-      localized_entry = {}
+      localized_entry = entry.class.new
+      localized_entry = {} unless localized_entry.is_a? ::Hash
       entry.each do |field, value|
         localized_entry[field] = localize(entry, field, locale, fallback_locale)
       end
