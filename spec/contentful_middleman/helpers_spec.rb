@@ -11,7 +11,7 @@ describe ContentfulMiddleman::Helpers do
   let(:entry) do
     {
       _meta: {
-        id: 'foo'
+        id: 'foo',
       },
       value_field: {
         'es' => 'foo',
@@ -22,7 +22,30 @@ describe ContentfulMiddleman::Helpers do
           'es' => 'foobar',
           'en-US' => 'baz'
         }
-      ]
+      ],
+      nested_field: {
+        'en-US' => [
+          {
+            id: 'foo',
+            _meta: {
+              id: 'foo',
+            },
+            name: {
+              'es' => 'foo',
+              'en-US' => 'bar'
+            }
+          }, {
+            id: 'foo',
+            _meta: {
+              id: 'foo',
+            },
+            name: {
+              'en-NZ' => 'bar',
+              'en-US' => 'foo'
+            },
+          }
+        ]
+      }
     }
   end
 
@@ -95,7 +118,22 @@ describe ContentfulMiddleman::Helpers do
         expect(subject.localize_entry(entry, 'es')).to eq({
           _meta: { id: 'foo' },
           value_field: 'foo',
-          array_field: ['foobar']
+          array_field: ['foobar'],
+          nested_field: [
+            {
+              id: 'foo',
+              _meta: {
+                id: 'foo',
+              },
+              name: 'foo'
+            }, {
+              id: 'foo',
+              _meta: {
+                id: 'foo',
+              },
+              name: 'foo',
+            }
+          ]
         })
       end
     end
