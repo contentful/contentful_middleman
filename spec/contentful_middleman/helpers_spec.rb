@@ -127,7 +127,8 @@ describe ContentfulMiddleman::Helpers do
       end
 
       it '#localize_entry' do
-        expect(subject.localize_entry(entry, 'es')).to eq({
+        localized_entry = subject.localize_entry(entry, 'es')
+        expect(localized_entry).to eq({
           '_meta' => { 'id' => 'foo' },
           'value_field' => 'foo',
           'array_field' => ['foobar'],
@@ -154,6 +155,10 @@ describe ContentfulMiddleman::Helpers do
             'name' => 'foo'
           }
         })
+
+        expect(localized_entry[:_meta]).to eq({ 'id' => 'foo' })
+        expect(localized_entry[:nested_array][0][:id]).to eq('foo')
+        expect(localized_entry[:nested_hash][:id]).to eq('foo')
       end
     end
 
