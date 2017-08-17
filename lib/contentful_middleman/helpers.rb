@@ -29,8 +29,8 @@ module ContentfulMiddleman
     end
 
     def localize_value(value, locale, fallback_locale='en-US')
-      value = value.fetch(locale) if value.respond_to?(:fetch) && value.respond_to?(:key) && value.key?(locale)
-      value = value.fetch(fallback_locale) if value.respond_to?(:fetch) && value.respond_to?(:key) && value.key?(fallback_locale)
+      value = value.fetch(locale) if value.respond_to?(:fetch) && value.respond_to?(:key?) && value.key?(locale)
+      value = value.fetch(fallback_locale) if value.respond_to?(:fetch) && value.respond_to?(:key?) && value.key?(fallback_locale)
 
       return localize_array(value, locale, fallback_locale) if value.is_a? ::Array
       return localize_entry(value, locale, fallback_locale) if value.is_a? ::Hash
