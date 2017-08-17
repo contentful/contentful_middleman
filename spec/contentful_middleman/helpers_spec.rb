@@ -11,7 +11,7 @@ describe ContentfulMiddleman::Helpers do
   let(:entry) do
     {
       _meta: {
-        id: 'foo',
+        id: 'foo'
       },
       value_field: {
         'es' => 'foo',
@@ -28,7 +28,7 @@ describe ContentfulMiddleman::Helpers do
           {
             id: 'foo',
             _meta: {
-              id: 'foo',
+              id: 'foo'
             },
             name: {
               'es' => 'foo',
@@ -37,7 +37,7 @@ describe ContentfulMiddleman::Helpers do
           }, {
             id: 'foo',
             _meta: {
-              id: 'foo',
+              id: 'foo'
             },
             name: {
               'en-NZ' => 'bar',
@@ -50,7 +50,7 @@ describe ContentfulMiddleman::Helpers do
         'en-US' => {
           id: 'foo',
           _meta: {
-            id: 'foo',
+            id: 'foo'
           },
           name: {
             'es' => 'foo',
@@ -135,21 +135,21 @@ describe ContentfulMiddleman::Helpers do
             {
               id: 'foo',
               _meta: {
-                id: 'foo',
+                id: 'foo'
               },
               name: 'foo'
             }, {
               id: 'foo',
               _meta: {
-                id: 'foo',
+                id: 'foo'
               },
-              name: 'foo',
+              name: 'foo'
             }
           ],
           nested_hash: {
             id: 'foo',
             _meta: {
-              id: 'foo',
+              id: 'foo'
             },
             name: 'foo'
           }
