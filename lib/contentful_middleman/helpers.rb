@@ -1,3 +1,4 @@
+require 'thor/core_ext/hash_with_indifferent_access'
 require 'contentful_middleman/tools/preview_proxy'
 
 module ContentfulMiddleman
@@ -7,7 +8,7 @@ module ContentfulMiddleman
     end
 
     def localize_entry(entry, locale, fallback_locale='en-US')
-      localized_entry = {}
+      localized_entry = ::Thor::CoreExt::HashWithIndifferentAccess.new
       entry.each do |field, value|
         localized_entry[field] = localize(entry, field, locale, fallback_locale)
       end
@@ -28,10 +29,11 @@ module ContentfulMiddleman
     end
 
     def localize_value(value, locale, fallback_locale='en-US')
-      if value.respond_to? :fetch
-        return value.fetch(locale) if value.key? locale
-        return value.fetch(fallback_locale) if value.key? fallback_locale
-      end
+      value = value.fetch(locale) if value.respond_to?(:fetch) && value.respond_to?(:key?) && value.key?(locale)
+      value = value.fetch(fallback_locale) if value.respond_to?(:fetch) && value.respond_to?(:key?) && value.key?(fallback_locale)
+
+      return localize_array(value, locale, fallback_locale) if value.is_a? ::Array
+      return localize_entry(value, locale, fallback_locale) if value.is_a? ::Hash
       value
     end
 
