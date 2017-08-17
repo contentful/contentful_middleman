@@ -128,30 +128,30 @@ describe ContentfulMiddleman::Helpers do
 
       it '#localize_entry' do
         expect(subject.localize_entry(entry, 'es')).to eq({
-          _meta: { id: 'foo' },
-          value_field: 'foo',
-          array_field: ['foobar'],
-          nested_array: [
+          '_meta' => { 'id' => 'foo' },
+          'value_field' => 'foo',
+          'array_field' => ['foobar'],
+          'nested_array' => [
             {
-              id: 'foo',
-              _meta: {
-                id: 'foo'
+              'id' => 'foo',
+              '_meta' => {
+                'id' => 'foo'
               },
-              name: 'foo'
+              'name' => 'foo'
             }, {
-              id: 'foo',
-              _meta: {
-                id: 'foo'
+              'id' => 'foo',
+              '_meta' => {
+                'id' => 'foo'
               },
-              name: 'foo'
+              'name' => 'foo'
             }
           ],
-          nested_hash: {
-            id: 'foo',
-            _meta: {
-              id: 'foo'
+          'nested_hash' => {
+            'id' => 'foo',
+            '_meta' => {
+              'id' => 'foo'
             },
-            name: 'foo'
+            'name' => 'foo'
           }
         })
       end
