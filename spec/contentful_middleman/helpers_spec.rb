@@ -22,7 +22,42 @@ describe ContentfulMiddleman::Helpers do
           'es' => 'foobar',
           'en-US' => 'baz'
         }
-      ]
+      ],
+      nested_array: {
+        'en-US' => [
+          {
+            id: 'foo',
+            _meta: {
+              id: 'foo'
+            },
+            name: {
+              'es' => 'foo',
+              'en-US' => 'bar'
+            }
+          }, {
+            id: 'foo',
+            _meta: {
+              id: 'foo'
+            },
+            name: {
+              'en-NZ' => 'bar',
+              'en-US' => 'foo'
+            },
+          }
+        ]
+      },
+      nested_hash: {
+        'en-US' => {
+          id: 'foo',
+          _meta: {
+            id: 'foo'
+          },
+          name: {
+            'es' => 'foo',
+            'en-US' => 'bar'
+          }
+        }
+      }
     }
   end
 
@@ -92,11 +127,38 @@ describe ContentfulMiddleman::Helpers do
       end
 
       it '#localize_entry' do
-        expect(subject.localize_entry(entry, 'es')).to eq({
-          _meta: { id: 'foo' },
-          value_field: 'foo',
-          array_field: ['foobar']
+        localized_entry = subject.localize_entry(entry, 'es')
+        expect(localized_entry).to eq({
+          '_meta' => { 'id' => 'foo' },
+          'value_field' => 'foo',
+          'array_field' => ['foobar'],
+          'nested_array' => [
+            {
+              'id' => 'foo',
+              '_meta' => {
+                'id' => 'foo'
+              },
+              'name' => 'foo'
+            }, {
+              'id' => 'foo',
+              '_meta' => {
+                'id' => 'foo'
+              },
+              'name' => 'foo'
+            }
+          ],
+          'nested_hash' => {
+            'id' => 'foo',
+            '_meta' => {
+              'id' => 'foo'
+            },
+            'name' => 'foo'
+          }
         })
+
+        expect(localized_entry[:_meta]).to eq({ 'id' => 'foo' })
+        expect(localized_entry[:nested_array][0][:id]).to eq('foo')
+        expect(localized_entry[:nested_hash][:id]).to eq('foo')
       end
     end
 
