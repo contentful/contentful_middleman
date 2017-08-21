@@ -1,6 +1,10 @@
 # Change Log
 ## Unreleased
 
+## 2.1.3
+### Fixed
+* `#map_location` properly maps locations
+
 ## 2.1.2
 ### Fixed
 * `localize` helpers now properly serialized nested resources [#131](https://github.com/contentful/contentful_middleman/pull/131)

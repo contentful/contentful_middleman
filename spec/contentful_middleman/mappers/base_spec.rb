@@ -211,6 +211,39 @@ describe ContentfulMiddleman::Mapper::Base do
           expect(context.hashize).to eq(expected)
         }
       end
+
+      it 'properly maps locations' do
+        vcr('entries/locations') {
+          client = Contentful::Client.new(
+            space: 'v0h47qlgo3zl',
+            access_token: '1cf2a0b198872451f2cfba5ff45342327bf11259382232ec2962012625d8b29d',
+            dynamic_entries: :auto
+          )
+
+          entry = client.entries('sys.id' => '4ik8UErhRmIwomiQs8EUkI', content_type: 'destination', select: ['fields.name', 'fields.coordinates']).first
+
+          context = ContentfulMiddleman::Context.new
+
+          subject.map(context, entry)
+
+          expected = {
+            _meta: {
+              content_type_id: 'destination',
+              updated_at: '2017-08-21T20:52:53+00:00',
+              created_at: '2017-08-21T20:52:18+00:00',
+              id: '4ik8UErhRmIwomiQs8EUkI'
+            },
+            id: '4ik8UErhRmIwomiQs8EUkI',
+            name: 'Jamaica',
+            coordinates: {
+              lat: 18.109581,
+              lon: -77.297508
+            }
+          }
+
+          expect(context.hashize).to eq(expected)
+        }
+      end
     end
   end
 
