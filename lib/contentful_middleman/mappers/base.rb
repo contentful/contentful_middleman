@@ -116,11 +116,15 @@ module ContentfulMiddleman
       end
 
       def map_location(location)
-        location.properties
+        context = Context.new
+        context.lat = location.lat
+        context.lon = location.lon
+
+        context
       end
 
       def map_link(link)
-        context    = Context.new
+        context = Context.new
         context.id = link.id
 
         context

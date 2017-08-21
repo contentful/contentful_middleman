@@ -1,0 +1,197 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/v0h47qlgo3zl/content_types?limit=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.1.2; platform ruby/2.4.1; os macOS/16;
+      Authorization:
+      - Bearer 1cf2a0b198872451f2cfba5ff45342327bf11259382232ec2962012625d8b29d
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/2.2.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Experimental-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - W/"e197dc22822d338bf0d2ce6c09709bde"
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - 664601ad45bd5b26f176e079a76dc5c5
+      Content-Length:
+      - '1320'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 21 Aug 2017 21:10:22 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '647'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-gru17121-GRU
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '1'
+      X-Timer:
+      - S1503349822.441890,VS0,VE0
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA+1a32+bPhB/71+BeP4WASFN4C1b95W+UrVNS6ZJ36oPJLgpKwEGTrds6v++s4nBNiZlhbVpmjxUNedf5zvffe7Ov040Tc83ue5pv+BfaOBNiqClT7LM3+jw7f4f0gcn2I/g+4i28tswhYZJG1G4CjG0LNMsPoQYrciMl3TGYl5pGbpUnvoLshbrUXzkNkM+0I9sUxdhfKuTRasfLB/fzrabntIZpQ5hQPi5M2+c0bdomQx+RoQt9rsv/6eMFj+9GAOz3fpLfsJyJ2+TGKMY04W5cYsM+RgFE3Ieum1ao1NzfGpbM8v2hkPPHBiubf7PD1ingXqA6w3G3tAxXPdMGJChuzAPkxgWcLb7LTeuB2GeRv7m3xBFlOnYX1XbK1rw9aPElh6gfJGFKS6mjddRxFjSr8lUlTDJ8QjiKg5KWIf0Kdd6z++AUpgsp5vVPIkEYelRsvCj8Ccim7/2oxzxotQz9G0dZpSIs7VIA879edQwMAEFBamwSVUSVzCVZqGkTNUJ1kmMrffr1Rxle8zWotBccYdUgKAaW7UWiaJJEETSWmB1af6JxIQ1mXnhRfaAjbgDrYJ7BvotqnJx28WJqJISo8JfcWbMigHsr749y3cg8kAyO0Uf1uMiiZcz9APzlqfocSVYMzC3Qvtqh7F7F+OMWmj2U5oyhWLjG9DR2A+ly8d0YKYmN9rg9re2RyXgrf4kzxF3spwdVzAfrsCi52rt/09BOzjl36VS0kny2rj7VAN07a8jrD7WcxWRneubJImQHz+vwdxeouIubjl9wbgFgzPnDrQjaLEM1xy1BS2O7dkDw7LcJtBi2Y9ELTOeqSNkUeIwAHI4jKmja7qKDR16sO6dMJmIKjhIL3m53WYITHu82KhZnyhoh8H1NkxpcGpbtC9R+3Br/Ql8jyAdi/kkWKZpzwDUjlD9UhLDa4PquR8hiEOCsIhdBCvJ8PoU+mhNndg9p8HHc4RuLYPtBN+g7BxhiEoa7NgH0kNTdmFMfph/RYu9ZjOP1ku1e5rWKIyrvU+UYH/ZILNZjdKH3+kxjHzA8SiOHpIDUjaBdwxcCH5gMYUaWnYJLRyS3rRsp3VoYXrO2a7QYvTIyOJcgZqPAYYywDgikteOSBZJkgUkxmxKor1t6lAGW5Dkr0eoT5RJbglH8vWcswoN3m26np8293pZnk5VWftbWXPelexDmIWT9ALdoaZ0eJJqCjITb7f8ZTco01aZa9CyDB1qlH0CnQeGoEhW9hNUb9H3nnKzY89yjZEz/gMAZY6NkSsmc7mC8vBBAIVDHCkqyiQ3q0m8SQhKL5luWVMWlyI1rrL8OhN2QUn7pLdVmK2oP4Fn2cEZuBQFtRfmnsTUEGVC31HwpiEJW+gICjS5Qy8sdkpItjSmRwT82hFwZcelon9lnypzKHcpQbD8kql9Fb2TlreusxyY861VhjpmLiARYdvtHO/Ag9df1sgYO2Kqo4eXXFJN65i0UCYtDjLpevRDr8APHZgR3ups+RiuckaPtsYDzxx5A8uwh8O21pgMcI0zd9D0ROXhFyoNYRAU4cijYO2ScXhVBT3iG9veoyHtVPuC5pOUhGHXKINnEOI76JcTIOFapbJ8mFijMDTVobrZCU1VMcNh3lT5YWuXa0oetBtO25dkcK+VAzjQZD02W1FeU8re091RsfD7YiJeRE4JKrnqujU9Q61G3p+buTMbQ3n7nDWkfgvePn+62F/JiXYHWlcn9ye/AaMusbDWMwAA
+    http_version: 
+  recorded_at: Mon, 21 Aug 2017 21:10:22 GMT
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/v0h47qlgo3zl/entries?content_type=destination&select=fields.name,fields.coordinates,sys&sys.id=4ik8UErhRmIwomiQs8EUkI
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.1.2; platform ruby/2.4.1; os macOS/16;
+      Authorization:
+      - Bearer 1cf2a0b198872451f2cfba5ff45342327bf11259382232ec2962012625d8b29d
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/2.2.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Experimental-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"eae576de5f982e6c6c53edeb0901ff0d"'
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - 56bd6c18854e6642c860d7b9eaf76d34
+      Content-Length:
+      - '813'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 21 Aug 2017 21:10:23 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-gru17122-GRU
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1503349823.030537,VS0,VE151
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 100,
+          "items": [
+            {
+              "fields": {
+                "name": "Jamaica",
+                "coordinates": {
+                  "lon": -77.297508,
+                  "lat": 18.109581
+                }
+              },
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "v0h47qlgo3zl"
+                  }
+                },
+                "id": "4ik8UErhRmIwomiQs8EUkI",
+                "type": "Entry",
+                "createdAt": "2017-08-21T20:52:18.320Z",
+                "updatedAt": "2017-08-21T20:52:53.500Z",
+                "revision": 2,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "destination"
+                  }
+                },
+                "locale": "en-US"
+              }
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Mon, 21 Aug 2017 21:10:23 GMT
+recorded_with: VCR 3.0.3
