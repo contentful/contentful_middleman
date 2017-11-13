@@ -1,6 +1,13 @@
 # Change Log
 ## Unreleased
 
+## 4.0.0
+
+### Changed
+* Middleman v4 is now the supported Middleman version.
+
+This release symbolises the break in compatibility from Middleman v3 - moving the main development branch to Middleman v4.
+
 ## 3.0.0
 
 This is an atificial version bump, no new features have been added and no breaking change introduced.
