@@ -75,8 +75,21 @@ The default mapper will map fields, assets and linked entries.
 
 ### Custom mappers
 
-You can create your own mappers if you need so. The only requirement for a class to behave as a
-mapper is to have a `map(context, entry)` instance method. This method will take as parameters:
+You can create your own mappers if you need so. The only requirements for a class to behave as a
+mapper are an initializer and a `map(context, entry)` instance method.
+
+The initializer takes two parameters:
+
+  * A `Contentful::Array` of all entries for the current content model
+  * A `Middleman::Configuration::ConfigurationManager` object containing the Contentful configuration options set in `config.rb`
+
+[See BackrefMapper](https://github.com/contentful/contentful_middleman/blob/master/examples/mappers/backref.rb)
+for an example use of entries.
+
+[See the Base mapper](https://github.com/contentful/contentful_middleman/blob/master/lib/contentful_middleman/mappers/base.rb)
+for an example use of options.
+
+The `map` method takes two parameters:
 
   * A context object. All properties set on this object will be written to the yaml file
   * An entry
@@ -85,6 +98,11 @@ Following is an example of such custom mapper:
 
 ```ruby
 class MyAwesomeMapper
+  def initialize(entries, options)
+    @entries = entries
+    @options = options
+  end
+
   def map(context, entry)
     context.slug = entry.title.parameterize
     #... more transformations
