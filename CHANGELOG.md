@@ -1,6 +1,12 @@
 # Change Log
 ## Unreleased
 
+## 3.0.0
+
+This is an atificial version bump, no new features have been added and no breaking change introduced.
+We use this upgrade as an opportunity to match the version of this gem with the Middleman version this release
+will stay compatible with.
+
 ## 2.1.3
 ### Fixed
 * `#map_location` properly maps locations
