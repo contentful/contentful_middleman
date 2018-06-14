@@ -9,6 +9,9 @@ module ContentfulMiddleman
         @entries = entries
         @options = options
         @children = {}
+        @created_at_key = using_camel_case? ? :createdAt : :created_at
+        @updated_at_key = using_camel_case? ? :updatedAt : :updated_at
+        @content_type_key = using_camel_case? ? :contentType : :content_type
       end
 
       def map(context, entry)
@@ -24,6 +27,10 @@ module ContentfulMiddleman
       end
 
       private
+
+      def using_camel_case?
+        @options.client_options.fetch(:use_camel_case, false)
+      end
 
       def has_multiple_locales?
         @options.cda_query.fetch(:locale, nil) == '*'
@@ -61,8 +68,8 @@ module ContentfulMiddleman
 
       def map_asset_metadata(asset)
         context = Context.new
-        context.updated_at = asset.sys[:updated_at].iso8601 unless asset.sys[:updated_at].nil?
-        context.created_at = asset.sys[:created_at].iso8601 unless asset.sys[:created_at].nil?
+        context.updated_at = asset.sys[@updated_at_key].iso8601 unless asset.sys[@updated_at_key].nil?
+        context.created_at = asset.sys[@created_at_key].iso8601 unless asset.sys[@created_at_key].nil?
         context.id = asset.sys[:id]
 
         context
@@ -87,9 +94,9 @@ module ContentfulMiddleman
 
       def map_entry_metadata(entry)
         context = Context.new
-        context.content_type_id = entry.sys[:content_type].id unless entry.sys[:content_type].nil?
-        context.updated_at = entry.sys[:updated_at].iso8601 unless entry.sys[:updated_at].nil?
-        context.created_at = entry.sys[:created_at].iso8601 unless entry.sys[:created_at].nil?
+        context.content_type_id = entry.sys[@content_type_key].id unless entry.sys[@content_type_key].nil?
+        context.updated_at = entry.sys[@updated_at_key].iso8601 unless entry.sys[@updated_at_key].nil?
+        context.created_at = entry.sys[@created_at_key].iso8601 unless entry.sys[@created_at_key].nil?
         context.id = entry.sys[:id]
 
         context

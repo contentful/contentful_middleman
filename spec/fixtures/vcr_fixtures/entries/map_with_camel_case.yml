@@ -1,0 +1,244 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/ycz65dz7s75m/environments/master/content_types?limit=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.2.1; platform ruby/2.5.1; os macOS/16;
+      Authorization:
+      - Bearer 7790b343268100301696628b99678de6a552c967ded5c448bf9f2cba3de806ca
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/2.2.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"a802c9553879adaad0097a8beedb5ecc"'
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - b86f4e978f9a1bfee6bc90007bbe9e41
+      Content-Length:
+      - '957'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Thu, 14 Jun 2018 13:16:11 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-hhn1532-HHN
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1528982171.382086,VS0,VE270
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 1000,
+          "items": [
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "ycz65dz7s75m"
+                  }
+                },
+                "id": "test",
+                "type": "ContentType",
+                "createdAt": "2018-06-14T13:13:07.886Z",
+                "updatedAt": "2018-06-14T13:13:07.886Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 1
+              },
+              "displayField": "someField",
+              "name": "Test",
+              "description": "",
+              "fields": [
+                {
+                  "id": "someField",
+                  "name": "someField",
+                  "type": "Symbol",
+                  "localized": false,
+                  "required": false,
+                  "disabled": false,
+                  "omitted": false
+                }
+              ]
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Thu, 14 Jun 2018 13:16:11 GMT
+- request:
+    method: get
+    uri: https://cdn.contentful.com/spaces/ycz65dz7s75m/environments/master/entries
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Contentful-User-Agent:
+      - sdk contentful.rb/2.2.1; platform ruby/2.5.1; os macOS/16;
+      Authorization:
+      - Bearer 7790b343268100301696628b99678de6a552c967ded5c448bf9f2cba3de806ca
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Accept-Encoding:
+      - gzip
+      Connection:
+      - close
+      Host:
+      - cdn.contentful.com
+      User-Agent:
+      - http.rb/2.2.2
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Headers:
+      - Accept,Accept-Language,Authorization,Cache-Control,Content-Length,Content-Range,Content-Type,DNT,Destination,Expires,If-Match,If-Modified-Since,If-None-Match,Keep-Alive,Last-Modified,Origin,Pragma,Range,User-Agent,X-Http-Method-Override,X-Mx-ReqToken,X-Requested-With,X-Contentful-Version,X-Contentful-Content-Type,X-Contentful-Organization,X-Contentful-Skip-Transformation,X-Contentful-User-Agent,X-Contentful-Enable-Alpha-Feature
+      Access-Control-Allow-Methods:
+      - GET,HEAD,OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - Etag
+      Access-Control-Max-Age:
+      - '86400'
+      Cache-Control:
+      - max-age=0
+      Content-Type:
+      - application/vnd.contentful.delivery.v1+json
+      Etag:
+      - '"376db3c86ef859e48397c6520bfcf235"'
+      Server:
+      - Contentful
+      X-Content-Type-Options:
+      - nosniff
+      X-Contentful-Request-Id:
+      - 6644c1c7f9d2b797077967aa07c407b8
+      Content-Length:
+      - '879'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Thu, 14 Jun 2018 13:16:12 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - close
+      X-Served-By:
+      - cache-hhn1526-HHN
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1528982172.794017,VS0,VE278
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "sys": {
+            "type": "Array"
+          },
+          "total": 1,
+          "skip": 0,
+          "limit": 100,
+          "items": [
+            {
+              "sys": {
+                "space": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "Space",
+                    "id": "ycz65dz7s75m"
+                  }
+                },
+                "id": "5xkCBpVmHmS2WwqOW8OSwK",
+                "type": "Entry",
+                "createdAt": "2018-06-14T13:13:17.377Z",
+                "updatedAt": "2018-06-14T13:13:17.377Z",
+                "environment": {
+                  "sys": {
+                    "id": "master",
+                    "type": "Link",
+                    "linkType": "Environment"
+                  }
+                },
+                "revision": 1,
+                "contentType": {
+                  "sys": {
+                    "type": "Link",
+                    "linkType": "ContentType",
+                    "id": "test"
+                  }
+                },
+                "locale": "en-US"
+              },
+              "fields": {
+                "someField": "foobar"
+              }
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Thu, 14 Jun 2018 13:16:12 GMT
+recorded_with: VCR 3.0.3

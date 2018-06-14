@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/content_types?limit=1000
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/content_types?limit=1000
     body:
       encoding: US-ASCII
       string: ''

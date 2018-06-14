@@ -85,13 +85,20 @@ end
 class EntryDouble
   attr_reader :id, :sys, :fields
 
-  def initialize(id, sys_data = {}, fields = {}, updated_at = nil)
+  def initialize(id, sys_data = {}, fields = {}, updated_at = nil, camel_case = false)
     @id = id
     sys_data[:id] = id
-    sys_data[:updated_at] = updated_at
-    sys_data[:content_type] = ContentTypeDouble.new("#{id}_ct")
+    sys_data[camel_case ? :updatedAt : :updated_at] = updated_at
+    sys_data[camel_case ? :contentType : :content_type] = ContentTypeDouble.new("#{id}_ct")
     @sys = sys_data
     @fields = fields
+    @camel_case = camel_case
+
+    sys_data.each do |k, v|
+      define_singleton_method k do
+        v
+      end
+    end
 
     unless fields.nil?
       fields.each do |k, v|
@@ -100,9 +107,5 @@ class EntryDouble
         end
       end
     end
-  end
-
-  def updated_at
-    sys[:updated_at]
   end
 end

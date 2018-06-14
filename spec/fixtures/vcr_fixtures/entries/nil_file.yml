@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://preview.contentful.com/spaces/7f19o1co4hn7/content_types?limit=1000
+    uri: https://preview.contentful.com/spaces/7f19o1co4hn7/environments/master/content_types?limit=1000
     body:
       encoding: US-ASCII
       string: ''
@@ -79,7 +79,7 @@ http_interactions:
   recorded_at: Tue, 19 Jul 2016 13:49:05 GMT
 - request:
     method: get
-    uri: https://preview.contentful.com/spaces/7f19o1co4hn7/entries?sys.id=6C4T3KAZUWaysA6ooQOWiE
+    uri: https://preview.contentful.com/spaces/7f19o1co4hn7/environments/master/entries?sys.id=6C4T3KAZUWaysA6ooQOWiE
     body:
       encoding: US-ASCII
       string: ''
