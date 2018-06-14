@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://cdn.contentful.com/spaces/cfexampleapi/assets/nyancat
+    uri: https://cdn.contentful.com/spaces/cfexampleapi/environments/master/assets/nyancat
     body:
       encoding: US-ASCII
       string: ''
