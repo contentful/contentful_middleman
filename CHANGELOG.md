@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 4.0.1
 ### Fixed
 * Allow usage of `use_camel_case` in client options.
 
