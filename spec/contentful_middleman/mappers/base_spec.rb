@@ -160,6 +160,37 @@ describe ContentfulMiddleman::Mapper::Base do
         }
       end
 
+      it 'maps properly when using camel case option' do
+        vcr('entries/map_with_camel_case') {
+          subject = described_class.new entries, OptionsDouble.new(client_options: { use_camel_case: true })
+          expect(context.hashize).to eq ({})
+
+          expected = {
+            :_meta => {
+              :content_type_id=>"test",
+              :updated_at=>"2018-06-14T13:13:17+00:00",
+              :created_at=>"2018-06-14T13:13:17+00:00",
+              :id=>"5xkCBpVmHmS2WwqOW8OSwK"
+            },
+            id: "5xkCBpVmHmS2WwqOW8OSwK",
+            someField: "foobar"
+          }
+
+          client = Contentful::Client.new(
+            space: 'ycz65dz7s75m',
+            access_token: '7790b343268100301696628b99678de6a552c967ded5c448bf9f2cba3de806ca',
+            dynamic_entries: :auto,
+            use_camel_case: true
+          )
+
+          entry = client.entries.first
+
+          subject.map(context, entry)
+
+          expect(context.hashize).to eq(expected)
+        }
+      end
+
       it 'maps entries with multiple locales with nested resources that are also localized' do
         vcr('entries/localized_references_localized_assets') {
           subject = described_class.new entries, OptionsDouble.new(cda_query: {locale: '*'})

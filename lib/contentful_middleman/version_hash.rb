@@ -10,9 +10,10 @@ module ContentfulMiddleman
         ::File.read(hashfilename_for_space) if File.exist? hashfilename_for_space
       end
 
-      def write_for_space_with_entries(space_name, entries)
+      def write_for_space_with_entries(space_name, entries, use_camel_case = false)
+        updated_at_key = use_camel_case ? :updatedAt : :updated_at
         sorted_entries           = entries.sort {|a, b| a.id <=> b.id}
-        ids_and_revisions_string = sorted_entries.map {|e| "#{e.id}#{e.updated_at}"}.join
+        ids_and_revisions_string = sorted_entries.map {|e| "#{e.id}#{e.public_send(updated_at_key)}"}.join
         entries_hash             = Digest::SHA1.hexdigest( ids_and_revisions_string )
 
         File.open(hashfilename(space_name), 'w') { |file| file.write(entries_hash) }

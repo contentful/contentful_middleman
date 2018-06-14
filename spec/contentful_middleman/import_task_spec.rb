@@ -4,9 +4,10 @@ class ClientDouble
   def entries
     []
   end
-end
 
-class EntryDouble
+  def options
+    OptionsDouble.new
+  end
 end
 
 describe ContentfulMiddleman::ImportTask do

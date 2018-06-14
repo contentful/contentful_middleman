@@ -6,6 +6,7 @@ module ContentfulMiddleman
       @content_type_mappers = content_type_mappers
       @changed_local_data   = false
       @contentful           = contentful
+      @use_camel_case       = @contentful.options.client_options.fetch(:use_camel_case, false)
     end
 
     def run
@@ -13,7 +14,7 @@ module ContentfulMiddleman
 
       LocalData::Store.new(local_data_files, @space_name).write
 
-      new_version_hash = ContentfulMiddleman::VersionHash.write_for_space_with_entries(@space_name, entries)
+      new_version_hash = ContentfulMiddleman::VersionHash.write_for_space_with_entries(@space_name, entries, @use_camel_case)
 
       @changed_local_data = new_version_hash != old_version_hash
     end
@@ -33,12 +34,18 @@ module ContentfulMiddleman
 
     private
     def local_data_files
+      content_type_key = if @use_camel_case
+                           :contentType
+                         else
+                           :content_type
+                         end
+
       entries.map do |entry|
-        content_type_mapper_class = @content_type_mappers.fetch(entry.sys[:content_type].id, nil)
+        content_type_mapper_class = @content_type_mappers.fetch(entry.sys[content_type_key].id, nil)
 
         next unless content_type_mapper_class
 
-        content_type_name = @content_type_names.fetch(entry.sys[:content_type].id).to_s
+        content_type_name = @content_type_names.fetch(entry.sys[content_type_key].id).to_s
         context = ContentfulMiddleman::Context.new
 
         content_type_mapper = content_type_mapper_class.new(entries, @contentful.options)
