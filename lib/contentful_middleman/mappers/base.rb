@@ -144,7 +144,14 @@ module ContentfulMiddleman
       end
 
       def map_hash(hash, locale = nil)
-        hash.transform_values {|element| map_value(element, locale)}
+        return hash.transform_values {|element| map_value(element, locale)} if hash.respond_to?(:transform_values)
+
+        # Support for Ruby versions previous to 2.4
+        result = {}
+        hash.each do |k, v|
+          result[k] = map_value(v, locale)
+        end
+        result
       end
     end
   end
