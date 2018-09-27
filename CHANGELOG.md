@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+### Added
+* *This feature is currently in ALPHA state, changes may occur as patch fixes* Added support for StructuredText and added the `structured_text` view helper.
 
 ## 4.0.1
 ### Fixed

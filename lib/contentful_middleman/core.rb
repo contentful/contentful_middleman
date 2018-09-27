@@ -52,6 +52,9 @@ module ContentfulMiddleman
     option :webhook_controller, ::ContentfulMiddleman::WebhookHandler,
       "Controller for managing Webhook callbacks"
 
+    option :structured_text_mappings, {},
+      "Custom renderers for the StructuredTextRenderer library"
+
 
     helpers ContentfulMiddleman::Helpers
     include ContentfulMiddleman::Helpers
@@ -62,6 +65,7 @@ module ContentfulMiddleman
     expose_to_template localize: :localize
     expose_to_template localize_array: :localize_array
     expose_to_template localize_value: :localize_value
+    expose_to_template structured_text: :structured_text
 
     attr_reader :middleman_app
     def initialize(app, options_hash = {}, &block)

@@ -1,7 +1,51 @@
 require 'spec_helper'
 
+class CustomEntryRenderer < StructuredTextRenderer::BaseNodeRenderer
+  def render(node)
+    "<div>Custom Content</div>"
+  end
+end
+
+class OtherCustomEntryRenderer < StructuredTextRenderer::BaseNodeRenderer
+  def render(node)
+    "<h1>#{node['data'].body}</h1>"
+  end
+end
+
+class InstanceMock
+  def initialize(mappings = {})
+    @mappings = mappings
+  end
+
+  def options
+    {
+      structured_text_mappings: @mappings
+    }
+  end
+end
+
+class AppMock
+  def initialize(instances = {})
+    @instances = instances
+  end
+
+  def extensions
+    {
+      contentful: @instances
+    }
+  end
+end
+
 class HelpersMock
   include ContentfulMiddleman::Helpers
+
+  def initialize(instances = {})
+    @instances = instances
+  end
+
+  def app
+    AppMock.new(@instances)
+  end
 end
 
 class InstanceDouble
@@ -174,6 +218,109 @@ describe ContentfulMiddleman::Helpers do
               expect(preview_entries.size).to eq 11
               expect(preview_entries).to be_a ::Contentful::Array
             end
+          }
+        end
+      end
+    end
+
+    describe 'structured text helpers' do
+      describe '#structured_text' do
+        it 'renders a structured text field to HTML' do
+          expected = [
+            '<h1>Some heading</h1>',
+            '<p></p>',
+            '<div>{"target"=>{"sys"=>{"id"=>"49rofLvvxCOiIMIi6mk8ai", "type"=>"Link", "linkType"=>"Entry"}}}</div>',
+            '<h2>Some subheading</h2>',
+            '<p><b>Some bold</b></p>',
+            '<p><i>Some italics</i></p>',
+            '<p><u>Some underline</u></p>',
+            '<p></p>',
+            '<p></p>',
+            '<div>{"target"=>{"sys"=>{"id"=>"5ZF9Q4K6iWSYIU2OUs0UaQ", "type"=>"Link", "linkType"=>"Entry"}}}</div>',
+            '<p></p>',
+            '<p>Some raw content</p>',
+            '<p></p>',
+            '<p>An unpublished embed:</p>',
+            '<p></p>',
+            '<div>{"target"=>{"sys"=>{"id"=>"q2hGXkd5tICym64AcgeKK", "type"=>"Link", "linkType"=>"Entry"}}}</div>',
+            '<p>Some more content</p>'
+          ].join("\n")
+
+          expect(subject.structured_text(json('structured_text'))).to eq expected
+        end
+
+        it 'supports multiple configurations' do
+          vcr('helpers/structured_text') {
+            # Instances are a 0-based progressive hash with keys in the shape "instance_#{index}"
+            instances = {
+              "instance_0" => InstanceMock.new('embedded-entry-block' => CustomEntryRenderer),
+              "instance_1" => InstanceMock.new('embedded-entry-block' => OtherCustomEntryRenderer)
+            }
+            subject = HelpersMock.new(instances)
+
+            expected_default = [
+              '<h1>Some heading</h1>',
+              '<p></p>',
+              '<div>Custom Content</div>',
+              '<h2>Some subheading</h2>',
+              '<p><b>Some bold</b></p>',
+              '<p><i>Some italics</i></p>',
+              '<p><u>Some underline</u></p>',
+              '<p></p>',
+              '<p></p>',
+              '<div>Custom Content</div>',
+              '<p></p>',
+              '<p>Some raw content</p>',
+              '<p></p>',
+              '<p>An unpublished embed:</p>',
+              '<p></p>',
+              '<p>Some more content</p>',
+              '<p><code>Some code</code></p>',
+              '<p><a href="https://www.contentful.com">A hyperlink</a></p>',
+              '<ul><li><p>Ul list</p></li><li><p>A few <b>items</b></p><ol><li><p>Ordered list nested inside an Unordered list item</p></li></ol></li></ul>',
+              '<ol><li><p>Ol list</p></li><li><p>two</p></li><li><p>three</p></li></ol>',
+              '<hr />',
+              '<p></p>',
+              '<blockqoute><p>An inspirational quote</p><p></p></blockqoute>',
+              '<p></p>'
+            ].join("\n")
+
+            expected_different_config = [
+              '<h1>Some heading</h1>',
+              '<p></p>',
+              '<h1>Embedded 1</h1>',
+              '<h2>Some subheading</h2>',
+              '<p><b>Some bold</b></p>',
+              '<p><i>Some italics</i></p>',
+              '<p><u>Some underline</u></p>',
+              '<p></p>',
+              '<p></p>',
+              '<h1>Embedded 2</h1>',
+              '<p></p>',
+              '<p>Some raw content</p>',
+              '<p></p>',
+              '<p>An unpublished embed:</p>',
+              '<p></p>',
+              '<p>Some more content</p>',
+              '<p><code>Some code</code></p>',
+              '<p><a href="https://www.contentful.com">A hyperlink</a></p>',
+              '<ul><li><p>Ul list</p></li><li><p>A few <b>items</b></p><ol><li><p>Ordered list nested inside an Unordered list item</p></li></ol></li></ul>',
+              '<ol><li><p>Ol list</p></li><li><p>two</p></li><li><p>three</p></li></ol>',
+              '<hr />',
+              '<p></p>',
+              '<blockqoute><p>An inspirational quote</p><p></p></blockqoute>',
+              '<p></p>'
+            ].join("\n")
+
+            client = Contentful::Client.new(
+              space: 'jd7yc4wnatx3',
+              access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
+              dynamic_entries: :auto
+            )
+            entry = client.entry('4BupPSmi4M02m0U48AQCSM')
+
+            expect(subject.structured_text(entry.body)).to eq expected_default
+            expect(subject.structured_text(entry.body, 1)).to eq expected_different_config
           }
         end
       end
