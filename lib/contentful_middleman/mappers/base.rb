@@ -61,6 +61,8 @@ module ContentfulMiddleman
           map_entry(value)
         when Array
           map_array(value, locale)
+        when Hash
+          map_hash(value, locale)
         else
           value
         end
@@ -139,6 +141,10 @@ module ContentfulMiddleman
 
       def map_array(array, locale = nil)
         array.map {|element| map_value(element, locale)}
+      end
+
+      def map_hash(hash, locale = nil)
+        hash.transform_values {|element| map_value(element, locale)}
       end
     end
   end

@@ -31,6 +31,12 @@ def yaml(name)
   yaml
 end
 
+def json(name)
+  json = JSON.load(File.read("spec/fixtures/json_fixtures/#{name}.json"))
+  yield json if block_given?
+  json
+end
+
 class ServerDouble
   def [](key)
   end
