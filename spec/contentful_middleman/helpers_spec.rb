@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-class CustomEntryRenderer < StructuredTextRenderer::BaseNodeRenderer
+class CustomEntryRenderer < RichTextRenderer::BaseNodeRenderer
   def render(node)
     "<div>Custom Content</div>"
   end
 end
 
-class OtherCustomEntryRenderer < StructuredTextRenderer::BaseNodeRenderer
+class OtherCustomEntryRenderer < RichTextRenderer::BaseNodeRenderer
   def render(node)
     "<h1>#{node['data'].body}</h1>"
   end
@@ -19,7 +19,7 @@ class InstanceMock
 
   def options
     {
-      structured_text_mappings: @mappings
+      rich_text_mappings: @mappings
     }
   end
 end
@@ -223,9 +223,9 @@ describe ContentfulMiddleman::Helpers do
       end
     end
 
-    describe 'structured text helpers' do
-      describe '#structured_text' do
-        it 'renders a structured text field to HTML' do
+    describe 'rich text helpers' do
+      describe '#rich_text' do
+        it 'renders a rich text field to HTML' do
           expected = [
             '<h1>Some heading</h1>',
             '<p></p>',
@@ -246,11 +246,11 @@ describe ContentfulMiddleman::Helpers do
             '<p>Some more content</p>'
           ].join("\n")
 
-          expect(subject.structured_text(json('structured_text'))).to eq expected
+          expect(subject.rich_text(json('structured_text'))).to eq expected
         end
 
         it 'supports multiple configurations' do
-          vcr('helpers/structured_text') {
+          vcr('helpers/rich_text') {
             # Instances are a 0-based progressive hash with keys in the shape "instance_#{index}"
             instances = {
               "instance_0" => InstanceMock.new('embedded-entry-block' => CustomEntryRenderer),
@@ -315,12 +315,13 @@ describe ContentfulMiddleman::Helpers do
             client = Contentful::Client.new(
               space: 'jd7yc4wnatx3',
               access_token: '6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248',
-              dynamic_entries: :auto
+              dynamic_entries: :auto,
+              gzip_encoded: false
             )
             entry = client.entry('4BupPSmi4M02m0U48AQCSM')
 
-            expect(subject.structured_text(entry.body)).to eq expected_default
-            expect(subject.structured_text(entry.body, 1)).to eq expected_different_config
+            expect(subject.rich_text(entry.body)).to eq expected_default
+            expect(subject.rich_text(entry.body, 1)).to eq expected_different_config
           }
         end
       end
