@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 4.1.0
 ### Added
 * *This feature is currently in BETA state, changes may occur as patch fixes* Added support for RichText and added the `rich_text` view helper.
 
