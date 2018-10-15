@@ -1,6 +1,6 @@
 require 'thor/core_ext/hash_with_indifferent_access'
 require 'contentful_middleman/tools/preview_proxy'
-require 'structured_text_renderer'
+require 'rich_text_renderer'
 
 module ContentfulMiddleman
   module Helpers
@@ -49,14 +49,14 @@ module ContentfulMiddleman
       block.call(preview_client)
     end
 
-    def structured_text(document_field, instance_index = 0)
+    def rich_text(document_field, instance_index = 0)
       mappings = begin
-                   app.extensions[:contentful]["instance_#{instance_index}"].options[:structured_text_mappings] || {}
+                   app.extensions[:contentful]["instance_#{instance_index}"].options[:rich_text_mappings] || {}
                  rescue Exception
                    {}
                  end
 
-      StructuredTextRenderer::Renderer.new(mappings).render(document_field)
+      RichTextRenderer::Renderer.new(mappings).render(document_field)
     end
   end
 end
