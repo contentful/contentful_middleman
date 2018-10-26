@@ -55,6 +55,11 @@ module ContentfulMiddleman
     option :rich_text_mappings, {},
       "Custom renderers for the RichTextRenderer library"
 
+    option :base_path, Dir.pwd,
+      "String with path to your Middleman Application. Path is relative to your current location."
+
+    option :destination, 'data',
+      "String with path within your base path under which to store the output yaml files."
 
     helpers ContentfulMiddleman::Helpers
     include ContentfulMiddleman::Helpers

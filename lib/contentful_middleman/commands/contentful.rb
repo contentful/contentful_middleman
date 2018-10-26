@@ -15,9 +15,6 @@ module Middleman
     class Contentful < Thor::Group
       include Thor::Actions
 
-      # Path where Middleman expects the local data to be stored
-      MIDDLEMAN_LOCAL_DATA_FOLDER = 'data'
-
       check_unknown_options!
 
       class_option "rebuild",
@@ -34,23 +31,24 @@ module Middleman
       end
 
       def contentful
-        if contentful_instances.size > 0
-          ContentfulMiddleman::VersionHash.source_root    = self.class.source_root
-          ContentfulMiddleman::LocalData::Store.base_path = MIDDLEMAN_LOCAL_DATA_FOLDER
-          ContentfulMiddleman::LocalData::File.thor       = self
+        raise Thor::Error.new "You need to activate the contentful extension in config.rb before you can import data from Contentful" if contentful_instances.empty?
 
-          hash_local_data_changed = contentful_instances.reduce(false) do |changes, instance|
-            import_task = create_import_task(instance)
-            import_task.run
+        ContentfulMiddleman::VersionHash.source_root    = self.class.source_root
+        ContentfulMiddleman::LocalData::File.thor       = self
 
-            changes || import_task.changed_local_data?
-          end
+        hash_local_data_changed = contentful_instances.reduce(false) do |changes, instance|
+          ContentfulMiddleman::LocalData::Store.base_path = File.join(
+            instance.options.base_path,
+            instance.options.destination
+          )
+          import_task = create_import_task(instance)
+          import_task.run
 
-          Middleman::Cli::Build.new.build if hash_local_data_changed && options[:rebuild]
-          logger.info 'Contentful Import: Done!'
-        else
-          raise Thor::Error.new "You need to activate the contentful extension in config.rb before you can import data from Contentful"
+          changes || import_task.changed_local_data?
         end
+
+        Middleman::Cli::Build.new.build if hash_local_data_changed && options[:rebuild]
+        logger.info 'Contentful Import: Done!'
       end
 
       private

@@ -22,6 +22,8 @@ describe ContentfulMiddleman::Core do
       expect(options.rebuild_on_webhook).to eq(false)
       expect(options.webhook_timeout).to eq(300)
       expect(options.default_locale).to eq('en-US')
+      expect(options.base_path).to eq Dir.pwd
+      expect(options.destination).to eq 'data'
     end
   end
 
