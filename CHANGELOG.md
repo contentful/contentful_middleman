@@ -1,5 +1,7 @@
 # Change Log
 ## Unreleased
+
+## 4.2.0
 ### Added
 * Added `base_path` and `destination` configuration options to manipulate the path to which the data files are saved to. [#89](https://github.com/contentful/contentful_middleman/issues/89)
 
