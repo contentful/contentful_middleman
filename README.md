@@ -64,7 +64,9 @@ all_entries_page_size    | Integer amount of items per page for `:all_entries` r
 rebuild_on_webhook       | Boolean to toggle Webhook server. Server will run in port 5678, and will be expecting to receive Contentful Webhook calls on `/receive`.
 webhook_timeout          | Integer (in seconds) for wait time after Webhook received for rebuilding. Only used if `:rebuild_on_webhook` is true. Defaults to 300 seconds.
 webhook_controller       | Class for handling Webhook response, defaults to `::ContentfulMiddleman::WebhookHandler`.
-rich_text_mappings | Hash with `'nodeTyoe' => RendererClass` pairs determining overrides for the [`RichTextRenderer` library](https://github.com/contentful/rich-text-renderer.rb) configuration.
+rich_text_mappings       | Hash with `'nodeTyoe' => RendererClass` pairs determining overrides for the [`RichTextRenderer` library](https://github.com/contentful/rich-text-renderer.rb) configuration.
+base_path                | String with path to your Middleman Application, defaults to current directory. Path is relative to your current location.
+destination              | String with path within your base path under which to store the output yaml files. Defaults to `data`.
 
 You can activate the extension multiple times to import entries from different spaces.
 
