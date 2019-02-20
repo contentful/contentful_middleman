@@ -19,6 +19,9 @@ module ContentfulMiddleman
     option :space, nil,
       'The Contentful Space ID and name'
 
+    option :env, 'master',
+      "The Contentful Space's Environment (default: master)"
+
     option :access_token, nil,
       'The Contentful Content Delivery API access token'
 

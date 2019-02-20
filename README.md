@@ -44,6 +44,7 @@ To configure the extension, add the following configuration block to Middleman's
 ```ruby
 activate :contentful do |f|
   f.space         = SPACE
+  f.env           = CONTENTFUL_ENV
   f.access_token  = ACCESS_TOKEN
   f.cda_query     = QUERY
   f.content_types = CONTENT_TYPES_MAPPINGS
@@ -53,6 +54,7 @@ end
 Parameter                | Description
 ----------               | ------------
 space                    | Hash with an user choosen name for the space as key and the space id as value.
+env                      | Contentful Space's Environment. (default: master)
 access_token             | Contentful Delivery API access token.
 cda_query                | Hash describing query configuration. See [contentful.rb](https://github.com/contentful/contentful.rb) for more info (look for filter options there). Note that by default only 100 entries will be fetched, this can be configured to up to 1000 entries using the `limit` option. Example: `f.cda_query = { limit: 1000 }`.
 client_options           | Hash describing client configuration. See [contentful.rb](https://github.com/contentful/contentful.rb#client-configuration-options) for more info. This option should commonly be used to change Rate Limit Management, Include Resolution, Logging and Proxies.

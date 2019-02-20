@@ -14,6 +14,7 @@ describe ContentfulMiddleman::Core do
   describe 'options' do
     it 'defaults' do
       expect(options.space).to eq(nil)
+      expect(options.env).to eq('master')
       expect(options.access_token).to eq(nil)
       expect(options.cda_query).to eq({})
       expect(options.content_types).to eq({})

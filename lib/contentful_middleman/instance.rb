@@ -64,6 +64,7 @@ module ContentfulMiddleman
       client_options = {
           access_token:     options.access_token,
           space:            options.space.fetch(:id),
+          environment:      options.env,
           dynamic_entries:  :auto,
           raise_errors:     true,
           default_locale:   options.default_locale,
